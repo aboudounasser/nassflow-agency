@@ -1,26 +1,387 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0d12;
+  --background-secondary: #10161d;
+  --surface: #141b22;
+  --surface-elevated: #1b242d;
+  --text-primary: #f4f7fa;
+  --text-secondary: #cdd5dd;
+  --text-weak: #8e98a3;
+  --border: #2a333c;
+  --accent-primary: #7cc7ff;
+  --accent-secondary: #93a7ff;
+  --hover: #a9d9ff;
+  --font-heading: var(--font-sora);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-ibm-plex-mono);
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background-secondary: var(--background-secondary);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-weak: var(--text-weak);
+  --color-border: var(--border);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-hover: var(--hover);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(124, 199, 255, 0.35);
+  color: var(--text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-system-glow,
+  .hero-system-flow,
+  .hero-system-signal,
+  .hero-system-node,
+  .hero-system-core,
+  .hero-system-core-indicator,
+  .problem-system-bridge,
+  .problem-system-signal,
+  .problem-system-node,
+  .problem-system-core-indicator {
+    animation: none !important;
+  }
+}
+
+.hero-system-panel {
+  box-shadow: 0 0 0 1px rgba(42, 51, 60, 0.28), 0 30px 80px rgba(0, 0, 0, 0.38);
+}
+
+.hero-system-grid {
+  background-image: linear-gradient(rgba(124, 199, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 199, 255, 0.08) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.hero-system-glow {
+  animation: heroGlow 12s ease-in-out infinite alternate;
+}
+
+.hero-system-flow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 18;
+  animation: heroFlow 18s linear infinite;
+  opacity: 0.85;
+}
+
+.hero-system-flow--secondary {
+  animation-delay: 1.2s;
+}
+
+.hero-system-flow--vertical {
+  animation: heroFlowVertical 20s linear infinite;
+}
+
+.hero-system-signal {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 4 24;
+  animation: heroSignalFlow 16s linear infinite;
+  opacity: 0.8;
+}
+
+.hero-system-signal--secondary {
+  animation-delay: 2.4s;
+}
+
+.hero-system-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heroNodePulse 7s ease-in-out infinite;
+}
+
+.hero-system-node--alt {
+  animation-delay: 1.3s;
+}
+
+.hero-system-node--slow {
+  animation-delay: 2.1s;
+  animation-duration: 8.5s;
+}
+
+.hero-system-card {
+  backdrop-filter: blur(6px);
+}
+
+.hero-system-core {
+  animation: heroCorePulse 8s ease-in-out infinite;
+}
+
+.hero-system-core-indicator {
+  animation: heroCoreIndicator 5s ease-in-out infinite;
+}
+
+.problem-system-bridge {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 10 16;
+  animation: problemFlow 18s linear infinite;
+  opacity: 0.9;
+}
+
+.problem-system-bridge--secondary {
+  animation-delay: 2s;
+}
+
+.problem-system-bridge--vertical {
+  animation: problemFlowVertical 20s linear infinite;
+}
+
+.problem-system-signal {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 18;
+  animation: problemSignal 15s linear infinite;
+  opacity: 0.85;
+}
+
+.problem-system-signal--secondary {
+  animation-delay: 1.8s;
+}
+
+.problem-system-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: problemNodePulse 9s ease-in-out infinite;
+}
+
+.problem-system-node--alt {
+  animation-delay: 1.4s;
+}
+
+.problem-system-node--slow {
+  animation-delay: 2.7s;
+  animation-duration: 11s;
+}
+
+.problem-system-core-indicator {
+  animation: problemCorePulse 6s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0.52;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroFlow {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+  25% {
+    opacity: 0.65;
+  }
+  50% {
+    stroke-dashoffset: -90;
+    opacity: 0.9;
+  }
+  100% {
+    stroke-dashoffset: -180;
+    opacity: 0.45;
+  }
+}
+
+@keyframes heroFlowVertical {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -150;
+    opacity: 0.4;
+  }
+}
+
+@keyframes heroSignalFlow {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -120;
+    opacity: 0;
+  }
+}
+
+@keyframes heroNodePulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes heroCorePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(124, 199, 255, 0), 0 0 20px rgba(124, 199, 255, 0.04);
+  }
+  50% {
+    box-shadow: 0 0 0 rgba(124, 199, 255, 0), 0 0 24px rgba(124, 199, 255, 0.08);
+  }
+}
+
+@keyframes heroCoreIndicator {
+  0%,
+  100% {
+    transform: scale(0.98);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes problemFlow {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.38;
+  }
+  50% {
+    stroke-dashoffset: -65;
+    opacity: 0.88;
+  }
+  100% {
+    stroke-dashoffset: -130;
+    opacity: 0.42;
+  }
+}
+
+@keyframes problemFlowVertical {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -110;
+    opacity: 0.35;
+  }
+}
+
+@keyframes problemSignal {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: -120;
+    opacity: 0;
+  }
+}
+
+@keyframes problemNodePulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes problemCorePulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
