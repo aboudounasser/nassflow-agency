@@ -1,5 +1,5 @@
 export const seo = {
-  metadataBase: 'https://nassflow-agency.com',
+  metadataBase: 'https://nassflow.com',
   title: 'NASSFLOW AGENCY | IA, Automation & Web pour les entreprises',
   description:
     'NASSFLOW AGENCY conçoit des systèmes intelligents pour les entreprises : IA, assistants, automations, agents et intégrations.',
