@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { SectionLabel } from '@/components/SectionLabel';
 import { SectionShell } from '@/components/SectionShell';
@@ -10,6 +11,7 @@ const systemNodes = [
     label: 'Web',
     description: 'Sites modernes conçus pour votre activité.',
     position: { left: '50%', top: '8%' },
+    href: '/solutions/site-web',
   },
   {
     label: 'IA',
@@ -57,9 +59,7 @@ export function SolutionsSystem() {
   return (
     <section id="systems" aria-label="Solutions système">
       <SectionShell className="py-10 sm:py-12 lg:py-16">
-        {/* ─────────────────────────────
-            SECTION INTRO
-        ───────────────────────────── */}
+        {/* SECTION INTRO */}
         <div className="mx-auto max-w-[760px] text-center">
           <SectionLabel>Solutions</SectionLabel>
 
@@ -69,9 +69,7 @@ export function SolutionsSystem() {
         </div>
 
         <div className="mt-7 sm:mt-8 lg:mt-10">
-          {/* ═════════════════════════════
-              DESKTOP / TABLET
-          ═════════════════════════════ */}
+          {/* DESKTOP / TABLET */}
           <div className="relative mx-auto hidden h-[430px] w-full max-w-[820px] md:block lg:h-[460px]">
             <svg
               aria-hidden="true"
@@ -328,37 +326,55 @@ export function SolutionsSystem() {
             </div>
 
             {/* Nodes */}
-            {systemNodes.map(({ label, position }) => (
+            {systemNodes.map(({ label, position, href }) => (
               <div
                 key={label}
                 className="group absolute -translate-x-1/2 -translate-y-1/2"
                 style={position}
               >
-                <button
-                  type="button"
-                  aria-pressed={active === label}
-                  onMouseEnter={() => setActive(label)}
-                  onFocus={() => setActive(label)}
-                  onClick={() => setActive(label)}
-                  className="min-h-11 transition-all duration-200 ease-out"
-                >
-                  <SystemNode
-                    label={label}
-                    className={[
-                      'bg-[#10161D]/90',
-                      active === label
-                        ? 'border-[#7CC7FF] text-[#F4F7FA] shadow-[0_0_16px_rgba(124,199,255,0.12)]'
-                        : 'text-[#CDD5DD] opacity-90',
-                    ].join(' ')}
-                  />
-                </button>
+                {href ? (
+                  <Link
+                    href={href}
+                    aria-label={`Découvrir ${label}`}
+                    onMouseEnter={() => setActive(label)}
+                    onFocus={() => setActive(label)}
+                    className="block min-h-11 transition-all duration-200 ease-out"
+                  >
+                    <SystemNode
+                      label={label}
+                      className={[
+                        'bg-[#10161D]/90',
+                        active === label
+                          ? 'border-[#7CC7FF] text-[#F4F7FA] shadow-[0_0_16px_rgba(124,199,255,0.12)]'
+                          : 'text-[#CDD5DD] opacity-90',
+                      ].join(' ')}
+                    />
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    aria-pressed={active === label}
+                    onMouseEnter={() => setActive(label)}
+                    onFocus={() => setActive(label)}
+                    onClick={() => setActive(label)}
+                    className="min-h-11 transition-all duration-200 ease-out"
+                  >
+                    <SystemNode
+                      label={label}
+                      className={[
+                        'bg-[#10161D]/90',
+                        active === label
+                          ? 'border-[#7CC7FF] text-[#F4F7FA] shadow-[0_0_16px_rgba(124,199,255,0.12)]'
+                          : 'text-[#CDD5DD] opacity-90',
+                      ].join(' ')}
+                    />
+                  </button>
+                )}
               </div>
             ))}
           </div>
 
-          {/* ═════════════════════════════
-              ACTIVE STATE — DESKTOP
-          ═════════════════════════════ */}
+          {/* ACTIVE STATE — DESKTOP */}
           <div className="mx-auto mt-3 hidden max-w-[540px] rounded-[0.875rem] border border-[#2A333C]/80 bg-[#10161D]/75 px-3 py-2 text-left md:block">
             <div className="text-[0.56rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
               État actif
@@ -382,9 +398,7 @@ export function SolutionsSystem() {
             </div>
           </div>
 
-          {/* ═════════════════════════════
-              MOBILE
-          ═════════════════════════════ */}
+          {/* MOBILE */}
           <div className="relative space-y-4 md:hidden">
             {/* Core */}
             <div className="mx-auto flex justify-center">
@@ -432,29 +446,16 @@ export function SolutionsSystem() {
 
             {/* Solution list */}
             <div className="space-y-2">
-              {systemNodes.map(({ label, description }) => {
+              {systemNodes.map(({ label, description, href }) => {
                 const isActive = active === label;
 
-                return (
-                  <button
-                    key={label}
-                    type="button"
-                    aria-pressed={isActive}
-                    onClick={() => setActive(label)}
-                    className={[
-                      'w-full rounded-[0.9rem] border px-3.5 py-3 text-left transition-all duration-200',
-                      isActive
-                        ? 'border-[#7CC7FF] bg-[#10161D] shadow-[0_0_18px_rgba(124,199,255,0.08)]'
-                        : 'border-[#2A333C] bg-[#0F171D]',
-                    ].join(' ')}
-                  >
+                const content = (
+                  <>
                     <div className="flex min-h-7 items-center justify-between gap-3">
                       <span
                         className={[
                           'text-[0.65rem] font-medium uppercase tracking-[0.14em]',
-                          isActive
-                            ? 'text-[#F4F7FA]'
-                            : 'text-[#CDD5DD]',
+                          isActive ? 'text-[#F4F7FA]' : 'text-[#CDD5DD]',
                         ].join(' ')}
                       >
                         {label}
@@ -479,6 +480,39 @@ export function SolutionsSystem() {
                     >
                       {description}
                     </div>
+                  </>
+                );
+
+                const classes = [
+                  'block w-full rounded-[0.9rem] border px-3.5 py-3 text-left transition-all duration-200',
+                  isActive
+                    ? 'border-[#7CC7FF] bg-[#10161D] shadow-[0_0_18px_rgba(124,199,255,0.08)]'
+                    : 'border-[#2A333C] bg-[#0F171D]',
+                ].join(' ');
+
+                if (href) {
+                  return (
+                    <Link
+                      key={label}
+                      href={href}
+                      aria-label={`Découvrir ${label}`}
+                      onFocus={() => setActive(label)}
+                      className={classes}
+                    >
+                      {content}
+                    </Link>
+                  );
+                }
+
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setActive(label)}
+                    className={classes}
+                  >
+                    {content}
                   </button>
                 );
               })}
