@@ -26,8 +26,8 @@ export function Hero() {
           </h1>
 
           <p className="mt-5 max-w-[620px] text-[0.98rem] leading-7 text-[#CDD5DD] sm:mt-6 sm:text-lg sm:leading-[1.75rem]">
-            Nous concevons des outils, assistants IA et automations qui
-            relient votre activité et la font avancer.
+            Nous concevons des sites web, assistants IA et automatisations qui
+            relient vos outils et font avancer votre entreprise.
           </p>
 
           {/* CTA */}
