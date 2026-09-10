@@ -1,6 +1,9 @@
 import { ButtonSecondary } from '@/components/ui/ButtonSecondary';
 import { SectionLabel } from '@/components/SectionLabel';
 import { SectionShell } from '@/components/SectionShell';
+import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { TiltCard } from '@/components/motion/TiltCard';
+import { Parallax } from '@/components/motion/Parallax';
 
 export function ProblemApproachSection() {
   return (
@@ -10,13 +13,18 @@ export function ProblemApproachSection() {
           {/* ─────────────────────────────
               CONTENT
           ───────────────────────────── */}
-          <div className="max-w-[520px]">
-            <SectionLabel>Le système</SectionLabel>
+          <Stagger gap={0.08} className="max-w-[520px]">
+            <StaggerItem preset="soft">
+              <SectionLabel>Le système</SectionLabel>
+            </StaggerItem>
 
+            <StaggerItem preset="default">
             <h2 className="mt-4 font-[family-name:var(--font-sora)] text-[clamp(2rem,7vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-[#F4F7FA] sm:text-[clamp(2.3rem,5vw,3.25rem)]">
               Les outils sont dispersés. L’activité l’est aussi.
             </h2>
+            </StaggerItem>
 
+            <StaggerItem preset="soft">
             <div className="mt-5 space-y-3 text-[0.98rem] leading-7 text-[#CDD5DD] sm:mt-6 sm:text-[1.05rem]">
               <p>
                 Des outils isolés, des tâches répétées et des données
@@ -29,8 +37,11 @@ export function ProblemApproachSection() {
               </p>
             </div>
 
+            </StaggerItem>
+
             {/* Positionnement */}
-            <div className="mt-7 border-l border-[#2A333C] pl-4 sm:mt-8 sm:pl-5">
+            <StaggerItem preset="soft">
+            <div className="mt-7 border-l border-[#7CC7FF]/45 pl-4 transition-colors duration-500 sm:mt-8 sm:pl-5">
               <div className="mb-2 text-[0.6rem] font-medium uppercase tracking-[0.16em] text-[#8E98A3] sm:text-[0.62rem] sm:tracking-[0.18em]">
                 Positionnement
               </div>
@@ -40,6 +51,9 @@ export function ProblemApproachSection() {
               </p>
             </div>
 
+            </StaggerItem>
+
+            <StaggerItem preset="soft">
             <div className="mt-7 sm:mt-8">
               <ButtonSecondary
                 href="#systems"
@@ -48,12 +62,14 @@ export function ProblemApproachSection() {
                 Découvrir les solutions
               </ButtonSecondary>
             </div>
-          </div>
+            </StaggerItem>
+          </Stagger>
 
           {/* ─────────────────────────────
               SYSTEM VISUAL
           ───────────────────────────── */}
-          <div className="relative w-full">
+          <Parallax distance={22} className="relative w-full">
+            <TiltCard maxTilt={6} glow glowOpacity={0.5} className="rounded-[1.5rem] sm:rounded-[1.75rem]">
             <div
               className="absolute inset-x-6 top-6 h-20 rounded-full bg-[#7CC7FF]/10 blur-3xl sm:inset-x-8 sm:h-24"
               aria-hidden="true"
@@ -350,7 +366,7 @@ export function ProblemApproachSection() {
                   </div>
 
                   {/* Données */}
-                  <div className="absolute bottom-5 left-2 rounded-[0.95rem] border border-[#2A333C] bg-[#10161D]/95 px-2.5 py-2 shadow-[0_0_0_1px_rgba(42,51,60,0.2)] sm:bottom-8 sm:left-7 sm:rounded-[1.1rem] sm:px-3 sm:py-2.5">
+                  <div className="parallax-far absolute bottom-5 left-2 rounded-[0.95rem] border border-[#2A333C] bg-[#10161D]/95 px-2.5 py-2 shadow-[0_0_0_1px_rgba(42,51,60,0.2)] sm:bottom-8 sm:left-7 sm:rounded-[1.1rem] sm:px-3 sm:py-2.5">
                     <div className="flex items-center gap-1.5 text-[0.5rem] uppercase tracking-[0.12em] text-[#8E98A3] sm:gap-2 sm:text-[0.58rem] sm:tracking-[0.14em]">
                       <span
                         className="inline-block h-1.5 w-1.5 rounded-full bg-[#7CC7FF]"
@@ -363,7 +379,7 @@ export function ProblemApproachSection() {
                   </div>
 
                   {/* Outils */}
-                  <div className="absolute bottom-5 right-2 rounded-[0.95rem] border border-[#2A333C] bg-[#10161D]/95 px-2.5 py-2 shadow-[0_0_0_1px_rgba(42,51,60,0.2)] sm:bottom-8 sm:right-7 sm:rounded-[1.1rem] sm:px-3 sm:py-2.5">
+                  <div className="parallax-far absolute bottom-5 right-2 rounded-[0.95rem] border border-[#2A333C] bg-[#10161D]/95 px-2.5 py-2 shadow-[0_0_0_1px_rgba(42,51,60,0.2)] sm:bottom-8 sm:right-7 sm:rounded-[1.1rem] sm:px-3 sm:py-2.5">
                     <div className="flex items-center gap-1.5 text-[0.5rem] uppercase tracking-[0.1em] text-[#8E98A3] sm:gap-2 sm:text-[0.58rem] sm:tracking-[0.14em]">
                       <span
                         className="inline-block h-1.5 w-1.5 rounded-full bg-[#93A7FF]"
@@ -394,7 +410,8 @@ export function ProblemApproachSection() {
                 </div>
               </div>
             </div>
-          </div>
+            </TiltCard>
+          </Parallax>
         </div>
       </SectionShell>
     </section>

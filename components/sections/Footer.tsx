@@ -1,12 +1,16 @@
 import Link from 'next/link';
+import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 export function Footer() {
   return (
     <footer className="border-t border-[#1A2128] bg-[#0A0D12]">
       <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-        <div className="mb-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <Stagger
+          gap={0.06}
+          className="mb-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+        >
           {/* Marque */}
-          <div>
+          <StaggerItem>
             <div className="mb-4 font-[family-name:var(--font-sora)] text-[0.7rem] uppercase tracking-[0.18em] text-[#CDD5DD]">
               NASSFLOW
             </div>
@@ -22,10 +26,10 @@ export function Footer() {
               <span>•</span>
               <span>WEB</span>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* Navigation */}
-          <div>
+          <StaggerItem>
             <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
               Navigation
             </div>
@@ -33,36 +37,43 @@ export function Footer() {
             <nav className="flex flex-col items-start gap-2.5">
               <Link
                 href="/"
-                className="text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
               >
                 Accueil
               </Link>
 
               <Link
                 href="/#approach"
-                className="text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
               >
                 Système
               </Link>
 
               <Link
+                href="/#outils"
+                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+              >
+                Outils
+              </Link>
+
+              <Link
                 href="/#systems"
-                className="text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
               >
                 Solutions
               </Link>
 
               <Link
                 href="/contact"
-                className="text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
               >
                 Contact
               </Link>
             </nav>
-          </div>
+          </StaggerItem>
 
           {/* Collaboration */}
-          <div>
+          <StaggerItem>
             <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
               Collaboration
             </div>
@@ -71,22 +82,22 @@ export function Footer() {
               Nous construisons des systèmes pour des entreprises qui osent
               innover.
             </p>
-          </div>
+          </StaggerItem>
 
           {/* Action */}
-          <div>
+          <StaggerItem>
             <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
               Action
             </div>
 
             <Link
               href="/demarrer-un-projet"
-              className="inline-flex min-h-11 items-center rounded-full border border-[#2A333C] px-4 py-2 text-[0.8rem] text-[#CDD5DD] transition-all duration-200 hover:border-[#7CC7FF] hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+              className="inline-flex min-h-11 items-center rounded-full border border-[#2A333C] px-4 py-2 text-[0.8rem] text-[#CDD5DD] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#7CC7FF] hover:text-[#F4F7FA] hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
             >
               Démarrer un projet
             </Link>
-          </div>
-        </div>
+          </StaggerItem>
+        </Stagger>
 
         {/* Bas du footer */}
         <div className="border-t border-[#1A2128] pt-6">
@@ -101,7 +112,7 @@ export function Footer() {
 
                 <Link
                   href="/mentions-legales"
-                  className="text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
+                  className="link-underline text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
                 >
                   Mentions légales
                 </Link>
@@ -110,14 +121,14 @@ export function Footer() {
 
                 <Link
                   href="/confidentialite"
-                  className="text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
+                  className="link-underline text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
                 >
                   Politique de confidentialité
                 </Link>
               </div>
             </div>
 
-            <div className="text-[0.7rem] leading-5 text-[#5A6268]">
+            <div className="text-[0.7rem] leading-5 text-[#8E98A3]">
               Construit pour les entreprises qui construisent l&apos;avenir.
             </div>
           </div>

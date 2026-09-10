@@ -4,12 +4,17 @@ export const homepageContent = {
 
     signature: 'AI • AUTOMATION • WEB',
 
+    // Les ancres sont préfixées par « / » : depuis /contact ou
+    // /demarrer-un-projet, un simple « #approach » pointerait sur la page
+    // courante, où la section n'existe pas.
     links: [
-      { label: 'Accueil', href: '#home' },
+      { label: 'Accueil', href: '/' },
 
-      { label: 'Système', href: '#approach' },
+      { label: 'Système', href: '/#approach' },
 
-      { label: 'Solutions', href: '#systems' },
+      { label: 'Outils', href: '/#outils' },
+
+      { label: 'Solutions', href: '/#systems' },
 
       { label: 'Contact', href: '/contact' },
     ],
