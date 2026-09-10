@@ -5,11 +5,12 @@ export const metadata: Metadata = {
   title: 'Mentions légales — NASSFLOW AGENCY',
   description:
     'Mentions légales et informations légales du site NASSFLOW AGENCY',
+  alternates: { canonical: '/mentions-legales' },
 };
 
 export default function MentionsLegales() {
   return (
-    <div className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
+    <main className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
       <div className="mx-auto max-w-[900px] px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
           <h1 className="font-[family-name:var(--font-sora)] text-[clamp(2.2rem,9vw,3rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:text-5xl">
@@ -155,7 +156,7 @@ export default function MentionsLegales() {
           </section>
 
           <div className="border-t border-[#1A2128] pt-6 sm:mt-12 sm:pt-8">
-            <p className="text-[0.8rem] leading-5 text-[#5A6268] sm:text-[0.85rem]">
+            <p className="text-[0.8rem] leading-5 text-[#8E98A3] sm:text-[0.85rem]">
               Dernière mise à jour : septembre 2026
             </p>
           </div>
@@ -170,6 +171,6 @@ export default function MentionsLegales() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

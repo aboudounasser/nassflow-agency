@@ -34,51 +34,284 @@
   --font-mono: var(--font-mono);
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 68px;
-}
-
-@media (min-width: 1024px) {
+/* Ces règles visent des éléments HTML : sans `@layer base`, elles
+   resteraient hors couche et l'emporteraient sur TOUS les utilitaires
+   Tailwind, qui vivent eux dans `@layer utilities`. C'est ce qui
+   neutralisait auparavant chaque `text-[...]` posé sur un `<a>`. */
+@layer base {
   html {
-    scroll-padding-top: 82px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 68px;
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 82px;
+    }
+  }
+
+  body {
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-body), Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  img,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: rgba(124, 199, 255, 0.35);
+    color: var(--text-primary);
   }
 }
 
-body {
-  min-height: 100vh;
-  background: var(--background);
-  color: var(--text-primary);
-  font-family: var(--font-body), Arial, Helvetica, sans-serif;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Ces classes sont placées dans `@layer components` — donc AVANT
+   `@layer utilities` dans la cascade. Les utilitaires Tailwind posés
+   sur les mêmes éléments continuent ainsi de l'emporter, au lieu de
+   se faire écraser comme c'était le cas avec les règles hors couche.
+   Voir la note dans `@layer base` plus haut. */
+@layer components {
+/* ═════════════════════════════════════════════
+   CARROUSEL D'OUTILS — défilement continu
+   ═════════════════════════════════════════════ */
+
+.marquee {
+  --marquee-gap: 0.75rem;
+  --marquee-duration: 48s;
+  overflow: hidden;
+  /* Les pastilles s'effacent sur les bords au lieu d'être coupées net. */
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
 }
 
-* {
-  box-sizing: border-box;
+@media (min-width: 640px) {
+  .marquee {
+    --marquee-gap: 1rem;
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 9%,
+      #000 91%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 9%,
+      #000 91%,
+      transparent 100%
+    );
+  }
 }
 
-img,
-svg,
-video {
-  display: block;
-  max-width: 100%;
+.marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-left var(--marquee-duration) linear infinite;
 }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+  /* Égale au gap : la copie reprend donc exactement au même rythme,
+     et la translation de -50 % ne laisse aucune couture visible. */
+  padding-right: var(--marquee-gap);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.marquee--reverse .marquee__track {
+  animation-name: marquee-right;
 }
 
-::selection {
-  background: rgba(124, 199, 255, 0.35);
-  color: var(--text-primary);
+/* Assombrir la seconde rangée crée la profondeur, mais l'opacité
+   s'applique aussi au texte : 0.8 est le seuil sous lequel la légende
+   des pastilles passe en dessous du rapport de contraste de 4.5:1. */
+.marquee--dim {
+  opacity: 0.8;
+}
+
+/* Le survol suspend la bande pour laisser le temps de lire. */
+.marquee-band:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.tool-chip {
+  transition:
+    border-color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tool-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124, 199, 255, 0.45);
+  background-color: rgba(20, 27, 34, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(124, 199, 255, 0.12);
+}
+
+.tool-chip:hover .tool-chip__dot {
+  box-shadow: 0 0 14px rgba(124, 199, 255, 0.9);
+}
+
+/* ═════════════════════════════════════════════
+   PROFONDEUR — couches dérivant avec le curseur
+   Alimentées par --tilt-px / --tilt-py publiées
+   par le composant TiltCard.
+   ═════════════════════════════════════════════ */
+
+.parallax-near,
+.parallax-far {
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.parallax-near {
+  transform: translate3d(
+    calc(var(--tilt-px, 0) * -22px),
+    calc(var(--tilt-py, 0) * -14px),
+    0
+  );
+}
+
+.parallax-far {
+  transform: translate3d(
+    calc(var(--tilt-px, 0) * 14px),
+    calc(var(--tilt-py, 0) * 9px),
+    0
+  );
+}
+
+/* ═════════════════════════════════════════════
+   MICRO-INTERACTIONS
+   ═════════════════════════════════════════════ */
+
+/* Soulignement qui se déploie depuis la gauche, pour la navigation. */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0.65;
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Balayage lumineux au survol des boutons pleins. */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sheen:hover::before,
+.sheen:focus-visible::before {
+  transform: translateX(120%);
+}
+
+/* Halo pulsé sous les titres de section, révélé à l'apparition. */
+.section-aura {
+  position: relative;
+}
+
+.section-aura::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -30%;
+  width: min(30rem, 90%);
+  height: 8rem;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(124, 199, 255, 0.1),
+    transparent 70%
+  );
+  pointer-events: none;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -100,8 +333,46 @@ a {
   .problem-system-bridge,
   .problem-system-signal,
   .problem-system-node,
-  .problem-system-core-indicator {
+  .problem-system-core-indicator,
+  .marquee__track {
     animation: none !important;
+  }
+
+  /* Le carrousel devient une grille statique, entièrement lisible :
+     la copie masquée aux lecteurs d'écran est simplement retirée. */
+  .marquee {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .marquee__track {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .marquee__group {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .marquee__group[aria-hidden='true'] {
+    display: none;
+  }
+
+  .marquee--dim {
+    opacity: 1;
+  }
+
+  .parallax-near,
+  .parallax-far {
+    transform: none !important;
+  }
+
+  .link-underline::after,
+  .sheen::before {
+    display: none;
   }
 }
 

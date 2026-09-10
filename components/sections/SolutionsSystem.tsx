@@ -1,9 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { AnimatePresence, m } from 'motion/react';
 import { SectionLabel } from '@/components/SectionLabel';
 import { SectionShell } from '@/components/SectionShell';
 import { SystemNode } from '@/components/ui/SystemNode';
+import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { TiltCard } from '@/components/motion/TiltCard';
+import { transitions } from '@/lib/motion';
 
 const systemNodes = [
   {
@@ -60,19 +64,20 @@ export function SolutionsSystem() {
         {/* ─────────────────────────────
             SECTION INTRO
         ───────────────────────────── */}
-        <div className="mx-auto max-w-[760px] text-center">
+        <Reveal className="section-aura mx-auto max-w-[760px] text-center">
           <SectionLabel>Solutions</SectionLabel>
 
           <h2 className="mt-4 font-[family-name:var(--font-sora)] text-[clamp(2rem,7vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-[#F4F7FA] sm:mt-5 sm:text-[clamp(2.3rem,5vw,3.25rem)]">
             Des solutions qui s’assemblent en système.
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mt-7 sm:mt-8 lg:mt-10">
           {/* ═════════════════════════════
               DESKTOP / TABLET
           ═════════════════════════════ */}
-          <div className="relative mx-auto hidden h-[430px] w-full max-w-[820px] md:block lg:h-[460px]">
+          <Reveal preset="scale" className="hidden md:block">
+          <TiltCard maxTilt={4} glow glowOpacity={0.45} className="relative mx-auto h-[430px] w-full max-w-[820px] lg:h-[460px]">
             <svg
               aria-hidden="true"
               viewBox="0 0 820 560"
@@ -340,7 +345,7 @@ export function SolutionsSystem() {
                   onMouseEnter={() => setActive(label)}
                   onFocus={() => setActive(label)}
                   onClick={() => setActive(label)}
-                  className="min-h-11 transition-all duration-200 ease-out"
+                  className="min-h-11 transition-transform duration-200 ease-out hover:scale-[1.06] focus-visible:scale-[1.06] focus-visible:outline-none"
                 >
                   <SystemNode
                     label={label}
@@ -354,7 +359,8 @@ export function SolutionsSystem() {
                 </button>
               </div>
             ))}
-          </div>
+          </TiltCard>
+          </Reveal>
 
           {/* ═════════════════════════════
               ACTIVE STATE — DESKTOP
@@ -366,13 +372,23 @@ export function SolutionsSystem() {
 
             <div className="mt-1.5 flex items-center justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <div className="font-[family-name:var(--font-sora)] text-[0.95rem] font-medium text-[#F4F7FA]">
-                  {activeDetails.label}
-                </div>
+                <AnimatePresence mode="wait" initial={false}>
+                  <m.div
+                    key={activeDetails.label}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={transitions.quick}
+                  >
+                    <div className="font-[family-name:var(--font-sora)] text-[0.95rem] font-medium text-[#F4F7FA]">
+                      {activeDetails.label}
+                    </div>
 
-                <div className="mt-0.5 text-[0.8rem] leading-5 text-[#CDD5DD]">
-                  {activeDetails.description}
-                </div>
+                    <div className="mt-0.5 text-[0.8rem] leading-5 text-[#CDD5DD]">
+                      {activeDetails.description}
+                    </div>
+                  </m.div>
+                </AnimatePresence>
               </div>
 
               <span
@@ -414,13 +430,23 @@ export function SolutionsSystem() {
 
               <div className="mt-1 flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="font-[family-name:var(--font-sora)] text-sm font-medium text-[#F4F7FA]">
-                    {activeDetails.label}
-                  </div>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <m.div
+                      key={activeDetails.label}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      transition={transitions.quick}
+                    >
+                      <div className="font-[family-name:var(--font-sora)] text-sm font-medium text-[#F4F7FA]">
+                        {activeDetails.label}
+                      </div>
 
-                  <div className="mt-1 text-xs leading-5 text-[#CDD5DD]">
-                    {activeDetails.description}
-                  </div>
+                      <div className="mt-1 text-xs leading-5 text-[#CDD5DD]">
+                        {activeDetails.description}
+                      </div>
+                    </m.div>
+                  </AnimatePresence>
                 </div>
 
                 <span
@@ -431,13 +457,13 @@ export function SolutionsSystem() {
             </div>
 
             {/* Solution list */}
-            <div className="space-y-2">
+            <Stagger gap={0.05} className="space-y-2">
               {systemNodes.map(({ label, description }) => {
                 const isActive = active === label;
 
                 return (
+                  <StaggerItem key={label}>
                   <button
-                    key={label}
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => setActive(label)}
@@ -480,9 +506,10 @@ export function SolutionsSystem() {
                       {description}
                     </div>
                   </button>
+                  </StaggerItem>
                 );
               })}
-            </div>
+            </Stagger>
           </div>
         </div>
       </SectionShell>

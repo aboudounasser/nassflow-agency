@@ -92,7 +92,7 @@ export function ContactSection() {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
               {/* Nom */}
-              <div className="border-b border-[#2A333C] py-5">
+              <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70">
                 <label
                   htmlFor="name"
                   className="mb-2 block text-[0.72rem] font-medium uppercase tracking-[0.14em] text-[#8E98A3]"
@@ -110,12 +110,12 @@ export function ContactSection() {
                   required
                   autoComplete="name"
                   placeholder="Votre nom"
-                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#4F5861] transition-colors focus:placeholder:text-[#66717C] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
 
               {/* E-mail */}
-              <div className="border-b border-[#2A333C] py-5">
+              <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70">
                 <label
                   htmlFor="email"
                   className="mb-2 block text-[0.72rem] font-medium uppercase tracking-[0.14em] text-[#8E98A3]"
@@ -133,12 +133,12 @@ export function ContactSection() {
                   required
                   autoComplete="email"
                   placeholder="votre@email.com"
-                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#4F5861] transition-colors focus:placeholder:text-[#66717C] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
 
               {/* Sujet */}
-              <div className="border-b border-[#2A333C] py-5 sm:col-span-2">
+              <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70 sm:col-span-2">
                 <label
                   htmlFor="subject"
                   className="mb-2 block text-[0.72rem] font-medium uppercase tracking-[0.14em] text-[#8E98A3]"
@@ -155,12 +155,12 @@ export function ContactSection() {
                   disabled={isDisabled}
                   required
                   placeholder="Sujet de votre message"
-                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#4F5861] transition-colors focus:placeholder:text-[#66717C] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
 
               {/* Message */}
-              <div className="border-b border-[#2A333C] py-5 sm:col-span-2">
+              <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70 sm:col-span-2">
                 <label
                   htmlFor="message"
                   className="mb-2 block text-[0.72rem] font-medium uppercase tracking-[0.14em] text-[#8E98A3]"
@@ -177,7 +177,7 @@ export function ContactSection() {
                   required
                   rows={6}
                   placeholder="Décrivez votre demande..."
-                  className="w-full resize-none bg-transparent py-1 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#4F5861] transition-colors focus:placeholder:text-[#66717C] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="w-full resize-none bg-transparent py-1 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE] disabled:cursor-not-allowed disabled:opacity-50"
                 />
               </div>
             </div>
@@ -205,7 +205,7 @@ export function ContactSection() {
                 )}
 
                 {formState === 'idle' && (
-                  <p className="text-xs leading-5 text-[#5F6973]">
+                  <p className="text-xs leading-5 text-[#8E98A3]">
                     Nous utiliserons uniquement les informations nécessaires
                     pour répondre à votre message.
                   </p>
