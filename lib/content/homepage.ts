@@ -12,7 +12,7 @@ export const homepageContent = {
 
       { label: 'Système', href: '/#approach' },
 
-      { label: 'Outils', href: '/#outils' },
+      { label: 'Intégrations', href: '/#outils' },
 
       { label: 'Solutions', href: '/#systems' },
 
