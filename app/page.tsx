@@ -3,7 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
 import { ProblemApproachSection } from '@/components/sections/ProblemApproachSection';
 import { AIToolsMarquee } from '@/components/sections/AIToolsMarquee';
-import { SolutionsSystem } from '@/components/sections/SolutionsSystem';
+import { SystemsByProblem } from '@/components/sections/SystemsByProblem';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Footer } from '@/components/sections/Footer';
 
@@ -18,7 +18,7 @@ export default function Home() {
       <Hero />
       <ProblemApproachSection />
       <AIToolsMarquee />
-      <SolutionsSystem />
+      <SystemsByProblem />
       <FinalCTA />
       <Footer />
     </main>
