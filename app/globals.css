@@ -292,6 +292,19 @@
   transform: translateX(120%);
 }
 
+/* Filet vertical des lignes « problème → livrable » : il se déploie de
+   haut en bas au survol et donne une colonne à la place du vide, à
+   gauche des phrases les plus courtes. */
+.offer-row__rule {
+  height: 0;
+  transition: height 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.offer-row:hover .offer-row__rule,
+.offer-row:focus-within .offer-row__rule {
+  height: 100%;
+}
+
 /* Halo pulsé sous les titres de section, révélé à l'apparition. */
 .section-aura {
   position: relative;
@@ -368,6 +381,10 @@
   .parallax-near,
   .parallax-far {
     transform: none !important;
+  }
+
+  .offer-row__rule {
+    display: none;
   }
 
   .link-underline::after,

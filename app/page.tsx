@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
 import { ProblemApproachSection } from '@/components/sections/ProblemApproachSection';
-import { AIToolsMarquee } from '@/components/sections/AIToolsMarquee';
-import { SolutionsSystem } from '@/components/sections/SolutionsSystem';
+import { IntegrationsMarquee } from '@/components/sections/IntegrationsMarquee';
+import { SystemsByProblem } from '@/components/sections/SystemsByProblem';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Footer } from '@/components/sections/Footer';
 
@@ -17,8 +17,8 @@ export default function Home() {
       <Navigation />
       <Hero />
       <ProblemApproachSection />
-      <AIToolsMarquee />
-      <SolutionsSystem />
+      <IntegrationsMarquee />
+      <SystemsByProblem />
       <FinalCTA />
       <Footer />
     </main>

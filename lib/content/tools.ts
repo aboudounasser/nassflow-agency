@@ -1,30 +1,49 @@
 /**
- * Outils IA affichés dans le carrousel de la page d'accueil.
+ * Les deux rangées du carrousel d'intégrations.
  *
- * Les noms sont composés dans la typographie du site plutôt que repris
- * sous forme de logos : les logos de ces marques sont déposés et leur
- * usage relève de chaque charte de marque.
+ * Règle : ne jamais lister un outil qu'on ne sait pas brancher. Une
+ * intégration annoncée et non livrable se voit au premier rendez-vous
+ * technique et coûte plus cher que les logos gagnés.
  *
- * Pour passer à de vrais logos officiels : déposer le SVG récupéré dans
- * le press kit de l'outil sous `public/tools/<slug>.svg`, puis renseigner
- * `logo: '/tools/<slug>.svg'` ci-dessous. Le composant bascule tout seul
- * sur l'image et conserve l'alignement.
+ * `connected` ne contient que des connecteurs natifs de Make et de n8n,
+ * donc réellement accessibles avec la stack ci-dessous. `built` liste
+ * les plateformes sur lesquelles on construit effectivement.
+ *
+ * Pour passer à de vrais logos : les logos de ces marques sont déposés
+ * et leur usage relève de chaque charte de marque. Déposer le SVG
+ * récupéré dans le press kit sous `public/tools/<slug>.svg`, puis
+ * renseigner `logo: '/tools/<slug>.svg'`. Le composant bascule seul sur
+ * l'image et conserve l'alignement.
  */
 
-export type AiTool = {
+export type Tool = {
   name: string;
-  /** Ce que l'outil apporte concrètement dans nos projets. */
+  /** Ce que l'outil fait, du point de vue du dirigeant. */
   role: string;
   /** Chemin vers un SVG officiel dans /public, si tu en déposes un. */
   logo?: string;
 };
 
-export const aiTools: AiTool[] = [
-  { name: 'ChatGPT', role: 'Rédaction & raisonnement' },
-  { name: 'Claude', role: 'Analyse & code' },
-  { name: 'Copilot', role: 'Développement assisté' },
-  { name: 'Perplexity', role: 'Recherche sourcée' },
-  { name: 'Midjourney', role: 'Direction artistique' },
-  { name: 'Magnific', role: 'Upscaling & rendu' },
-  { name: 'Notion', role: 'Base de connaissances' },
+/** Les outils que le client utilise déjà, et qu'on vient relier. */
+export const connectedTools: Tool[] = [
+  { name: 'Gmail', role: 'Messagerie' },
+  { name: 'Outlook', role: 'Messagerie' },
+  { name: 'WhatsApp', role: 'Messages clients' },
+  { name: 'Google Sheets', role: 'Tableurs' },
+  { name: 'Slack', role: 'Équipe' },
+  { name: 'Notion', role: 'Documentation' },
+  { name: 'Stripe', role: 'Paiements' },
+  { name: 'Shopify', role: 'Boutique en ligne' },
+  { name: 'Calendly', role: 'Rendez-vous' },
+  { name: 'HubSpot', role: 'CRM' },
+];
+
+/** Les plateformes sur lesquelles on construit les systèmes. */
+export const builtWith: Tool[] = [
+  { name: 'Make', role: 'Automatisations' },
+  { name: 'n8n', role: 'Automatisations sur mesure' },
+  { name: 'Airtable', role: 'Base de données métier' },
+  { name: 'Lovable', role: 'Interfaces rapides' },
+  { name: 'Next.js', role: 'Sites et applications' },
+  { name: 'Supabase', role: 'Base et authentification' },
 ];

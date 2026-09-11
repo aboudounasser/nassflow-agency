@@ -65,19 +65,19 @@ export function Hero() {
           <StaggerItem preset="soft">
           <div className="mt-7 flex max-w-[560px] flex-wrap items-center gap-2 text-[0.6rem] font-medium uppercase tracking-[0.16em] text-[#8E98A3] sm:mt-8 sm:text-[0.62rem] sm:tracking-[0.18em]">
             <span className="rounded-full border border-[#2A333C] bg-[#10161D] px-2.5 py-1.5">
-              Sites
+              Plus de demandes
             </span>
 
             <span className="rounded-full border border-[#2A333C] bg-[#10161D] px-2.5 py-1.5">
-              IA
+              Réponses immédiates
             </span>
 
             <span className="rounded-full border border-[#2A333C] bg-[#10161D] px-2.5 py-1.5">
-              Automations
+              Zéro double saisie
             </span>
 
             <span className="rounded-full border border-[#2A333C] bg-[#10161D] px-2.5 py-1.5">
-              Agents
+              Un seul tableau de bord
             </span>
           </div>
           </StaggerItem>

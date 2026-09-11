@@ -6,6 +6,8 @@ type ButtonSecondaryProps = {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  /** ↓ pour une ancre plus bas dans la page, → pour une autre page. */
+  arrow?: 'down' | 'right' | 'none';
 };
 
 const base =
@@ -17,18 +19,25 @@ export function ButtonSecondary({
   className = '',
   type = 'button',
   onClick,
+  arrow = 'down',
 }: ButtonSecondaryProps) {
   const classes = [base, className].join(' ');
 
   const content = (
     <>
       {children}
-      <span
-        aria-hidden="true"
-        className="inline-block text-[#7CC7FF] transition-transform duration-200 ease-out group-hover:translate-y-0.5"
-      >
-        ↓
-      </span>
+      {arrow !== 'none' && (
+        <span
+          aria-hidden="true"
+          className={`inline-block text-[#7CC7FF] transition-transform duration-200 ease-out ${
+            arrow === 'down'
+              ? 'group-hover:translate-y-0.5'
+              : 'group-hover:translate-x-0.5'
+          }`}
+        >
+          {arrow === 'down' ? '↓' : '→'}
+        </span>
+      )}
     </>
   );
 
