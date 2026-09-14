@@ -51,3 +51,16 @@ create index if not exists solution_requests_created_at_idx
 -- La clé service_role ne doit exister que dans les variables
 -- d'environnement du serveur, jamais dans un fichier exposé au client.
 alter table public.solution_requests enable row level security;
+
+-- Privilèges de table, distincts de RLS — et vérifiés AVANT elle.
+--
+-- Contourner RLS ne sert à rien sans le droit d'accéder à la table : sans
+-- ces GRANT, Postgres refuse l'insert en 42501 (« permission denied for
+-- table ») avant même d'évaluer la moindre policy, y compris pour
+-- service_role. Les défauts du schéma public ne les avaient pas posés
+-- ici, d'où un formulaire qui échouait sur une table pourtant correcte.
+--
+-- Rien n'est accordé à anon ni à authenticated : combiné à l'absence de
+-- policy, la table reste inaccessible depuis le navigateur.
+grant insert on public.solution_requests to service_role;
+grant select on public.solution_requests to service_role;

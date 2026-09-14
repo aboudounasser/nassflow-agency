@@ -141,7 +141,15 @@ export async function POST(request: Request) {
     });
 
   if (insertError) {
-    console.error('Supabase insert error (solution_requests):', insertError);
+    // Champ par champ, et non l'objet brut : un PostgrestError sérialise
+    // en « {} », ce qui avait rendu un refus de privilèges illisible dans
+    // les logs alors que Postgres en donnait le code et le remède.
+    console.error('Supabase insert error (solution_requests):', {
+      code: insertError.code,
+      message: insertError.message,
+      details: insertError.details,
+      hint: insertError.hint,
+    });
 
     return Response.json(
       { error: 'L’enregistrement de la demande a échoué.' },
