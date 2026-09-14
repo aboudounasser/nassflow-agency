@@ -13,12 +13,12 @@ import { Reveal } from '@/components/motion/Reveal';
 export const metadata: Metadata = {
   title: 'Démarrer un projet | NASSFLOW AGENCY',
   description:
-    'Décrivez votre besoin en automatisation ou en IA. Nous étudions votre projet et revenons vers vous avec la solution la plus adaptée.',
+    'Une question rapide ou un besoin déjà cadré : décrivez ce qui vous fait perdre du temps, nous revenons vers vous.',
   alternates: { canonical: '/demarrer-un-projet' },
   openGraph: {
     title: 'Démarrer un projet — NASSFLOW AGENCY',
     description:
-      'Présentez votre entreprise et votre besoin. Nous concevons le système intelligent qui va avec.',
+      'Dites-nous ce qui vous fait perdre du temps. Une question rapide ou un projet déjà cadré, c’est le même formulaire.',
     type: 'website',
   },
 };
@@ -47,13 +47,12 @@ export default function DemarrerUnProjetPage() {
             </p>
 
             <h1 className="mt-5 max-w-[800px] font-[family-name:var(--font-sora)] text-[clamp(2.2rem,9vw,4rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-6 sm:text-5xl sm:leading-[1.05] lg:text-[4rem]">
-              Construisons votre système intelligent.
+              Parlons de ce qui vous fait perdre du temps.
             </h1>
 
             <p className="mt-5 max-w-[620px] text-base leading-7 text-[#8E98A3] sm:mt-6 sm:text-[1.05rem]">
-              Présentez-nous votre entreprise, votre besoin et ce que vous
-              souhaitez améliorer. Nous étudierons votre projet pour définir
-              la solution la plus adaptée.
+              Une question rapide ou un besoin déjà cadré, c’est le même
+              formulaire. Répondez à ce qui vous concerne, laissez le reste.
             </p>
           </Reveal>
 
