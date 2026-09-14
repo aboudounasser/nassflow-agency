@@ -5,12 +5,15 @@ export const homepageContent = {
     signature: 'VOS OUTILS, RELIÉS',
 
     // Les ancres sont préfixées par « / » : depuis /demarrer-un-projet,
-    // un simple « #approach » pointerait sur la page courante, où la
+    // un simple « #systems » pointerait sur la page courante, où la
     // section n'existe pas.
     links: [
       { label: 'Accueil', href: '/' },
 
-      { label: 'Système', href: '/#approach' },
+      // L'ancre #approach a disparu avec ProblemApproachSection. La
+      // section qui pose le problème est désormais #systems, et le
+      // libellé dit ce qu'on y voit plutôt qu'un nom de méthode.
+      { label: 'Problèmes', href: '/#systems' },
 
       { label: 'Intégrations', href: '/#outils' },
 

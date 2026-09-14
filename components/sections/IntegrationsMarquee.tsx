@@ -3,7 +3,7 @@ import { SectionLabel } from '@/components/SectionLabel';
 import { SectionShell } from '@/components/SectionShell';
 import { Reveal } from '@/components/motion/Reveal';
 import { TiltCard } from '@/components/motion/TiltCard';
-import { builtWith, connectedTools, type Tool } from '@/lib/content/tools';
+import { connectedTools, type Tool } from '@/lib/content/tools';
 
 function ToolChip({ tool }: { tool: Tool }) {
   return (
@@ -118,30 +118,18 @@ export function IntegrationsMarquee() {
 
           <p className="mx-auto mt-5 max-w-[540px] text-[0.98rem] leading-7 text-[#CDD5DD]">
             Vos logiciels actuels restent en place. On les fait communiquer
-            entre eux, et on ajoute seulement ce qui manque. Les modèles d&apos;IA
-            sont choisis tâche par tâche — jamais imposés, jamais un
-            fournisseur unique.
+            entre eux, et on ajoute seulement ce qui manque.
           </p>
         </Reveal>
       </SectionShell>
 
       <Reveal preset="scale" delay={0.08}>
         <TiltCard maxTilt={0} glow glowOpacity={0.65} className="marquee-band">
-          <div className="flex flex-col gap-8 sm:gap-9">
-            <MarqueeRow
-              tools={connectedTools}
-              duration="52s"
-              label="Ce qu'on relie chez vous"
-            />
-
-            <MarqueeRow
-              tools={builtWith}
-              duration="44s"
-              label="Ce avec quoi on le construit"
-              reverse
-              dim
-            />
-          </div>
+          <MarqueeRow
+            tools={connectedTools}
+            duration="52s"
+            label="Ce qu'on relie chez vous"
+          />
         </TiltCard>
       </Reveal>
 
