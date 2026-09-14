@@ -5,6 +5,7 @@ import { SectionShell } from '@/components/SectionShell';
 import { SectionLabel } from '@/components/SectionLabel';
 import { ButtonSecondary } from '@/components/ui/ButtonSecondary';
 import { Reveal } from '@/components/motion/Reveal';
+import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
 
 /**
@@ -116,23 +117,24 @@ export default async function SolutionPage({
             </div>
           </Reveal>
 
-          {/*
-            ─────────────────────────────────────────────────────────────
-            EMPLACEMENT DU FORMULAIRE — prochain chantier
+          {/* Le formulaire tire ses champs spécifiques de
+              `solution.questions` et poste sur /api/solution-requests,
+              qui écrit en service_role : la table refuse anon. */}
+          <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
+            <h2 className="font-[family-name:var(--font-sora)] text-[clamp(1.5rem,5vw,2rem)] font-semibold leading-[1.12] tracking-[-0.04em] text-[#F4F7FA]">
+              Dites-nous où vous en êtes
+            </h2>
 
-            Ici viendra le formulaire construit à partir de
-            `solution.questions` : un champ par question (text / textarea
-            / select avec `options`), plus les champs communs de la table
-            `solution_requests` (société, nom, e-mail, téléphone, secteur).
+            <p className="mt-3 max-w-[520px] text-[0.95rem] leading-7 text-[#8E98A3]">
+              On part de votre situation, pas d&apos;un modèle tout fait.
+            </p>
 
-            Les réponses partiront dans la colonne `answers` (jsonb),
-            clées par `question.id`, via une route serveur en service_role
-            — RLS refuse l'écriture directe à anon. Voir
-            supabase/solution_requests.sql.
-            ─────────────────────────────────────────────────────────────
-          */}
+            <div className="mt-8 sm:mt-10">
+              <SolutionRequestForm solution={solution} />
+            </div>
+          </Reveal>
 
-          <Reveal preset="soft" delay={0.18} className="mt-10 sm:mt-12">
+          <Reveal preset="soft" delay={0.24} className="mt-10 sm:mt-12">
             <div className="flex flex-col gap-5 border-t border-[#2A333C] pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:pt-10">
               <p className="max-w-[460px] text-[0.95rem] leading-7 text-[#8E98A3]">
                 Cette solution est un point de départ. On l&apos;adapte à votre
