@@ -60,7 +60,7 @@ export function Footer() {
               </Link>
 
               <Link
-                href="/contact"
+                href="/demarrer-un-projet"
                 className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
               >
                 Contact

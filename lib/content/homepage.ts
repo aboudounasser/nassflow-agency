@@ -4,9 +4,9 @@ export const homepageContent = {
 
     signature: 'VOS OUTILS, RELIÉS',
 
-    // Les ancres sont préfixées par « / » : depuis /contact ou
-    // /demarrer-un-projet, un simple « #approach » pointerait sur la page
-    // courante, où la section n'existe pas.
+    // Les ancres sont préfixées par « / » : depuis /demarrer-un-projet,
+    // un simple « #approach » pointerait sur la page courante, où la
+    // section n'existe pas.
     links: [
       { label: 'Accueil', href: '/' },
 
@@ -16,7 +16,9 @@ export const homepageContent = {
 
       { label: 'Solutions', href: '/#solutions' },
 
-      { label: 'Contact', href: '/contact' },
+      // Même destination que le bouton d'action : /contact n'existe plus
+      // et poser une question passe désormais par le même formulaire.
+      { label: 'Nous écrire', href: '/demarrer-un-projet' },
     ],
 
     cta: 'Démarrer un projet',

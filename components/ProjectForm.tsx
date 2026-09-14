@@ -37,10 +37,10 @@ export function ProjectForm() {
       phone: value('phone'),
       website: website || null,
       solution: value('solution'),
-      main_need: value('need'),
+      main_need: value('need') || null,
       current_tools: value('tools') || null,
-      budget: value('budget'),
-      timeline: value('timeline'),
+      budget: value('budget') || null,
+      timeline: value('timeline') || null,
       project_description: value('message'),
       source: value('source') || null,
     };
@@ -265,13 +265,12 @@ export function ProjectForm() {
                 htmlFor="need"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Quel est votre principal besoin ?
+                Quel est votre principal besoin ? <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <textarea
                 id="need"
                 name="need"
-                required
                 rows={4}
                 placeholder="Décrivez le problème que vous souhaitez résoudre..."
                 className="min-h-32 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
@@ -300,13 +299,12 @@ export function ProjectForm() {
                 htmlFor="budget"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Budget envisagé
+                Budget envisagé <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <select
                 id="budget"
                 name="budget"
-                required
                 defaultValue=""
                 className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
               >
@@ -345,13 +343,12 @@ export function ProjectForm() {
                 htmlFor="timeline"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Délai souhaité
+                Délai souhaité <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <select
                 id="timeline"
                 name="timeline"
-                required
                 defaultValue=""
                 className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
               >
@@ -397,7 +394,7 @@ export function ProjectForm() {
               htmlFor="message"
               className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
             >
-              Parlez-nous de votre projet
+              Votre message
             </label>
 
             <textarea
@@ -405,7 +402,7 @@ export function ProjectForm() {
               name="message"
               required
               rows={7}
-              placeholder="Expliquez-nous votre projet, vos objectifs et ce que vous aimeriez améliorer..."
+              placeholder="Une question rapide ou le détail de votre projet — les deux vont bien."
               className="min-h-44 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
             />
           </div>
