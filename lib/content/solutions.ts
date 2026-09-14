@@ -16,6 +16,12 @@
  *
  * Aucun chiffre de performance tant qu'on n'a pas de cas client réel pour
  * l'étayer, et aucune disponibilité présentée comme une garantie.
+ *
+ * Même règle pour les délais : pas de « sous 24 heures », « en 5 minutes »
+ * ou équivalent tant qu'on n'a pas de cas client pour l'étayer — seule la
+ * mécanique (« si personne n'a répondu », « dès que c'est confirmé ») est
+ * décrite, jamais un chiffre de temps. C'est d'ailleurs un réglage qu'on
+ * décide avec le client, pas une propriété de la solution.
  */
 
 export type Question = {
