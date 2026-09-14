@@ -56,7 +56,7 @@ export function ProblemApproachSection() {
             <StaggerItem preset="soft">
             <div className="mt-7 sm:mt-8">
               <ButtonSecondary
-                href="#systems"
+                href="#solutions"
                 className="min-h-12 w-full justify-center px-6 sm:w-auto"
               >
                 Découvrir les solutions

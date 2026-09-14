@@ -4,6 +4,7 @@ import { Hero } from '@/components/sections/Hero';
 import { ProblemApproachSection } from '@/components/sections/ProblemApproachSection';
 import { IntegrationsMarquee } from '@/components/sections/IntegrationsMarquee';
 import { SystemsByProblem } from '@/components/sections/SystemsByProblem';
+import { SolutionsCatalog } from '@/components/sections/SolutionsCatalog';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Footer } from '@/components/sections/Footer';
 
@@ -19,6 +20,7 @@ export default function Home() {
       <ProblemApproachSection />
       <IntegrationsMarquee />
       <SystemsByProblem />
+      <SolutionsCatalog />
       <FinalCTA />
       <Footer />
     </main>

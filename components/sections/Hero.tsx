@@ -53,10 +53,10 @@ export function Hero() {
             </Magnetic>
 
             <ButtonSecondary
-              href="#systems"
+              href="#solutions"
               className="min-h-12 w-full justify-center border-[#2F3945] bg-[#0F141A]/60 px-6 text-[#EAF1F7] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#4A5867] hover:bg-[#111A23] sm:w-auto"
             >
-              Découvrir nos systèmes
+              Découvrir les solutions
             </ButtonSecondary>
           </div>
           </StaggerItem>

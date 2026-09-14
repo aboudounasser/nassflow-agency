@@ -14,7 +14,7 @@ export const homepageContent = {
 
       { label: 'Intégrations', href: '/#outils' },
 
-      { label: 'Solutions', href: '/#systems' },
+      { label: 'Solutions', href: '/#solutions' },
 
       { label: 'Contact', href: '/contact' },
     ],
