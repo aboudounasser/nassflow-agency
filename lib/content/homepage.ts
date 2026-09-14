@@ -16,9 +16,6 @@ export const homepageContent = {
 
       { label: 'Solutions', href: '/#solutions' },
 
-      // Même destination que le bouton d'action : /contact n'existe plus
-      // et poser une question passe désormais par le même formulaire.
-      { label: 'Nous écrire', href: '/demarrer-un-projet' },
     ],
 
     cta: 'Démarrer un projet',
