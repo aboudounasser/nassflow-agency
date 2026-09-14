@@ -102,7 +102,7 @@ export function SystemsByProblem() {
             </p>
 
             <ButtonSecondary
-              href="/contact"
+              href="/demarrer-un-projet"
               arrow="right"
               className="min-h-12 w-full justify-center px-6 sm:w-auto"
             >

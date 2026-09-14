@@ -30,17 +30,17 @@ export function ProjectForm() {
     }
 
     const payload = {
-      first_name: value('firstName'),
-      last_name: value('lastName'),
-      company: value('company'),
+      first_name: value('firstName') || null,
+      last_name: value('lastName') || null,
+      company: value('company') || null,
       professional_email: value('email'),
-      phone: value('phone'),
+      phone: value('phone') || null,
       website: website || null,
-      solution: value('solution'),
-      main_need: value('need'),
+      solution: value('solution') || null,
+      main_need: value('need') || null,
       current_tools: value('tools') || null,
-      budget: value('budget'),
-      timeline: value('timeline'),
+      budget: value('budget') || null,
+      timeline: value('timeline') || null,
       project_description: value('message'),
       source: value('source') || null,
     };
@@ -85,14 +85,13 @@ export function ProjectForm() {
                 htmlFor="firstName"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Prénom
+                Prénom <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <input
                 id="firstName"
                 name="firstName"
                 type="text"
-                required
                 autoComplete="given-name"
                 placeholder="Votre prénom"
                 className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
@@ -104,14 +103,13 @@ export function ProjectForm() {
                 htmlFor="lastName"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Nom
+                Nom <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <input
                 id="lastName"
                 name="lastName"
                 type="text"
-                required
                 autoComplete="family-name"
                 placeholder="Votre nom"
                 className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
@@ -123,14 +121,13 @@ export function ProjectForm() {
                 htmlFor="company"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Entreprise
+                Entreprise <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <input
                 id="company"
                 name="company"
                 type="text"
-                required
                 autoComplete="organization"
                 placeholder="Nom de votre entreprise"
                 className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
@@ -162,14 +159,13 @@ export function ProjectForm() {
                 htmlFor="phone"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Téléphone
+                Téléphone <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <input
                 id="phone"
                 name="phone"
                 type="tel"
-                required
                 autoComplete="tel"
                 inputMode="tel"
                 placeholder="Votre numéro de téléphone"
@@ -212,13 +208,12 @@ export function ProjectForm() {
                 htmlFor="solution"
                 className="mb-3 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Que souhaitez-vous mettre en place ?
+                Que souhaitez-vous mettre en place ? <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <select
                 id="solution"
                 name="solution"
-                required
                 defaultValue=""
                 className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
               >
@@ -265,13 +260,12 @@ export function ProjectForm() {
                 htmlFor="need"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Quel est votre principal besoin ?
+                Quel est votre principal besoin ? <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <textarea
                 id="need"
                 name="need"
-                required
                 rows={4}
                 placeholder="Décrivez le problème que vous souhaitez résoudre..."
                 className="min-h-32 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
@@ -300,13 +294,12 @@ export function ProjectForm() {
                 htmlFor="budget"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Budget envisagé
+                Budget envisagé <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <select
                 id="budget"
                 name="budget"
-                required
                 defaultValue=""
                 className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
               >
@@ -345,13 +338,12 @@ export function ProjectForm() {
                 htmlFor="timeline"
                 className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
               >
-                Délai souhaité
+                Délai souhaité <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
               </label>
 
               <select
                 id="timeline"
                 name="timeline"
-                required
                 defaultValue=""
                 className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
               >
@@ -397,7 +389,7 @@ export function ProjectForm() {
               htmlFor="message"
               className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
             >
-              Parlez-nous de votre projet
+              Votre message
             </label>
 
             <textarea
@@ -405,7 +397,7 @@ export function ProjectForm() {
               name="message"
               required
               rows={7}
-              placeholder="Expliquez-nous votre projet, vos objectifs et ce que vous aimeriez améliorer..."
+              placeholder="Une question rapide ou le détail de votre projet — les deux vont bien."
               className="min-h-44 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
             />
           </div>

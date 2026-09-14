@@ -60,7 +60,7 @@ export default async function SolutionPage({
       <SectionShell className="py-10 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
           <Reveal onMount>
-            {/* Même motif de retour que /contact et /demarrer-un-projet,
+            {/* Même motif de retour que /demarrer-un-projet,
                 pointé sur l'ancre du catalogue plutôt que sur le haut de
                 la home : on revient là d'où l'on vient. */}
             <Link
@@ -142,7 +142,7 @@ export default async function SolutionPage({
               </p>
 
               <ButtonSecondary
-                href="/contact"
+                href="/demarrer-un-projet"
                 arrow="right"
                 className="min-h-12 w-full justify-center px-6 sm:w-auto"
               >
