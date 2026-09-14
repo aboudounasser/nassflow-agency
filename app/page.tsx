@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
-import { ProblemApproachSection } from '@/components/sections/ProblemApproachSection';
 import { IntegrationsMarquee } from '@/components/sections/IntegrationsMarquee';
 import { SystemsByProblem } from '@/components/sections/SystemsByProblem';
 import { SolutionsCatalog } from '@/components/sections/SolutionsCatalog';
@@ -17,10 +16,9 @@ export default function Home() {
     <main id="home" className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
       <Navigation />
       <Hero />
-      <ProblemApproachSection />
-      <IntegrationsMarquee />
       <SystemsByProblem />
       <SolutionsCatalog />
+      <IntegrationsMarquee />
       <FinalCTA />
       <Footer />
     </main>
