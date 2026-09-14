@@ -22,15 +22,15 @@ export type SystemOffer = {
 
 export const systemOffers: SystemOffer[] = [
   {
-    id: 'demandes',
-    shortLabel: 'Demandes entrantes',
-    situation: 'Mon site ne me ramène rien.',
+    id: 'devis',
+    shortLabel: 'Devis',
+    situation: 'Je passe mes soirées à faire des devis.',
     delivers:
-      'Un site qui transforme vos visiteurs en demandes qualifiées, au lieu de les laisser repartir.',
+      'Vos devis se préparent tout seuls à partir de la demande du client. Il ne vous reste qu’à valider.',
     includes: [
-      'Un formulaire qui qualifie le besoin, le budget et le délai',
-      'Une relance automatique si personne n’a répondu sous 24 heures',
-      'Chaque demande arrive dans votre boîte et dans votre suivi',
+      'La demande est lue et comprise, même dans un e-mail écrit à la main',
+      'Le devis est pré-rempli avec vos tarifs et vos conditions',
+      'Vous validez ou corrigez, puis il part — sans ressaisie',
     ],
   },
   {

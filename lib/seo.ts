@@ -1,12 +1,12 @@
 export const seo = {
   metadataBase: 'https://nassflow.com',
-  title: 'NASSFLOW AGENCY | IA, Automation & Web pour les entreprises',
+  title: 'NASSFLOW AGENCY | Automatisation et IA pour les PME',
   description:
-    'NASSFLOW AGENCY conçoit des systèmes intelligents pour les entreprises : IA, assistants, automations, agents et intégrations.',
+    'NASSFLOW AGENCY relie les outils des PME et automatise leurs tâches répétitives : assistants IA, agents et intégrations.',
   openGraph: {
-    title: 'NASSFLOW AGENCY — Systèmes intelligents pour entreprises',
+    title: 'NASSFLOW AGENCY — Automatisation et IA pour les PME',
     description:
-      'Nous concevons des solutions web, IA, automatisation et intégration pour faire fonctionner votre entreprise plus vite et mieux.',
+      'Nous relions vos logiciels entre eux et automatisons ce qui vous fait perdre du temps : assistants IA, agents et intégrations.',
     type: 'website',
   },
 } as const;

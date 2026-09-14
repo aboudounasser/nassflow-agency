@@ -20,11 +20,7 @@ export function Footer() {
             </div>
 
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[#7CC7FF]">
-              <span>AI</span>
-              <span>•</span>
-              <span>AUTOMATION</span>
-              <span>•</span>
-              <span>WEB</span>
+              <span>VOS OUTILS, RELIÉS</span>
             </div>
           </StaggerItem>
 

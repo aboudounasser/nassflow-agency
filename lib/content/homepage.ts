@@ -2,7 +2,7 @@ export const homepageContent = {
   navigation: {
     brand: 'NASSFLOW AGENCY',
 
-    signature: 'AI • AUTOMATION • WEB',
+    signature: 'VOS OUTILS, RELIÉS',
 
     // Les ancres sont préfixées par « / » : depuis /contact ou
     // /demarrer-un-projet, un simple « #approach » pointerait sur la page
@@ -23,7 +23,7 @@ export const homepageContent = {
   },
 
   layout: {
-    tagline: 'AI • AUTOMATION • WEB',
+    tagline: 'VOS OUTILS, RELIÉS',
 
     title: 'NASSFLOW AGENCY',
 
