@@ -20,23 +20,24 @@ export function Hero() {
               className="inline-block h-1.5 w-1.5 rounded-full bg-[#7CC7FF] sm:h-2 sm:w-2"
               aria-hidden="true"
             />
-            AI • AUTOMATION • WEB
+            VOS OUTILS, RELIÉS
           </span>
           </StaggerItem>
 
           <StaggerItem preset="default">
           <h1 className="mt-5 max-w-[700px] font-[family-name:var(--font-sora)] text-[clamp(2.45rem,9vw,5.1rem)] font-medium leading-[0.94] tracking-[-0.06em] text-[#F4F7FA] sm:mt-6 sm:text-[clamp(3rem,7vw,5.1rem)] lg:leading-[0.91]">
-            Votre entreprise mérite plus qu’un simple site.
+            Vos outils méritent mieux que de travailler chacun dans leur
+            coin.
             <span className="mt-2 block text-[#CDD5DD]">
-              Elle mérite un système intelligent.
+              Ils méritent un système intelligent.
             </span>
           </h1>
           </StaggerItem>
 
           <StaggerItem preset="soft">
           <p className="mt-5 max-w-[620px] text-[0.98rem] leading-7 text-[#CDD5DD] sm:mt-6 sm:text-lg sm:leading-[1.75rem]">
-            Nous concevons des sites web, assistants IA et automatisations qui
-            relient vos outils et font avancer votre entreprise.
+            Nous relions vos logiciels entre eux et automatisons ce qui vous
+            fait perdre du temps. L’IA intervient là où elle sert vraiment.
           </p>
           </StaggerItem>
 

@@ -13,7 +13,7 @@ import { Reveal } from '@/components/motion/Reveal';
 export const metadata: Metadata = {
   title: 'Démarrer un projet | NASSFLOW AGENCY',
   description:
-    'Décrivez votre besoin en automatisation, IA ou site web. Nous étudions votre projet et revenons vers vous avec la solution la plus adaptée.',
+    'Décrivez votre besoin en automatisation ou en IA. Nous étudions votre projet et revenons vers vous avec la solution la plus adaptée.',
   alternates: { canonical: '/demarrer-un-projet' },
   openGraph: {
     title: 'Démarrer un projet — NASSFLOW AGENCY',
