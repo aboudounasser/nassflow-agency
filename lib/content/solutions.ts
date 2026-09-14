@@ -52,7 +52,7 @@ export const solutions: Solution[] = [
     slug: 'reponse-clients',
     category: 'agent',
     categoryLabel: 'Agent · Service client',
-    title: 'Répondez à vos clients en moins d’une minute',
+    title: 'Répondez à vos clients sans les faire attendre',
     problem: 'Je réponds aux mêmes questions dix fois par jour.',
     delivers:
       'Un assistant qui répond à votre place, avec vos mots et vos conditions, et vous passe la main dès que c’est sérieux.',
