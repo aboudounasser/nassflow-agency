@@ -95,7 +95,7 @@ export const solutions: Solution[] = [
     includes: [
       'Capture depuis le site, l’e-mail et le téléphone',
       'Qualification selon vos critères',
-      'Relance automatique si personne n’a répondu sous 24 heures',
+      'Relance automatique si personne n’a répondu',
     ],
     questions: [
       {
