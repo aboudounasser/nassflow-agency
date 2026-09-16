@@ -6,6 +6,12 @@
  * décrit ce qu'on installe concrètement, jamais un nom de système.
  * Aucun chiffre de performance tant qu'on n'a pas de cas client réel
  * pour l'étayer.
+ *
+ * Même règle pour les délais : pas de « en moins d'une minute », « sous
+ * 24 heures » ou équivalent tant qu'on n'a pas de cas client pour
+ * l'étayer — seule la mécanique est décrite, jamais un chiffre de temps.
+ * C'est d'ailleurs un réglage qu'on décide avec le client, pas une
+ * propriété du système.
  */
 
 export type SystemOffer = {
@@ -40,7 +46,7 @@ export const systemOffers: SystemOffer[] = [
     delivers:
       'Un assistant qui répond à votre place, avec vos mots et vos conditions.',
     includes: [
-      'Une réponse en moins d’une minute, sur votre site et sur WhatsApp',
+      'Une réponse sur votre site et sur WhatsApp',
       'Il connaît vos tarifs, vos délais et ce que vous ne faites pas',
       'Il vous passe la main dès que la demande devient sérieuse',
     ],
