@@ -1,134 +1,93 @@
 import Link from 'next/link';
+import { homepageContent } from '@/lib/content/homepage';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+
+/**
+ * Le pied de page, réduit à ce qu'on y cherche vraiment : qui parle, où
+ * aller, et comment nous joindre. Les trois blocs de prose qui s'y
+ * trouvaient — la description du studio, le paragraphe « Collaboration »
+ * et la ligne « Construit pour les entreprises qui construisent
+ * l'avenir » — sont retirés : personne ne lit un manifeste en pied de
+ * page, et la home le dit déjà mieux plus haut.
+ */
+
+const colonnes = [
+  {
+    titre: 'Le site',
+    liens: [
+      { label: 'Accueil', href: '/' },
+      { label: 'Problèmes', href: '/#systems' },
+      { label: 'Solutions', href: '/#solutions' },
+      { label: 'Intégrations', href: '/#outils' },
+    ],
+  },
+  {
+    titre: 'Légal',
+    liens: [
+      { label: 'Mentions légales', href: '/mentions-legales' },
+      { label: 'Politique de confidentialité', href: '/confidentialite' },
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-[#1A2128] bg-[#0A0D12]">
-      <div className="mx-auto max-w-[1200px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+    <footer className="border-t border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+      <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <Stagger
           gap={0.06}
-          className="mb-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+          className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16"
         >
           {/* Marque */}
           <StaggerItem>
-            <div className="mb-4 font-[family-name:var(--font-archivo)] text-[0.7rem] uppercase tracking-[0.18em] text-[#CDD5DD]">
-              NASSFLOW
-            </div>
+            <span className="flex flex-col leading-none">
+              <span className="font-[family-name:var(--font-archivo)] text-[1.0625rem] font-extrabold tracking-[-0.02em] text-[var(--ink)]">
+                {homepageContent.navigation.brand}
+              </span>
 
-            <div className="mb-3 max-w-xs text-[0.8rem] leading-6 text-[#8E98A3]">
-              Studio IA spécialisé en automatisation et systèmes digitaux.
-            </div>
-
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] font-medium uppercase tracking-[0.16em] text-[#7CC7FF]">
-              <span>VOS OUTILS, RELIÉS</span>
-            </div>
+              <span className="mt-1.5 font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.24em] text-[var(--ink-muted)]">
+                {homepageContent.navigation.signature}
+              </span>
+            </span>
           </StaggerItem>
 
-          {/* Navigation */}
-          <StaggerItem>
-            <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
-              Navigation
-            </div>
+          {/* Les deux colonnes de liens */}
+          <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-20">
+            {colonnes.map((colonne) => (
+              <StaggerItem key={colonne.titre}>
+                <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+                  {colonne.titre}
+                </p>
 
-            <nav className="flex flex-col items-start gap-2.5">
-              <Link
-                href="/"
-                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
-              >
-                Accueil
-              </Link>
+                <nav className="mt-5 flex flex-col items-start gap-3">
+                  {colonne.liens.map((lien) => (
+                    <Link
+                      key={lien.label}
+                      href={lien.href}
+                      className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                    >
+                      {lien.label}
+                    </Link>
+                  ))}
+                </nav>
+              </StaggerItem>
+            ))}
+          </div>
 
-              <Link
-                href="/#systems"
-                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
-              >
-                Problèmes
-              </Link>
-
-              <Link
-                href="/#outils"
-                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
-              >
-                Intégrations
-              </Link>
-
-              <Link
-                href="/#solutions"
-                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
-              >
-                Solutions
-              </Link>
-
-              <Link
-                href="/demarrer-un-projet"
-                className="link-underline w-fit text-[0.8rem] text-[#CDD5DD] transition-colors duration-200 hover:text-[#F4F7FA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
-              >
-                Contact
-              </Link>
-            </nav>
-          </StaggerItem>
-
-          {/* Collaboration */}
-          <StaggerItem>
-            <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
-              Collaboration
-            </div>
-
-            <p className="max-w-xs text-[0.8rem] leading-6 text-[#CDD5DD]">
-              Nous construisons des systèmes pour des entreprises qui osent
-              innover.
-            </p>
-          </StaggerItem>
-
-          {/* Action */}
-          <StaggerItem>
-            <div className="mb-4 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
-              Action
-            </div>
-
+          {/* Action et mention de copyright */}
+          <StaggerItem className="lg:text-right">
             <Link
               href="/demarrer-un-projet"
-              className="inline-flex min-h-11 items-center rounded-full border border-[#2A333C] px-4 py-2 text-[0.8rem] text-[#CDD5DD] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#7CC7FF] hover:text-[#F4F7FA] hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12]"
+              className="inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink)] transition-colors duration-200 ease-out hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
             >
               Démarrer un projet
             </Link>
+
+            <p className="mt-6 text-[0.75rem] text-[var(--ink-muted)]">
+              © 2026 NASSFLOW AGENCY
+            </p>
           </StaggerItem>
         </Stagger>
-
-        {/* Bas du footer */}
-        <div className="border-t border-[#1A2128] pt-6">
-          <div className="flex flex-col gap-4 text-[0.75rem] text-[#8E98A3]">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-              <div className="font-medium text-[#CDD5DD]">
-                © 2026 NASSFLOW AGENCY
-              </div>
-
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-                <span className="hidden text-[#2A333C] sm:inline">•</span>
-
-                <Link
-                  href="/mentions-legales"
-                  className="link-underline text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
-                >
-                  Mentions légales
-                </Link>
-
-                <span className="hidden text-[#2A333C] sm:inline">•</span>
-
-                <Link
-                  href="/confidentialite"
-                  className="link-underline text-[#8E98A3] transition-colors duration-200 hover:text-[#7CC7FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF]"
-                >
-                  Politique de confidentialité
-                </Link>
-              </div>
-            </div>
-
-            <div className="text-[0.7rem] leading-5 text-[#8E98A3]">
-              Construit pour les entreprises qui construisent l&apos;avenir.
-            </div>
-          </div>
-        </div>
       </div>
     </footer>
   );
