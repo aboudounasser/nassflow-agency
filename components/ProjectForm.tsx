@@ -5,6 +5,7 @@ import { AnimatePresence, m } from 'motion/react';
 import { getSupabaseClient } from '@/lib/supabase/client';
 import { sendNotification } from '@/lib/notify';
 import { transitions } from '@/lib/motion';
+import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 
 export function ProjectForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,20 +73,18 @@ export function ProjectForm() {
   return (
       <form
         onSubmit={handleSubmit}
-        className="border-t border-[#2A333C]"
+        className="border-t border-[var(--rule)]"
       >
-        <div className="border-b border-[#2A333C] py-7 sm:py-8">
-          <p className="mb-5 text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:mb-6 sm:text-[0.72rem] sm:tracking-[0.16em]">
-            01 — Votre entreprise
-          </p>
+        <div className="border-b border-[var(--rule)] py-7 sm:py-8">
+          <FormStepTitle step="01">Votre entreprise</FormStepTitle>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
-            <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70 sm:border-b-0">
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="firstName"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Prénom <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Prénom <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <input
@@ -94,16 +93,16 @@ export function ProjectForm() {
                 type="text"
                 autoComplete="given-name"
                 placeholder="Votre prénom"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
 
-            <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70 sm:border-b-0">
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="lastName"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Nom <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Nom <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <input
@@ -112,16 +111,16 @@ export function ProjectForm() {
                 type="text"
                 autoComplete="family-name"
                 placeholder="Votre nom"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
 
-            <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70">
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="company"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Entreprise <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Entreprise <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <input
@@ -130,14 +129,14 @@ export function ProjectForm() {
                 type="text"
                 autoComplete="organization"
                 placeholder="Nom de votre entreprise"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
 
-            <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70">
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="email"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
                 E-mail professionnel
               </label>
@@ -150,16 +149,16 @@ export function ProjectForm() {
                 autoComplete="email"
                 inputMode="email"
                 placeholder="vous@entreprise.com"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
 
-            <div className="border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70 sm:col-span-2">
+            <div className={`${formStyles.fieldWrap} sm:col-span-2`}>
               <label
                 htmlFor="phone"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Téléphone <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Téléphone <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <input
@@ -169,17 +168,17 @@ export function ProjectForm() {
                 autoComplete="tel"
                 inputMode="tel"
                 placeholder="Votre numéro de téléphone"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
 
-            <div className="py-5 sm:col-span-2">
+            <div className={`${formStyles.fieldWrap} sm:col-span-2`}>
               <label
                 htmlFor="website"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
                 Site web
-                <span className="ml-2 normal-case tracking-normal text-[#8E98A3]">
+                <span className={formStyles.optional}>
                   (facultatif)
                 </span>
               </label>
@@ -191,76 +190,74 @@ export function ProjectForm() {
                 inputMode="url"
                 autoComplete="url"
                 placeholder="https://votre-site.com"
-                className="min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]"
+                className={formStyles.input}
               />
             </div>
           </div>
         </div>
 
-        <div className="border-b border-[#2A333C] py-7 sm:py-8">
-          <p className="mb-5 text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:mb-6 sm:text-[0.72rem] sm:tracking-[0.16em]">
-            02 — Votre projet
-          </p>
+        <div className="border-b border-[var(--rule)] py-7 sm:py-8">
+          <FormStepTitle step="02">Votre projet</FormStepTitle>
 
           <div className="space-y-8 sm:space-y-9">
-            <div>
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="solution"
-                className="mb-3 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Que souhaitez-vous mettre en place ? <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Que souhaitez-vous mettre en place ? <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <select
                 id="solution"
                 name="solution"
                 defaultValue=""
-                className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
+                className={formStyles.select}
               >
-                <option value="" disabled className="bg-[#10161D]">
+                <option value="" disabled className={formStyles.option}>
                   Sélectionnez une solution
                 </option>
 
-                <option value="website" className="bg-[#10161D]">
+                <option value="website" className={formStyles.option}>
                   Site web
                 </option>
 
-                <option value="ai-assistant" className="bg-[#10161D]">
+                <option value="ai-assistant" className={formStyles.option}>
                   Assistant IA
                 </option>
 
-                <option value="whatsapp-ai" className="bg-[#10161D]">
+                <option value="whatsapp-ai" className={formStyles.option}>
                   WhatsApp IA
                 </option>
 
-                <option value="automation" className="bg-[#10161D]">
+                <option value="automation" className={formStyles.option}>
                   Automatisation
                 </option>
 
-                <option value="ai-agent" className="bg-[#10161D]">
+                <option value="ai-agent" className={formStyles.option}>
                   Agent IA
                 </option>
 
-                <option value="integration" className="bg-[#10161D]">
+                <option value="integration" className={formStyles.option}>
                   Intégration d&apos;outils
                 </option>
 
-                <option value="multiple" className="bg-[#10161D]">
+                <option value="multiple" className={formStyles.option}>
                   Plusieurs solutions
                 </option>
 
-                <option value="unknown" className="bg-[#10161D]">
+                <option value="unknown" className={formStyles.option}>
                   Je ne sais pas encore
                 </option>
               </select>
             </div>
 
-            <div>
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="need"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Quel est votre principal besoin ? <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Quel est votre principal besoin ? <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <textarea
@@ -268,14 +265,14 @@ export function ProjectForm() {
                 name="need"
                 rows={4}
                 placeholder="Décrivez le problème que vous souhaitez résoudre..."
-                className="min-h-32 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
+                className={formStyles.textarea}
               />
             </div>
 
-            <div>
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="tools"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
                 Quels outils utilisez-vous actuellement ?
               </label>
@@ -285,93 +282,93 @@ export function ProjectForm() {
                 name="tools"
                 type="text"
                 placeholder="CRM, ERP, WhatsApp, logiciels métier..."
-                className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
+                className={formStyles.input}
               />
             </div>
 
-            <div>
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="budget"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Budget envisagé <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Budget envisagé <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <select
                 id="budget"
                 name="budget"
                 defaultValue=""
-                className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
+                className={formStyles.select}
               >
-                <option value="" disabled className="bg-[#10161D]">
+                <option value="" disabled className={formStyles.option}>
                   Sélectionnez une fourchette
                 </option>
 
-                <option value="under-1000" className="bg-[#10161D]">
+                <option value="under-1000" className={formStyles.option}>
                   Moins de 1 000 €
                 </option>
 
-                <option value="1000-3000" className="bg-[#10161D]">
+                <option value="1000-3000" className={formStyles.option}>
                   1 000 € — 3 000 €
                 </option>
 
-                <option value="3000-5000" className="bg-[#10161D]">
+                <option value="3000-5000" className={formStyles.option}>
                   3 000 € — 5 000 €
                 </option>
 
-                <option value="5000-10000" className="bg-[#10161D]">
+                <option value="5000-10000" className={formStyles.option}>
                   5 000 € — 10 000 €
                 </option>
 
-                <option value="over-10000" className="bg-[#10161D]">
+                <option value="over-10000" className={formStyles.option}>
                   Plus de 10 000 €
                 </option>
 
-                <option value="unknown" className="bg-[#10161D]">
+                <option value="unknown" className={formStyles.option}>
                   Je ne sais pas encore
                 </option>
               </select>
             </div>
 
-            <div>
+            <div className={formStyles.fieldWrap}>
               <label
                 htmlFor="timeline"
-                className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+                className={formStyles.label}
               >
-                Délai souhaité <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">(facultatif)</span>
+                Délai souhaité <span className={formStyles.optional}>(facultatif)</span>
               </label>
 
               <select
                 id="timeline"
                 name="timeline"
                 defaultValue=""
-                className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
+                className={formStyles.select}
               >
-                <option value="" disabled className="bg-[#10161D]">
+                <option value="" disabled className={formStyles.option}>
                   Sélectionnez un délai
                 </option>
 
-                <option value="urgent" className="bg-[#10161D]">
+                <option value="urgent" className={formStyles.option}>
                   Dès que possible
                 </option>
 
-                <option value="1-month" className="bg-[#10161D]">
+                <option value="1-month" className={formStyles.option}>
                   Dans le mois
                 </option>
 
-                <option value="1-3-months" className="bg-[#10161D]">
+                <option value="1-3-months" className={formStyles.option}>
                   Dans 1 à 3 mois
                 </option>
 
-                <option value="3-6-months" className="bg-[#10161D]">
+                <option value="3-6-months" className={formStyles.option}>
                   Dans 3 à 6 mois
                 </option>
 
-                <option value="later" className="bg-[#10161D]">
+                <option value="later" className={formStyles.option}>
                   Plus tard
                 </option>
 
-                <option value="unknown" className="bg-[#10161D]">
+                <option value="unknown" className={formStyles.option}>
                   Pas encore défini
                 </option>
               </select>
@@ -380,14 +377,12 @@ export function ProjectForm() {
         </div>
 
         <div className="py-7 sm:py-8">
-          <p className="mb-5 text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:mb-6 sm:text-[0.72rem] sm:tracking-[0.16em]">
-            03 — Votre demande
-          </p>
+          <FormStepTitle step="03">Votre demande</FormStepTitle>
 
-          <div>
+          <div className={formStyles.fieldWrap}>
             <label
               htmlFor="message"
-              className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+              className={formStyles.label}
             >
               Votre message
             </label>
@@ -398,14 +393,14 @@ export function ProjectForm() {
               required
               rows={7}
               placeholder="Une question rapide ou le détail de votre projet — les deux vont bien."
-              className="min-h-44 w-full resize-none border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:border-[#7CC7FF]"
+              className={formStyles.textarea}
             />
           </div>
 
-          <div className="mt-8">
+          <div className={`${formStyles.fieldWrap} mt-8`}>
             <label
               htmlFor="source"
-              className="mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]"
+              className={formStyles.label}
             >
               Comment avez-vous connu NASSFLOW ?
             </label>
@@ -414,25 +409,25 @@ export function ProjectForm() {
               id="source"
               name="source"
               defaultValue=""
-              className="min-h-12 w-full border-b border-[#2A333C] bg-transparent py-3 duration-300 text-base text-[#CDD5DD] outline-none transition-colors focus:border-[#7CC7FF]"
+              className={formStyles.select}
             >
-              <option value="" className="bg-[#10161D]">
+              <option value="" className={formStyles.option}>
                 Sélectionnez une option
               </option>
 
-              <option value="google" className="bg-[#10161D]">
+              <option value="google" className={formStyles.option}>
                 Google
               </option>
 
-              <option value="social" className="bg-[#10161D]">
+              <option value="social" className={formStyles.option}>
                 Réseaux sociaux
               </option>
 
-              <option value="recommendation" className="bg-[#10161D]">
+              <option value="recommendation" className={formStyles.option}>
                 Recommandation
               </option>
 
-              <option value="other" className="bg-[#10161D]">
+              <option value="other" className={formStyles.option}>
                 Autre
               </option>
             </select>
@@ -448,9 +443,9 @@ export function ProjectForm() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={transitions.quick}
-                className="mb-6 rounded-2xl border border-[#7CC7FF]/30 bg-[#10161D] px-4 py-4 text-sm leading-6 text-[#CDD5DD] sm:px-5"
+                className={`${formStyles.success} mb-6 text-[1.0625rem] leading-[1.6] text-[var(--ink-body)]`}
               >
-                <span className="font-medium text-[#7CC7FF]">
+                <span className="font-[family-name:var(--font-archivo)] font-bold text-[var(--ink)]">
                   Demande envoyée.
                 </span>{' '}
                 Merci. Nous avons bien reçu votre projet et nous reviendrons
@@ -466,7 +461,7 @@ export function ProjectForm() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={transitions.quick}
-                className="mb-6 rounded-2xl border border-[#2A333C] bg-[#10161D] px-4 py-4 text-sm leading-6 text-[#CDD5DD] sm:px-5"
+                className={formStyles.error}
               >
                 {error}
               </m.div>
@@ -474,8 +469,8 @@ export function ProjectForm() {
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col gap-5 border-t border-[#2A333C] pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-7">
-          <p className="max-w-[520px] text-xs leading-5 text-[#8E98A3]">
+        <div className="flex flex-col gap-5 border-t border-[var(--rule)] pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
+          <p className={formStyles.note}>
             Les informations transmises servent uniquement à comprendre
             votre projet et à vous recontacter au sujet de votre demande.
           </p>
@@ -483,7 +478,7 @@ export function ProjectForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="sheen inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-full bg-[#7CC7FF] px-7 text-sm font-medium text-[#0A0D12] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#A9D9FF] hover:shadow-[0_10px_30px_rgba(124,199,255,0.22)] focus:outline-none focus:ring-2 focus:ring-[#7CC7FF] focus:ring-offset-2 focus:ring-offset-[#0A0D12] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+            className={formStyles.submit}
           >
             {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
           </button>

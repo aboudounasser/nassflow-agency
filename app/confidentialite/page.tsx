@@ -10,47 +10,47 @@ export const metadata: Metadata = {
 
 export default function PolitiqueConfidentialite() {
   return (
-    <main className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
-      <div className="mx-auto max-w-[900px] px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
+      <div className="mx-auto max-w-[68ch] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
-          <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2.2rem,9vw,3rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:text-5xl">
+          <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2rem,7vw,3rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
             Politique de confidentialité
           </h1>
 
-          <p className="mt-4 max-w-[720px] text-sm leading-6 text-[#8E98A3] sm:text-base sm:leading-7">
+          <p className="mt-4 max-w-[720px] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
             NASSFLOW AGENCY s&apos;engage à respecter votre vie privée et à
             protéger vos données personnelles.
           </p>
         </div>
 
-        <div className="space-y-6 text-[0.94rem] leading-7 text-[#CDD5DD] sm:space-y-8 sm:text-[0.95rem]">
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+        <div className="text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Responsable de traitement
             </h2>
 
             <p>
-              <span className="text-[#8E98A3]">Responsable :</span>{' '}
-              <span className="text-[#CDD5DD]">Nasser Aboudou</span>
+              <span className="text-[var(--ink-muted)]">Responsable :</span>{' '}
+              <span className="text-[var(--ink)]">Nasser Aboudou</span>
             </p>
 
             <p className="mt-2">
-              <span className="text-[#8E98A3]">Adresse :</span>{' '}
-              <span className="text-[#CDD5DD]">
+              <span className="text-[var(--ink-muted)]">Adresse :</span>{' '}
+              <span className="text-[var(--ink)]">
                 70 avenue Rhin et Danube, 86000 Poitiers, France
               </span>
             </p>
 
             <p className="mt-2">
-              <span className="text-[#8E98A3]">Contact :</span>{' '}
-              <span className="break-words text-[#CDD5DD]">
+              <span className="text-[var(--ink-muted)]">Contact :</span>{' '}
+              <span className="break-words text-[var(--ink)]">
                 contact@nassflow.com
               </span>
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Données collectées
             </h2>
 
@@ -68,8 +68,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Finalités du traitement
             </h2>
 
@@ -80,8 +80,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Base légale
             </h2>
 
@@ -92,8 +92,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Durée de conservation
             </h2>
 
@@ -104,8 +104,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Sous-traitants et hébergement
             </h2>
 
@@ -128,8 +128,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Vos droits
             </h2>
 
@@ -142,14 +142,14 @@ export default function PolitiqueConfidentialite() {
             <p className="mt-3">
               Ces droits s&apos;exercent par écrit à l&apos;adresse :
               <br />
-              <span className="font-medium break-words text-[#CDD5DD]">
+              <span className="break-words font-semibold text-[var(--ink)]">
                 contact@nassflow.com
               </span>
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Réclamation
             </h2>
 
@@ -161,8 +161,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <section className="border-l-2 border-[#2A333C] py-4 pl-4 sm:pl-6">
-            <h2 className="mb-3 text-[0.72rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.85rem] sm:tracking-[0.16em]">
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Modifications
             </h2>
 
@@ -174,8 +174,8 @@ export default function PolitiqueConfidentialite() {
             </p>
           </section>
 
-          <div className="border-t border-[#1A2128] pt-6 sm:mt-12 sm:pt-8">
-            <p className="text-[0.8rem] leading-5 text-[#8E98A3] sm:text-[0.85rem]">
+          <div className="border-t border-[var(--rule)] pt-8 sm:mt-12">
+            <p className="text-[0.875rem] leading-6 text-[var(--ink-muted)]">
               Dernière mise à jour : septembre 2026
             </p>
           </div>
@@ -184,7 +184,7 @@ export default function PolitiqueConfidentialite() {
         <div className="mt-8 sm:mt-12">
           <Link
             href="/"
-            className="inline-flex min-h-11 items-center rounded-full border border-[#2A333C] px-4 py-2 text-[0.8rem] text-[#CDD5DD] transition-all duration-200 hover:border-[#7CC7FF] hover:text-[#F4F7FA]"
+            className="inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
           >
             Retour à l&apos;accueil
           </Link>

@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SectionShell } from '@/components/SectionShell';
-import { SectionLabel } from '@/components/SectionLabel';
-import { ButtonSecondary } from '@/components/ui/ButtonSecondary';
 import { Reveal } from '@/components/motion/Reveal';
 import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
@@ -56,60 +54,50 @@ export default async function SolutionPage({
   if (!solution) notFound();
 
   return (
-    <main className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
+    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
       <SectionShell className="py-10 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
-          <Reveal onMount>
+          <Reveal onMount preset="soft">
             {/* Même motif de retour que /demarrer-un-projet,
                 pointé sur l'ancre du catalogue plutôt que sur le haut de
                 la home : on revient là d'où l'on vient. */}
             <Link
               href="/#solutions"
-              className="group mb-10 inline-flex min-h-11 items-center gap-2 text-sm text-[#8E98A3] transition-colors hover:text-[#7CC7FF] sm:mb-14"
+              className="mb-12 inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:mb-16"
             >
-              <span
-                aria-hidden="true"
-                className="inline-block transition-transform duration-200 group-hover:-translate-x-1"
-              >
-                ←
-              </span>
-              Retour aux solutions
+              ← Retour aux solutions
             </Link>
 
-            <SectionLabel>{solution.categoryLabel}</SectionLabel>
+            <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              {solution.categoryLabel}
+            </span>
 
-            <h1 className="mt-5 max-w-[680px] font-[family-name:var(--font-archivo)] text-[clamp(2rem,8vw,3.25rem)] font-semibold leading-[1.06] tracking-[-0.045em] text-[#F4F7FA] sm:mt-6">
+            <h1 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,6.4vw,4rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
               {solution.title}
             </h1>
 
             {/* La phrase du dirigeant, citée comme sur la home. */}
-            <p className="mt-5 max-w-[560px] text-[1.05rem] leading-7 text-[#8E98A3] sm:mt-6">
-              <span className="text-[#8E98A3]/70">«&nbsp;</span>
-              {solution.problem}
-              <span className="text-[#8E98A3]/70">&nbsp;»</span>
+            <p className="mt-6 max-w-[30ch] font-[family-name:var(--font-serif)] text-[1.75rem] italic leading-[1.25] text-[var(--ink-muted)]">
+              «&nbsp;{solution.problem}&nbsp;»
             </p>
           </Reveal>
 
           <Reveal preset="soft" delay={0.12} className="mt-10 sm:mt-12">
-            <div className="rounded-[1.25rem] border border-[#2A333C] bg-[#10161D]/70 p-6 sm:rounded-[1.5rem] sm:p-8">
-              <h2 className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-[#8E98A3]">
+            <div className="border-t border-[var(--rule)] pt-8">
+              <h2 className="font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
                 Ce qu&apos;on installe
               </h2>
 
-              <p className="mt-4 text-[1.05rem] leading-7 text-[#E3E9EF] sm:text-[1.1rem]">
+              <p className="mt-5 max-w-[48ch] text-[1.375rem] leading-[1.4] text-[var(--ink)]">
                 {solution.delivers}
               </p>
 
-              <ul className="mt-6 space-y-3 border-t border-[#2A333C] pt-6">
+              <ul className="mt-10">
                 {solution.includes.map((item) => (
                   <li
                     key={item}
-                    className="flex gap-3 text-[0.95rem] leading-6 text-[#CDD5DD]"
+                    className="border-t border-[var(--rule)] py-5 text-[1.0625rem] leading-[1.55] text-[var(--ink-body)]"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-[#7CC7FF]/60"
-                    />
                     {item}
                   </li>
                 ))}
@@ -121,11 +109,11 @@ export default async function SolutionPage({
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
           <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
-            <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(1.5rem,5vw,2rem)] font-semibold leading-[1.12] tracking-[-0.04em] text-[#F4F7FA]">
+            <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(1.75rem,5vw,2.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[var(--ink)]">
               Dites-nous où vous en êtes
             </h2>
 
-            <p className="mt-3 max-w-[520px] text-[0.95rem] leading-7 text-[#8E98A3]">
+            <p className="mt-4 max-w-[52ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
               On part de votre situation, pas d&apos;un modèle tout fait.
             </p>
 
@@ -135,19 +123,18 @@ export default async function SolutionPage({
           </Reveal>
 
           <Reveal preset="soft" delay={0.24} className="mt-10 sm:mt-12">
-            <div className="flex flex-col gap-5 border-t border-[#2A333C] pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:pt-10">
-              <p className="max-w-[460px] text-[0.95rem] leading-7 text-[#8E98A3]">
+            <div className="flex flex-col gap-6 border-t border-[var(--rule)] pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
+              <p className="max-w-[52ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
                 Cette solution est un point de départ. On l&apos;adapte à votre
                 façon de travailler après en avoir parlé avec vous.
               </p>
 
-              <ButtonSecondary
+              <Link
                 href="/demarrer-un-projet"
-                arrow="right"
-                className="min-h-12 w-full justify-center px-6 sm:w-auto"
+                className="inline-flex shrink-0 items-center self-start border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:self-auto"
               >
                 En parler avec nous
-              </ButtonSecondary>
+              </Link>
             </div>
           </Reveal>
         </div>
