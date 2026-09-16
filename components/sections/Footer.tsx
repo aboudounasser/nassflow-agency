@@ -4,11 +4,14 @@ import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 /**
  * Le pied de page, réduit à ce qu'on y cherche vraiment : qui parle, où
- * aller, et comment nous joindre. Les trois blocs de prose qui s'y
- * trouvaient — la description du studio, le paragraphe « Collaboration »
- * et la ligne « Construit pour les entreprises qui construisent
- * l'avenir » — sont retirés : personne ne lit un manifeste en pied de
- * page, et la home le dit déjà mieux plus haut.
+ * aller, et comment nous joindre. Le paragraphe « Collaboration » et la
+ * ligne « Construit pour les entreprises qui construisent l'avenir »
+ * sont partis : personne ne lit un manifeste en pied de page, et la
+ * home le dit déjà mieux plus haut.
+ *
+ * La phrase descriptive, elle, est revenue — réécrite. Elle est le seul
+ * texte qui dise l'activité sur toutes les pages du site, ce qui la rend
+ * utile au référencement, et la retirer coûtait plus qu'elle ne pesait.
  */
 
 const colonnes = [
@@ -49,6 +52,16 @@ export function Footer() {
                 {homepageContent.navigation.signature}
               </span>
             </span>
+
+            {/* La seule phrase du site qui dise l'activité sur TOUTES les
+                pages : c'est ce qui la rend utile au référencement, et
+                c'est pourquoi elle revient après avoir disparu avec
+                l'ancien pied de page. Elle dit « agence » et non
+                « studio », comme partout ailleurs. */}
+            <p className="mt-5 max-w-[34ch] text-[0.875rem] leading-[1.5] text-[var(--ink-muted)]">
+              Agence d&apos;automatisation et d&apos;IA. Nous relions vos
+              outils entre eux.
+            </p>
           </StaggerItem>
 
           {/* Les deux colonnes de liens */}
