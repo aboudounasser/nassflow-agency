@@ -1,6 +1,58 @@
 @import 'tailwindcss';
 
+/* ═════════════════════════════════════════════
+   DIRECTION ÉDITORIALE — papier, encre, vermillon
+   ═════════════════════════════════════════════
+
+   Le site quitte le thème sombre « bleu nuit » pour une direction de
+   presse suisse : une page en papier, un texte à l'encre, un seul
+   accent.
+
+   - Le fond est un papier (`--paper`), pas un écran. Le texte est de
+     l'encre (`--ink`), déclinée en deux valeurs plus claires pour les
+     paragraphes et les légendes.
+   - Un seul accent, le vermillon (`--accent`). Il ne sert qu'à trois
+     choses : les CTA pleins, les numéros d'index et les sur-titres.
+     Tout le reste est noir sur papier. Un deuxième accent le viderait
+     de son sens.
+   - Les séparations se font au FILET de 1px (`--rule`), jamais à la
+     lueur : ni halo, ni dégradé, ni box-shadow, ni backdrop-blur.
+   - `border-radius: 0` partout, boutons compris. Les angles sont vifs.
+
+   Les jetons du thème sombre restent définis en dessous le temps que la
+   refonte traverse le site section par section ; ils disparaîtront quand
+   plus rien ne les lira.
+
+   ─────────────────────────────────────────────
+   ÉCHELLE TYPOGRAPHIQUE
+
+   Deux familles, pas trois. Archivo (`--font-archivo`) porte la
+   structure : titres, UI, micro-labels. Instrument Serif
+   (`--font-serif`) porte la voix : les citations de dirigeants et la
+   seconde moitié des grands titres. Le monospace a disparu — les
+   micro-labels sont en Archivo 600 majuscule interlettré.
+
+     h1         88px desktop / 39px mobile · lh 0.95 · tracking -0.038em · 800
+     h2         64px                       · lh 1.0  · tracking -0.035em · 800
+     h3 index   34px                       · lh 1.05 · tracking -0.028em · 700
+     citation   46px serif italique (grande) / 21px serif italique (petite)
+     corps      18–20px                    · lh 1.55–1.6
+     sur-titre  11px · 600 · tracking 0.2em  · majuscules
+     tag        11px · 600 · tracking 0.16em · majuscules
+     signature  10px · 600 · tracking 0.24em · majuscules
+   ═════════════════════════════════════════════ */
+
 :root {
+  /* Direction éditoriale */
+  --paper: #f2f0eb;
+  --ink: #141414;
+  --ink-body: #3a3833;
+  --ink-muted: #6b6862;
+  --rule: #d6d2c8;
+  --accent: #d9361f;
+  --on-accent: #f2f0eb;
+
+  /* Thème sombre — en sursis, voir le commentaire d'en-tête. */
   --background: #0a0d12;
   --background-secondary: #10161d;
   --surface: #141b22;
@@ -12,9 +64,8 @@
   --accent-primary: #7cc7ff;
   --accent-secondary: #93a7ff;
   --hover: #a9d9ff;
-  --font-heading: var(--font-sora);
+  --font-heading: var(--font-archivo);
   --font-body: var(--font-inter);
-  --font-mono: var(--font-ibm-plex-mono);
 }
 
 @theme inline {
@@ -29,9 +80,16 @@
   --color-accent-primary: var(--accent-primary);
   --color-accent-secondary: var(--accent-secondary);
   --color-hover: var(--hover);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-body: var(--ink-body);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);
-  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
 }
 
 /* Ces règles visent des éléments HTML : sans `@layer base`, elles
