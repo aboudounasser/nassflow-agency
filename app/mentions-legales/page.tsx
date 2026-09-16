@@ -13,7 +13,7 @@ export default function MentionsLegales() {
     <main className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
       <div className="mx-auto max-w-[900px] px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
-          <h1 className="font-[family-name:var(--font-sora)] text-[clamp(2.2rem,9vw,3rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:text-5xl">
+          <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2.2rem,9vw,3rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:text-5xl">
             Mentions légales
           </h1>
 

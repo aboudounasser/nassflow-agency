@@ -181,7 +181,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         role="status"
         className="rounded-[1.25rem] border border-[#7CC7FF]/30 bg-[#10161D] p-6 sm:rounded-[1.5rem] sm:p-8"
       >
-        <p className="font-[family-name:var(--font-sora)] text-[1.15rem] font-medium tracking-[-0.03em] text-[#F4F7FA]">
+        <p className="font-[family-name:var(--font-archivo)] text-[1.15rem] font-medium tracking-[-0.03em] text-[#F4F7FA]">
           Demande envoyée.
         </p>
 

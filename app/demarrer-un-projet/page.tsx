@@ -46,7 +46,7 @@ export default function DemarrerUnProjetPage() {
               Démarrer un projet
             </p>
 
-            <h1 className="mt-5 max-w-[800px] font-[family-name:var(--font-sora)] text-[clamp(2.2rem,9vw,4rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-6 sm:text-5xl sm:leading-[1.05] lg:text-[4rem]">
+            <h1 className="mt-5 max-w-[800px] font-[family-name:var(--font-archivo)] text-[clamp(2.2rem,9vw,4rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-6 sm:text-5xl sm:leading-[1.05] lg:text-[4rem]">
               Parlons de ce qui vous fait perdre du temps.
             </h1>
 

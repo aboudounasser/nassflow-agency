@@ -17,7 +17,7 @@ export function FinalCTA() {
         </StaggerItem>
 
         <StaggerItem preset="default">
-          <h2 className="font-[family-name:var(--font-sora)] text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-[#F4F7FA] sm:text-[clamp(2.3rem,5vw,3rem)] sm:leading-[1.05]">
+          <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-[#F4F7FA] sm:text-[clamp(2.3rem,5vw,3rem)] sm:leading-[1.05]">
             Prêt à construire votre système intelligent ?
           </h2>
         </StaggerItem>

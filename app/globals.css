@@ -26,11 +26,20 @@
    ─────────────────────────────────────────────
    ÉCHELLE TYPOGRAPHIQUE
 
-   Deux familles, pas trois. Archivo (`--font-archivo`) porte la
-   structure : titres, UI, micro-labels. Instrument Serif
-   (`--font-serif`) porte la voix : les citations de dirigeants et la
-   seconde moitié des grands titres. Le monospace a disparu — les
-   micro-labels sont en Archivo 600 majuscule interlettré.
+   Deux familles, pas trois, et pas de troisième à ajouter. Archivo
+   (`--font-archivo`) porte TOUT ce qui n'est pas la voix : les titres,
+   l'UI, les micro-labels, et le CORPS DE TEXTE — elle est dessinée pour
+   tenir en taille de lecture, il n'y a donc pas de police de labeur
+   séparée. Instrument Serif (`--font-serif`) porte la voix, et elle
+   seule : les citations de dirigeants et la seconde moitié des grands
+   titres.
+
+   Le monospace et Inter ont disparu du projet. Les micro-labels que le
+   monospace portait sont en Archivo 600 majuscule interlettré ; le
+   corps qu'Inter portait est en Archivo 400. `--font-body` reste comme
+   alias de lecture, mais il pointe sur Archivo : si un chantier a
+   besoin d'une police de corps, la réponse est Archivo, pas une
+   nouvelle famille.
 
      h1         88px desktop / 39px mobile · lh 0.95 · tracking -0.038em · 800
      h2         64px                       · lh 1.0  · tracking -0.035em · 800
@@ -65,7 +74,8 @@
   --accent-secondary: #93a7ff;
   --hover: #a9d9ff;
   --font-heading: var(--font-archivo);
-  --font-body: var(--font-inter);
+  /* Le corps aussi : voir l'en-tête, il n'y a pas de troisième famille. */
+  --font-body: var(--font-archivo);
 }
 
 @theme inline {

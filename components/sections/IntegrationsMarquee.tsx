@@ -24,11 +24,11 @@ function ToolChip({ tool }: { tool: Tool }) {
       )}
 
       <span className="flex flex-col leading-none">
-        <span className="whitespace-nowrap font-[family-name:var(--font-sora)] text-[0.9rem] font-medium tracking-[-0.01em] text-[#F4F7FA] sm:text-[0.98rem]">
+        <span className="whitespace-nowrap font-[family-name:var(--font-archivo)] text-[0.9rem] font-medium tracking-[-0.01em] text-[#F4F7FA] sm:text-[0.98rem]">
           {tool.name}
         </span>
 
-        <span className="mt-1.5 whitespace-nowrap font-[family-name:var(--font-ibm-plex-mono)] text-[0.62rem] uppercase tracking-[0.13em] text-[#9BA5AF] sm:text-[0.66rem] sm:tracking-[0.14em]">
+        <span className="mt-1.5 whitespace-nowrap font-[family-name:var(--font-archivo)] text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-[#9BA5AF] sm:text-[0.66rem] sm:tracking-[0.14em]">
           {tool.role}
         </span>
       </span>
@@ -75,7 +75,7 @@ function MarqueeRow({
   return (
     <div>
       <SectionShell className="mb-3.5">
-        <p className="font-[family-name:var(--font-ibm-plex-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[#8E98A3] sm:text-[0.66rem]">
+        <p className="font-[family-name:var(--font-archivo)] text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#8E98A3] sm:text-[0.66rem]">
           {label}
         </p>
       </SectionShell>
@@ -112,7 +112,7 @@ export function IntegrationsMarquee() {
         <Reveal className="mx-auto mb-10 max-w-[680px] text-center sm:mb-12">
           <SectionLabel>Intégrations</SectionLabel>
 
-          <h2 className="mt-4 font-[family-name:var(--font-sora)] text-[clamp(1.8rem,6vw,2.75rem)] font-semibold leading-[1.06] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
+          <h2 className="mt-4 font-[family-name:var(--font-archivo)] text-[clamp(1.8rem,6vw,2.75rem)] font-semibold leading-[1.06] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
             On ne remplace rien. On relie.
           </h2>
 

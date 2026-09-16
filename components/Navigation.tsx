@@ -66,7 +66,7 @@ export function Navigation() {
           onClick={closeMenu}
         >
           <div className="flex flex-col leading-none">
-            <span className="font-[family-name:var(--font-sora)] text-[0.68rem] font-semibold tracking-[0.16em] text-[#F4F7FA] transition-colors duration-200 group-hover:text-[#A9D9FF] min-[380px]:text-[0.72rem] sm:text-[0.78rem]">
+            <span className="font-[family-name:var(--font-archivo)] text-[0.68rem] font-semibold tracking-[0.16em] text-[#F4F7FA] transition-colors duration-200 group-hover:text-[#A9D9FF] min-[380px]:text-[0.72rem] sm:text-[0.78rem]">
               {homepageContent.navigation.brand}
             </span>
 

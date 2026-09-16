@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Sora } from "next/font/google";
+import { Archivo, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/lib/seo";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Archivo porte toute la structure : titres, UI, et les micro-labels que
+// le monospace assurait avant. D'où les graisses jusqu'à 800.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const sora = Sora({
-  variable: "--font-sora",
+// Instrument Serif porte la voix : citations de dirigeants et seconde
+// moitié des grands titres. Une seule graisse, mais l'italique est
+// indispensable — c'est elle qui est appelée, pas le romain.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-serif",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -45,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${sora.variable} ${ibmPlexMono.variable}`}
+      className={`${archivo.variable} ${instrumentSerif.variable}`}
     >
       <head>
         {/* Sans JavaScript, Motion laisse ses blocs à l'état initial,

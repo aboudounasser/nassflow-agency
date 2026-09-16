@@ -23,12 +23,12 @@ function OfferRow({ offer, index }: { offer: SystemOffer; index: number }) {
         <div className="flex gap-4 sm:gap-5 lg:pl-6">
           <span
             aria-hidden="true"
-            className="mt-[0.55rem] shrink-0 font-[family-name:var(--font-ibm-plex-mono)] text-[0.68rem] tabular-nums text-[#8E98A3] transition-colors duration-300 group-hover:text-[#7CC7FF]"
+            className="mt-[0.55rem] shrink-0 font-[family-name:var(--font-archivo)] text-[0.68rem] font-semibold tabular-nums text-[#8E98A3] transition-colors duration-300 group-hover:text-[#7CC7FF]"
           >
             {String(index + 1).padStart(2, '0')}
           </span>
 
-          <h3 className="max-w-[22ch] font-[family-name:var(--font-sora)] text-[clamp(1.35rem,4.2vw,1.8rem)] font-medium leading-[1.24] tracking-[-0.035em] text-[#F4F7FA]">
+          <h3 className="max-w-[22ch] font-[family-name:var(--font-archivo)] text-[clamp(1.35rem,4.2vw,1.8rem)] font-medium leading-[1.24] tracking-[-0.035em] text-[#F4F7FA]">
             <span className="text-[#8E98A3]/70">«&nbsp;</span>
             {offer.situation}
             <span className="text-[#8E98A3]/70">&nbsp;»</span>
@@ -72,7 +72,7 @@ export function SystemsByProblem() {
         <Reveal className="section-aura mx-auto max-w-[720px] text-center">
           <SectionLabel>Ce que nous résolvons</SectionLabel>
 
-          <h2 className="mt-4 font-[family-name:var(--font-sora)] text-[clamp(1.9rem,6.5vw,3.1rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
+          <h2 className="mt-4 font-[family-name:var(--font-archivo)] text-[clamp(1.9rem,6.5vw,3.1rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
             Quatre symptômes. Une seule cause.
           </h2>
 

@@ -11,7 +11,7 @@ export function Footer() {
         >
           {/* Marque */}
           <StaggerItem>
-            <div className="mb-4 font-[family-name:var(--font-sora)] text-[0.7rem] uppercase tracking-[0.18em] text-[#CDD5DD]">
+            <div className="mb-4 font-[family-name:var(--font-archivo)] text-[0.7rem] uppercase tracking-[0.18em] text-[#CDD5DD]">
               NASSFLOW
             </div>
 

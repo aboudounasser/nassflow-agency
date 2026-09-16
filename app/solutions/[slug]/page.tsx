@@ -78,7 +78,7 @@ export default async function SolutionPage({
 
             <SectionLabel>{solution.categoryLabel}</SectionLabel>
 
-            <h1 className="mt-5 max-w-[680px] font-[family-name:var(--font-sora)] text-[clamp(2rem,8vw,3.25rem)] font-semibold leading-[1.06] tracking-[-0.045em] text-[#F4F7FA] sm:mt-6">
+            <h1 className="mt-5 max-w-[680px] font-[family-name:var(--font-archivo)] text-[clamp(2rem,8vw,3.25rem)] font-semibold leading-[1.06] tracking-[-0.045em] text-[#F4F7FA] sm:mt-6">
               {solution.title}
             </h1>
 
@@ -121,7 +121,7 @@ export default async function SolutionPage({
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
           <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
-            <h2 className="font-[family-name:var(--font-sora)] text-[clamp(1.5rem,5vw,2rem)] font-semibold leading-[1.12] tracking-[-0.04em] text-[#F4F7FA]">
+            <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(1.5rem,5vw,2rem)] font-semibold leading-[1.12] tracking-[-0.04em] text-[#F4F7FA]">
               Dites-nous où vous en êtes
             </h2>
 

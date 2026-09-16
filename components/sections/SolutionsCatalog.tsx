@@ -34,11 +34,11 @@ function SolutionCard({ solution }: { solution: Solution }) {
       href={`/solutions/${solution.slug}`}
       className="group flex h-full flex-col rounded-[1.25rem] border border-[#2A333C] bg-[#10161D]/70 p-6 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#7CC7FF]/40 hover:bg-[#111A23] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7CC7FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0D12] sm:rounded-[1.5rem] sm:p-7"
     >
-      <span className="font-[family-name:var(--font-ibm-plex-mono)] text-[0.66rem] uppercase tracking-[0.16em] text-[#8E98A3] transition-colors duration-300 group-hover:text-[#7CC7FF]">
+      <span className="font-[family-name:var(--font-archivo)] text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-[#8E98A3] transition-colors duration-300 group-hover:text-[#7CC7FF]">
         {solution.categoryLabel}
       </span>
 
-      <h3 className="mt-4 font-[family-name:var(--font-sora)] text-[1.3rem] font-medium leading-[1.22] tracking-[-0.035em] text-[#F4F7FA] sm:text-[1.4rem]">
+      <h3 className="mt-4 font-[family-name:var(--font-archivo)] text-[1.3rem] font-medium leading-[1.22] tracking-[-0.035em] text-[#F4F7FA] sm:text-[1.4rem]">
         {solution.title}
       </h3>
 
@@ -94,7 +94,7 @@ export function SolutionsCatalog() {
         <Reveal className="section-aura mx-auto max-w-[720px] text-center">
           <SectionLabel>Par où on commence</SectionLabel>
 
-          <h2 className="mt-4 font-[family-name:var(--font-sora)] text-[clamp(1.9rem,6.5vw,3.1rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
+          <h2 className="mt-4 font-[family-name:var(--font-archivo)] text-[clamp(1.9rem,6.5vw,3.1rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-5">
             Six points de départ, pas six produits.
           </h2>
 
@@ -109,7 +109,7 @@ export function SolutionsCatalog() {
           {groups.map((group) => (
             <div key={group.category}>
               <Reveal preset="soft" className="max-w-[560px]">
-                <h3 className="font-[family-name:var(--font-sora)] text-[1.05rem] font-medium uppercase tracking-[0.14em] text-[#F4F7FA]">
+                <h3 className="font-[family-name:var(--font-archivo)] text-[1.05rem] font-medium uppercase tracking-[0.14em] text-[#F4F7FA]">
                   {group.title}
                 </h3>
 
