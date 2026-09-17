@@ -57,17 +57,11 @@ export default async function SolutionPage({
     <main className="flex-1">
       <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
+          {/* Pas de lien « Retour aux solutions » ici : la navigation, juste
+              au-dessus, porte déjà une entrée « Solutions » vers la même
+              ancre. Deux liens identiques à quarante pixels l'un de l'autre
+              n'aident personne. */}
           <Reveal onMount preset="soft">
-            {/* Même motif de retour que /demarrer-un-projet,
-                pointé sur l'ancre du catalogue plutôt que sur le haut de
-                la home : on revient là d'où l'on vient. */}
-            <Link
-              href="/#solutions"
-              className="mb-12 inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:mb-16"
-            >
-              ← Retour aux solutions
-            </Link>
-
             <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
               {solution.categoryLabel}
             </span>

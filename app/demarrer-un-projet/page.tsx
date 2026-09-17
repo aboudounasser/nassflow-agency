@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { ProjectForm } from '@/components/ProjectForm';
 import { Reveal } from '@/components/motion/Reveal';
@@ -28,13 +27,8 @@ export default function DemarrerUnProjetPage() {
     <main className="flex-1">
       <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-[900px] px-1 sm:px-0">
-          <Link
-            href="/"
-            className="mb-12 inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:mb-16"
-          >
-            ← Retour à l&apos;accueil
-          </Link>
-
+          {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
+              déjà « Accueil », et le logo mène au même endroit. */}
           <Reveal onMount preset="soft" className="mb-10 sm:mb-14 lg:mb-16">
             <p className="font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
               Démarrer un projet
