@@ -64,19 +64,9 @@ export const viewport = { once: true, margin: '0px 0px -12% 0px' } as const;
    Variantes
    ───────────────────────────────────────────── */
 
-export const revealVariants: Variants = {
-  hidden: { opacity: 0, y: 22, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-};
-
 export const revealSoftVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0 },
-};
-
-export const scaleInVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.965, y: 16 },
-  visible: { opacity: 1, scale: 1, y: 0 },
 };
 
 /** Conteneur qui cadence l'apparition de ses enfants. */
@@ -91,6 +81,6 @@ export function staggerVariants(stagger = 0.075, delay = 0): Variants {
 
 /** Variantes neutres, servies quand l'utilisateur refuse les animations. */
 export const staticVariants: Variants = {
-  hidden: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' },
-  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' },
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
 };

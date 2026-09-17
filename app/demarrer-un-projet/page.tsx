@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { ProjectForm } from '@/components/ProjectForm';
 import { Reveal } from '@/components/motion/Reveal';
@@ -25,32 +24,21 @@ export const metadata: Metadata = {
 
 export default function DemarrerUnProjetPage() {
   return (
-    <main className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
-      <SectionShell className="py-10 sm:py-16 lg:py-24">
+    <main className="flex-1">
+      <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-[900px] px-1 sm:px-0">
-          <Link
-            href="/"
-            className="group mb-10 inline-flex min-h-11 items-center gap-2 text-sm text-[#8E98A3] transition-colors hover:text-[#7CC7FF] sm:mb-14"
-          >
-            <span
-              aria-hidden="true"
-              className="inline-block transition-transform duration-200 group-hover:-translate-x-1"
-            >
-              ←
-            </span>
-            Retour à l&apos;accueil
-          </Link>
-
-          <Reveal onMount className="mb-10 sm:mb-14 lg:mb-16">
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:text-[0.72rem] sm:tracking-[0.16em]">
+          {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
+              déjà « Accueil », et le logo mène au même endroit. */}
+          <Reveal onMount preset="soft" className="mb-10 sm:mb-14 lg:mb-16">
+            <p className="font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
               Démarrer un projet
             </p>
 
-            <h1 className="mt-5 max-w-[800px] font-[family-name:var(--font-sora)] text-[clamp(2.2rem,9vw,4rem)] font-semibold leading-[1.05] tracking-[-0.05em] text-[#F4F7FA] sm:mt-6 sm:text-5xl sm:leading-[1.05] lg:text-[4rem]">
+            <h1 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,6.4vw,4rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
               Parlons de ce qui vous fait perdre du temps.
             </h1>
 
-            <p className="mt-5 max-w-[620px] text-base leading-7 text-[#8E98A3] sm:mt-6 sm:text-[1.05rem]">
+            <p className="mt-6 max-w-[58ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
               Une question rapide ou un besoin déjà cadré, c’est le même
               formulaire. Répondez à ce qui vous concerne, laissez le reste.
             </p>

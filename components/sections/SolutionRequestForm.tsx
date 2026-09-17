@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { AnimatePresence, m } from 'motion/react';
 import { transitions } from '@/lib/motion';
+import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 import type { Question, Solution } from '@/lib/content/solutions';
 
 /**
@@ -20,20 +21,9 @@ import type { Question, Solution } from '@/lib/content/solutions';
  * seule la clé service_role peut y écrire et elle reste sur le serveur.
  */
 
-const labelClass =
-  'mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.13em] text-[#8E98A3] sm:text-[0.72rem] sm:tracking-[0.14em]';
-
-const fieldWrapClass =
-  'border-b border-[#2A333C] py-5 transition-colors duration-300 focus-within:border-[#7CC7FF]/70';
-
-const inputClass =
-  'min-h-11 w-full bg-transparent py-1 text-base text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]';
-
-const textareaClass =
-  'min-h-28 w-full resize-none bg-transparent py-1 text-base leading-7 text-[#F4F7FA] outline-none placeholder:text-[#7A838D] transition-colors focus:placeholder:text-[#9AA4AE]';
-
-const selectClass =
-  'min-h-11 w-full bg-transparent py-1 text-base text-[#CDD5DD] outline-none transition-colors';
+const { label: labelClass, optional: optionalClass, fieldWrap: fieldWrapClass,
+  input: inputClass, textarea: textareaClass, select: selectClass,
+  option: optionClass } = formStyles;
 
 /** Le champ correspondant à une question du catalogue. */
 function QuestionField({ question }: { question: Question }) {
@@ -44,7 +34,7 @@ function QuestionField({ question }: { question: Question }) {
       <label htmlFor={name} className={labelClass}>
         {question.label}
         {!question.required && (
-          <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">
+          <span className={optionalClass}>
             (facultatif)
           </span>
         )}
@@ -68,12 +58,12 @@ function QuestionField({ question }: { question: Question }) {
           required={question.required}
           className={selectClass}
         >
-          <option value="" disabled className="bg-[#10161D]">
+          <option value="" disabled className={optionClass}>
             Sélectionnez une réponse
           </option>
 
           {question.options?.map((option) => (
-            <option key={option} value={option} className="bg-[#10161D]">
+            <option key={option} value={option} className={optionClass}>
               {option}
             </option>
           ))}
@@ -179,13 +169,13 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         animate={{ opacity: 1, y: 0 }}
         transition={transitions.quick}
         role="status"
-        className="rounded-[1.25rem] border border-[#7CC7FF]/30 bg-[#10161D] p-6 sm:rounded-[1.5rem] sm:p-8"
+        className={formStyles.success}
       >
-        <p className="font-[family-name:var(--font-sora)] text-[1.15rem] font-medium tracking-[-0.03em] text-[#F4F7FA]">
+        <p className="font-[family-name:var(--font-archivo)] text-[1.375rem] font-bold tracking-[-0.028em] text-[var(--ink)]">
           Demande envoyée.
         </p>
 
-        <p className="mt-3 text-[0.95rem] leading-7 text-[#CDD5DD]">
+        <p className="mt-4 max-w-[62ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
           Merci. Nous avons bien reçu vos réponses pour «&nbsp;
           {solution.title}&nbsp;». Nous revenons vers vous pour en parler et
           voir comment l&apos;adapter à votre façon de travailler.
@@ -196,16 +186,14 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="border-b border-[#2A333C] pb-7 sm:pb-8">
-        <p className="mb-5 text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:mb-6 sm:text-[0.72rem] sm:tracking-[0.16em]">
-          01 — Vous joindre
-        </p>
+      <div className="border-b border-[var(--rule)] pb-7 sm:pb-8">
+        <FormStepTitle step="01">Vous joindre</FormStepTitle>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
           <div className={fieldWrapClass}>
             <label htmlFor="company" className={labelClass}>
               Entreprise
-              <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">
+              <span className={optionalClass}>
                 (facultatif)
               </span>
             </label>
@@ -222,7 +210,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
           <div className={fieldWrapClass}>
             <label htmlFor="contactName" className={labelClass}>
               Votre nom
-              <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">
+              <span className={optionalClass}>
                 (facultatif)
               </span>
             </label>
@@ -254,7 +242,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
           <div className={fieldWrapClass}>
             <label htmlFor="phone" className={labelClass}>
               Téléphone
-              <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">
+              <span className={optionalClass}>
                 (facultatif)
               </span>
             </label>
@@ -271,7 +259,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
           <div className={`${fieldWrapClass} sm:col-span-2`}>
             <label htmlFor="sector" className={labelClass}>
               Votre secteur
-              <span className="ml-1.5 normal-case tracking-normal text-[#7A838D]">
+              <span className={optionalClass}>
                 (facultatif)
               </span>
             </label>
@@ -287,11 +275,9 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
       </div>
 
       <div className="py-7 sm:py-8">
-        <p className="mb-5 text-[0.68rem] font-medium uppercase tracking-[0.15em] text-[#7CC7FF] sm:mb-6 sm:text-[0.72rem] sm:tracking-[0.16em]">
-          02 — Votre situation
-        </p>
+        <FormStepTitle step="02">Votre situation</FormStepTitle>
 
-        <p className="mb-5 max-w-[520px] text-[0.9rem] leading-6 text-[#8E98A3] sm:mb-6">
+        <p className="mb-7 max-w-[62ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
           Ces questions sont celles qu&apos;on vous poserait de toute façon.
           Y répondre maintenant nous évite de vous les reposer.
         </p>
@@ -313,7 +299,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={transitions.quick}
-              className="mb-6 rounded-2xl border border-[#2A333C] bg-[#10161D] px-4 py-4 text-sm leading-6 text-[#CDD5DD] sm:px-5"
+              className={formStyles.error}
             >
               {error}
             </m.div>
@@ -321,8 +307,8 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         </AnimatePresence>
       </div>
 
-      <div className="flex flex-col gap-5 border-t border-[#2A333C] pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-7">
-        <p className="max-w-[460px] text-xs leading-5 text-[#8E98A3]">
+      <div className="flex flex-col gap-5 border-t border-[var(--rule)] pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
+        <p className={formStyles.note}>
           Les informations transmises servent uniquement à comprendre votre
           situation et à vous recontacter au sujet de cette demande.
         </p>
@@ -330,7 +316,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="sheen inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-full bg-[#7CC7FF] px-7 text-sm font-medium text-[#0A0D12] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#A9D9FF] hover:shadow-[0_10px_30px_rgba(124,199,255,0.22)] focus:outline-none focus:ring-2 focus:ring-[#7CC7FF] focus:ring-offset-2 focus:ring-offset-[#0A0D12] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className={formStyles.submit}
         >
           {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
         </button>

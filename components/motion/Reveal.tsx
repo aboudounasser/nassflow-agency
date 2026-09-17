@@ -4,27 +4,29 @@ import type { ReactNode } from 'react';
 import { m } from 'motion/react';
 import { usePrefersReducedMotion } from '@/lib/use-reduced-motion';
 import {
-  revealVariants,
   revealSoftVariants,
-  scaleInVariants,
   staggerVariants,
   staticVariants,
   transitions,
   viewport,
 } from '@/lib/motion';
 
-type Preset = 'default' | 'soft' | 'scale';
+/**
+ * Un seul préréglage subsiste. `default` animait un flou et `scale` un
+ * agrandissement : la direction éditoriale ne veut ni l'un ni l'autre, et
+ * plus aucun appel ne les demandait. Le type reste nommé pour que
+ * l'ajout d'un second préréglage n'ait pas à refaire la plomberie.
+ */
+type Preset = 'soft';
 
 const presets = {
-  default: revealVariants,
   soft: revealSoftVariants,
-  scale: scaleInVariants,
 } as const;
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
-  /** default : glissement + flou · soft : glissement seul · scale : profondeur */
+  /** soft : glissement seul — le seul préréglage restant. */
   preset?: Preset;
   /** Retard en secondes, pour orchestrer plusieurs blocs voisins. */
   delay?: number;
@@ -40,7 +42,7 @@ type RevealProps = {
 export function Reveal({
   children,
   className,
-  preset = 'default',
+  preset = 'soft',
   delay = 0,
   onMount = false,
 }: RevealProps) {

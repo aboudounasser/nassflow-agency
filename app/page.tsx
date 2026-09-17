@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
-import { IntegrationsMarquee } from '@/components/sections/IntegrationsMarquee';
+import { IntegrationsTable } from '@/components/sections/IntegrationsTable';
 import { SystemsByProblem } from '@/components/sections/SystemsByProblem';
 import { SolutionsCatalog } from '@/components/sections/SolutionsCatalog';
 import { FinalCTA } from '@/components/sections/FinalCTA';
-import { Footer } from '@/components/sections/Footer';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -13,14 +11,12 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="home" className="min-h-screen bg-[#0A0D12] text-[#F4F7FA]">
-      <Navigation />
+    <main id="home" className="flex-1">
       <Hero />
       <SystemsByProblem />
       <SolutionsCatalog />
-      <IntegrationsMarquee />
+      <IntegrationsTable />
       <FinalCTA />
-      <Footer />
     </main>
   );
 }

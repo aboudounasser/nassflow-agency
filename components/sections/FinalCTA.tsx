@@ -1,40 +1,45 @@
-import { ButtonPrimary } from '@/components/ui/ButtonPrimary';
+import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
-import { Magnetic } from '@/components/motion/Magnetic';
+
+/**
+ * La clôture. Le titre ne demande plus si le lecteur est « prêt » — il
+ * dit ce qu'on fait, dans les mots déjà employés sur les fiches solution :
+ * on part de la situation du client, pas d'un modèle tout fait.
+ */
 
 export function FinalCTA() {
   return (
-    <SectionShell className="py-12 sm:py-14 lg:py-16">
-      <Stagger
-        gap={0.09}
-        className="section-aura mx-auto max-w-[760px] space-y-4 px-1 text-center sm:space-y-5"
-      >
-        <StaggerItem preset="soft">
-          <div className="text-[0.6rem] font-medium uppercase tracking-[0.17em] text-[#8E98A3] sm:text-[0.68rem] sm:tracking-[0.2em]">
-            Prochaines étapes
-          </div>
-        </StaggerItem>
+    <section className="border-t border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+      <SectionShell className="py-16 sm:py-20 lg:py-24">
+        <Stagger
+          gap={0.09}
+          className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
+        >
+          <StaggerItem preset="soft" className="lg:flex-1">
+            <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              Prochaines étapes
+            </span>
 
-        <StaggerItem preset="default">
-          <h2 className="font-[family-name:var(--font-sora)] text-[clamp(1.9rem,7vw,3rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-[#F4F7FA] sm:text-[clamp(2.3rem,5vw,3rem)] sm:leading-[1.05]">
-            Prêt à construire votre système intelligent ?
-          </h2>
-        </StaggerItem>
+            {/* 72px · lh 0.98 · tracking -0.038em · 800. */}
+            <h2 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,7vw,4.5rem)] font-extrabold leading-[0.98] tracking-[-0.038em] text-[var(--ink)]">
+              On part de votre situation,
+              <span className="block font-[family-name:var(--font-serif)] text-[1.07em] font-normal italic tracking-[-0.02em] text-[var(--accent)]">
+                pas d&apos;un modèle tout fait.
+              </span>
+            </h2>
+          </StaggerItem>
 
-        <StaggerItem preset="soft">
-          <div className="flex justify-center pt-2 sm:pt-3">
-            <Magnetic className="flex w-full sm:w-auto" strength={7}>
-              <ButtonPrimary
-                href="/demarrer-un-projet"
-                className="min-h-12 w-full justify-center px-6 shadow-[0_0_0_1px_rgba(124,199,255,0.10)] sm:w-auto"
-              >
-                Démarrer un projet
-              </ButtonPrimary>
-            </Magnetic>
-          </div>
-        </StaggerItem>
-      </Stagger>
-    </SectionShell>
+          <StaggerItem preset="soft" className="w-full lg:w-auto lg:shrink-0 lg:pb-3">
+            <Link
+              href="/demarrer-un-projet"
+              className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] lg:w-auto"
+            >
+              Démarrer un projet
+            </Link>
+          </StaggerItem>
+        </Stagger>
+      </SectionShell>
+    </section>
   );
 }

@@ -17,9 +17,9 @@ export const designTokens = {
     supportWarm: '#F3C98B',
   },
   fonts: {
-    heading: 'var(--font-sora)',
-    body: 'var(--font-inter)',
-    mono: 'var(--font-ibm-plex-mono)',
+    heading: 'var(--font-archivo)',
+    body: 'var(--font-archivo)',
+    serif: 'var(--font-serif)',
   },
   typography: {
     h1Desktop: 'clamp(2.75rem, 4vw, 5.5rem)',
