@@ -20,10 +20,21 @@ let adminClient: SupabaseClient | null = null;
 export function getSupabaseAdminClient(): SupabaseClient | null {
   if (adminClient) return adminClient;
 
-  // `SUPABASE_URL` prime si elle existe, sinon on réutilise l'URL
-  // publique : c'est le même projet, seule la clé diffère.
+  // L'ordre compte, et il n'est pas celui qu'on croit.
+  //
+  // Ce projet n'a qu'UNE base Supabase : celle que déclare
+  // `NEXT_PUBLIC_SUPABASE_URL`. Elle passe donc en premier, et
+  // `SUPABASE_URL` ne sert que de repli.
+  //
+  // L'inverse a cassé le formulaire en production. Une intégration
+  // Supabase de la place de marché Vercel injecte sa propre
+  // `SUPABASE_URL`, qui pointe vers une autre base. Quand elle primait,
+  // le navigateur écrivait dans la bonne base et le serveur dans la
+  // mauvaise — d'où des 500 sur /api/solution-requests. Une variable
+  // posée par un tiers ne doit jamais supplanter l'URL du projet, sous
+  // peine que le client et le serveur ne parlent plus à la même base.
   const url =
-    process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
 
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
