@@ -54,8 +54,8 @@ export default async function SolutionPage({
   if (!solution) notFound();
 
   return (
-    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
-      <SectionShell className="py-10 sm:py-16 lg:py-24">
+    <main className="flex-1">
+      <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
           <Reveal onMount preset="soft">
             {/* Même motif de retour que /demarrer-un-projet,

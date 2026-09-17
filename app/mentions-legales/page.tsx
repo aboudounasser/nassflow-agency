@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function MentionsLegales() {
   return (
-    <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
+    <main className="flex-1">
       <div className="mx-auto max-w-[68ch] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
           <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2rem,7vw,3rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">

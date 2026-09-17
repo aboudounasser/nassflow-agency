@@ -4,6 +4,8 @@ import "./globals.css";
 import { seo } from "@/lib/seo";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/sections/Footer";
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -59,7 +61,18 @@ export default function RootLayout({
       <body>
         <MotionProvider>
           <ScrollProgress />
-          {children}
+
+          {/* L'en-tête et le pied vivaient dans app/page.tsx : les huit
+              autres routes n'avaient donc ni navigation ni mentions
+              légales, et la phrase qui décrit l'activité n'était servie
+              que sur l'accueil. Ils encadrent désormais toutes les
+              pages, et le fond papier est porté ici plutôt que répété
+              sur chaque <main>. */}
+          <div className="flex min-h-screen flex-col bg-[var(--paper)] text-[var(--ink)]">
+            <Navigation />
+            {children}
+            <Footer />
+          </div>
         </MotionProvider>
       </body>
     </html>
