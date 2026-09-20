@@ -1,4 +1,8 @@
-type NotificationType = 'contact' | 'project';
+/**
+ * Seul /demarrer-un-projet notifie depuis le navigateur. Le type
+ * 'contact' est parti avec le formulaire de contact qui n'existe plus.
+ */
+type NotificationType = 'project';
 
 /**
  * Prévient l'agence qu'un formulaire vient d'être soumis.
