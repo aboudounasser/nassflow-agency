@@ -1,17 +1,24 @@
 import { getSupabaseAdminClient } from '@/lib/supabase/admin';
 import { solutions, type Solution } from '@/lib/content/solutions';
+import {
+  esc,
+  oneLine,
+  sendAgencyNotification,
+} from '@/lib/notifications';
 
 /**
  * Réception d'une demande déposée depuis une fiche solution.
  *
  * Pourquoi une route serveur plutôt qu'un insert depuis le navigateur,
- * comme le font ContactForm et ProjectForm : la table
+ * comme le fait ProjectForm : la table
  * `solution_requests` a RLS activée sans aucune policy, donc `anon` ne
  * peut ni lire ni écrire. Seule la clé `service_role` contourne RLS, et
  * elle ne peut pas quitter le serveur — un visiteur qui la récupérerait
  * lirait les coordonnées déposées par tous les autres. C'est ici, et
  * seulement ici, qu'on peut aussi valider ce qui est envoyé : le
  * navigateur peut mentir sur le slug comme sur les champs obligatoires.
+ * C'est aussi de là que part la notification à l'agence, une fois la
+ * ligne écrite — le navigateur n'a pas à en être chargé.
  */
 
 /** Garde-fous de taille : une valeur plus longue est tronquée. */
@@ -69,6 +76,56 @@ function buildAnswers(
   return { answers, missing };
 }
 
+/**
+ * Le corps de la notification.
+ *
+ * Les réponses sont parcourues dans l'ordre de `solution.questions` et
+ * non dans celui de l'objet `answers` : c'est le catalogue qui décide de
+ * l'ordre de lecture, et c'est lui qui porte les libellés. Un e-mail qui
+ * dirait « volume_demandes : 40 » obligerait à ouvrir le code pour se
+ * souvenir de la question posée.
+ *
+ * Tout ce qui vient du visiteur passe par `esc`, y compris les réponses :
+ * `answers` a beau être filtré par `buildAnswers`, les champs texte, eux,
+ * contiennent ce que le visiteur a tapé.
+ */
+function buildEmail(
+  solution: Solution,
+  contact: {
+    company: string | null;
+    contact_name: string | null;
+    email: string;
+    phone: string | null;
+    sector: string | null;
+  },
+  answers: Record<string, string>,
+): string {
+  const lignes = solution.questions
+    .map(
+      (question) =>
+        `<p><strong>${esc(question.label)}</strong><br />${esc(
+          answers[question.id],
+        )}</p>`,
+    )
+    .join('\n        ');
+
+  return `
+        <h2>Nouvelle demande — ${esc(solution.title)}</h2>
+
+        <p><strong>Solution :</strong> ${esc(solution.categoryLabel)}</p>
+
+        <h3>👤 Contact</h3>
+        <p><strong>Entreprise :</strong> ${esc(contact.company)}</p>
+        <p><strong>Nom :</strong> ${esc(contact.contact_name)}</p>
+        <p><strong>Email :</strong> ${esc(contact.email)}</p>
+        <p><strong>Téléphone :</strong> ${esc(contact.phone)}</p>
+        <p><strong>Secteur :</strong> ${esc(contact.sector)}</p>
+
+        <h3>📝 Sa situation</h3>
+        ${lignes}
+      `;
+}
+
 export async function POST(request: Request) {
   let body: unknown;
 
@@ -124,15 +181,19 @@ export async function POST(request: Request) {
     );
   }
 
+  const contact = {
+    company: cleanString(payload.company),
+    contact_name: cleanString(payload.contact_name),
+    email,
+    phone: cleanString(payload.phone),
+    sector: cleanString(payload.sector),
+  };
+
   const { error: insertError } = await supabase
     .from('solution_requests')
     .insert({
       solution_slug: solution.slug,
-      company: cleanString(payload.company),
-      contact_name: cleanString(payload.contact_name),
-      email,
-      phone: cleanString(payload.phone),
-      sector: cleanString(payload.sector),
+      ...contact,
       answers,
       // La page d'où part la demande, reconstruite ici plutôt que reprise
       // du client : c'est une donnée de traçabilité, elle ne doit pas
@@ -146,6 +207,22 @@ export async function POST(request: Request) {
     return Response.json(
       { error: 'L’enregistrement de la demande a échoué.' },
       { status: 500 },
+    );
+  }
+
+  // La ligne est enregistrée : à partir d'ici, plus rien ne peut faire
+  // échouer la demande. Une notification perdue est un ennui pour
+  // l'agence, pas pour le visiteur, qui a fait ce qu'on lui demandait.
+  const notification = await sendAgencyNotification({
+    subject: `Nouvelle demande — ${oneLine(solution.title, 'solution')}`,
+    html: buildEmail(solution, contact, answers),
+    replyTo: contact.email,
+  });
+
+  if (!notification.ok) {
+    console.error(
+      `Notification solution non envoyée (${notification.reason}) pour ${solution.slug} :`,
+      notification.message,
     );
   }
 

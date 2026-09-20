@@ -1,58 +1,31 @@
-import { Resend } from "resend";
+import {
+  esc,
+  oneLine,
+  sendAgencyNotification,
+} from '@/lib/notifications';
 
-/** Échappe une valeur avant de l'insérer dans le corps HTML de l'e-mail :
- *  sans cela, un visiteur peut placer ses propres balises et liens dans
- *  la notification que nous recevons. */
-function esc(value: unknown): string {
-  if (value === null || value === undefined || value === "") return "-";
-
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
+/**
+ * Notification d'une demande déposée depuis /demarrer-un-projet.
+ *
+ * La route reste appelée depuis le navigateur, après que ProjectForm a
+ * écrit dans `project_requests` : c'est le seul formulaire du site qui
+ * insère lui-même, et la notification suit le même chemin. Les fiches
+ * solution, elles, notifient depuis leur propre route serveur.
+ *
+ * La branche « contact » est partie avec le formulaire qu'elle servait :
+ * `ContactForm` n'existe plus, et plus rien n'appelait le type 'contact'.
+ */
 export async function POST(request: Request) {
   try {
-    // Instancié ici et non au niveau du module : une clé absente ne doit
-    // pas faire échouer la collecte des routes pendant `next build`.
-    const apiKey = process.env.RESEND_API_KEY;
-
-    if (!apiKey) {
-      console.error("RESEND_API_KEY absente : notification non envoyée.");
-
-      return Response.json(
-        { error: "Service d'envoi indisponible." },
-        { status: 503 },
-      );
-    }
-
-    const resend = new Resend(apiKey);
-
     const body = await request.json();
 
-    const { type, data } = body;
+    const { data } = body ?? {};
 
     if (!data) {
-      return Response.json(
-        { error: "Données manquantes." },
-        { status: 400 },
-      );
+      return Response.json({ error: 'Données manquantes.' }, { status: 400 });
     }
 
-    const isProject = type === "project";
-
-    const oneLine = (value: unknown, fallback: string) =>
-      String(value ?? "").replace(/[\r\n]+/g, " ").trim() || fallback;
-
-    const subject = isProject
-      ? `🚀 Nouvelle demande de projet — ${oneLine(data.company, "Entreprise")}`
-      : `📩 Nouveau message — ${oneLine(data.name, "Contact")}`;
-
-    const content = isProject
-      ? `
+    const html = `
         <h2>Nouvelle demande de projet NASSFLOW</h2>
 
         <h3>👤 Contact</h3>
@@ -75,52 +48,34 @@ export async function POST(request: Request) {
         <p>${esc(data.project_description)}</p>
 
         <p><strong>Comment a-t-il connu NASSFLOW :</strong> ${esc(data.source)}</p>
-      `
-      : `
-        <h2>Nouveau message de contact NASSFLOW</h2>
-
-        <p><strong>Nom :</strong> ${esc(data.name)}</p>
-        <p><strong>Email :</strong> ${esc(data.email)}</p>
-        <p><strong>Sujet :</strong> ${esc(data.subject)}</p>
-
-        <h3>Message</h3>
-        <p>${esc(data.message)}</p>
       `;
 
-    // `onboarding@resend.dev` est le domaine bac à sable de Resend : il
-    // n'a ni SPF ni DKIM au nom de nassflow.com. Une fois le domaine
-    // vérifié dans Resend, renseigner RESEND_FROM et les notifications
-    // cesseront de partir en spam.
-    const from =
-      process.env.RESEND_FROM ?? "NASSFLOW <onboarding@resend.dev>";
-
-    const replyTo = isProject ? data.professional_email : data.email;
-
-    const { error } = await resend.emails.send({
-      from,
-      to: ["contact@nassflow.com"],
-      subject,
-      html: content,
-      ...(typeof replyTo === "string" && replyTo.includes("@")
-        ? { replyTo }
-        : {}),
+    const result = await sendAgencyNotification({
+      subject: `🚀 Nouvelle demande de projet — ${oneLine(data.company, 'Entreprise')}`,
+      html,
+      replyTo: data.professional_email,
     });
 
-    if (error) {
-      console.error("Erreur Resend :", error);
+    if (!result.ok) {
+      console.error('Notification projet non envoyée :', result.message);
 
       return Response.json(
-        { error: "Impossible d'envoyer l'e-mail." },
-        { status: 500 },
+        {
+          error:
+            result.reason === 'missing-key'
+              ? "Service d'envoi indisponible."
+              : "Impossible d'envoyer l'e-mail.",
+        },
+        { status: result.reason === 'missing-key' ? 503 : 500 },
       );
     }
 
     return Response.json({ success: true });
   } catch (error) {
-    console.error("Erreur API notification :", error);
+    console.error('Erreur API notification :', error);
 
     return Response.json(
-      { error: "Une erreur est survenue." },
+      { error: 'Une erreur est survenue.' },
       { status: 500 },
     );
   }
