@@ -19,6 +19,19 @@ export const metadata: Metadata = {
     description:
       'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
     type: 'website',
+
+    // Redéfinir `openGraph` remplace l'objet hérité du layout au lieu de
+    // le compléter : sans cette ligne, la page perd l'image de partage
+    // par défaut que le layout tenait de `app/opengraph-image.tsx`, et
+    // repart nue sur WhatsApp. `metadataBase` la rend absolue.
+    images: ['/opengraph-image'],
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Démarrer un projet — NASSFLOW AGENCY',
+    description:
+      'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
   },
 };
 
