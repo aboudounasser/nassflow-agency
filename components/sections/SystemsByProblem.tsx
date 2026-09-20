@@ -88,7 +88,7 @@ export function SystemsByProblem() {
               rel="noopener noreferrer"
               className="inline-flex shrink-0 items-center self-start border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:self-auto"
             >
-              Réserver 30 minutes pour en parler
+              Réserver un appel
               <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
             </a>
           </div>
