@@ -55,16 +55,45 @@ export default function PolitiqueConfidentialite() {
             </h2>
 
             <p>
-              Le formulaire de demande de diagnostic collecte : nom et prénom,
-              société, adresse e-mail professionnelle, numéro de téléphone,
-              volume de demandes de cotation reçues par jour, localisation
-              actuelle de vos tarifs, TMS utilisé, activité principale et
-              message libre.
+              Deux formulaires collectent des données sur ce site, et eux
+              seuls. Chacun indique quels champs sont facultatifs ; vous
+              n&apos;êtes jamais tenu de renseigner les autres.
             </p>
 
-            <p className="mt-3">
+            <p className="mt-5 font-semibold text-[var(--ink)]">
+              Formulaire « Démarrer un projet »
+            </p>
+
+            <p className="mt-2">
+              Prénom, nom, entreprise, adresse e-mail professionnelle,
+              numéro de téléphone, site web, nature de la solution
+              recherchée, besoin principal, outils utilisés actuellement,
+              budget envisagé, délai souhaité, message libre, et la manière
+              dont vous avez connu NASSFLOW.
+            </p>
+
+            <p className="mt-5 font-semibold text-[var(--ink)]">
+              Formulaires des fiches solution
+            </p>
+
+            <p className="mt-2">
+              Entreprise, nom du contact, adresse e-mail, numéro de
+              téléphone et secteur d&apos;activité, auxquels s&apos;ajoutent
+              vos réponses aux questions propres à la solution demandée.
+              Ces questions portent sur votre organisation actuelle — par
+              exemple le volume de demandes reçues, les canaux par lesquels
+              vos clients vous écrivent, l&apos;agenda ou la messagerie que
+              vous utilisez, les outils en place ou ce qui fait varier vos
+              prix. Elles changent d&apos;une solution à l&apos;autre, et la
+              page que vous remplissez les affiche toutes avant envoi. Le
+              chemin de cette page est enregistré avec votre demande, afin
+              de savoir à quelle solution elle se rapporte.
+            </p>
+
+            <p className="mt-5">
               Aucune donnée n&apos;est collectée à votre insu et aucun traceur
-              publicitaire n&apos;est déposé.
+              publicitaire n&apos;est déposé. Le site ne dépose aucun cookie
+              de mesure d&apos;audience.
             </p>
           </section>
 
@@ -75,8 +104,7 @@ export default function PolitiqueConfidentialite() {
 
             <p>
               Les données servent uniquement à vous recontacter au sujet de
-              votre demande de diagnostic et à préparer la proposition
-              correspondante.
+              votre demande et à préparer la proposition correspondante.
             </p>
           </section>
 
@@ -86,9 +114,10 @@ export default function PolitiqueConfidentialite() {
             </h2>
 
             <p>
-              Le traitement repose sur l&apos;intérêt légitime du responsable
-              de traitement à répondre à une demande professionnelle émanant
-              d&apos;un prospect ayant volontairement transmis ses coordonnées.
+              Le traitement repose sur les mesures précontractuelles prises
+              à votre demande (article 6.1.b du RGPD) : c&apos;est vous qui
+              engagez l&apos;échange en nous écrivant, et les données servent
+              à y répondre.
             </p>
           </section>
 
@@ -110,15 +139,40 @@ export default function PolitiqueConfidentialite() {
             </h2>
 
             <p>
-              Le site est servi par une infrastructure internationale (Vercel
-              Inc., États-Unis).
+              <span className="font-semibold text-[var(--ink)]">Vercel Inc.</span>{' '}
+              (États-Unis) héberge le site et le sert.
             </p>
 
             <p className="mt-3">
-              Les données du formulaire, elles, sont stockées et traitées par
-              Supabase au sein de l&apos;Union européenne (région West EU -
-              Ireland, eu-west-1). Si un transfert hors de l&apos;Union
-              européenne est nécessaire, il est encadré par des clauses
+              <span className="font-semibold text-[var(--ink)]">Supabase</span>{' '}
+              stocke les données des deux formulaires, au sein de l&apos;Union
+              européenne (région West EU – Irlande, eu-west-1).
+            </p>
+
+            <p className="mt-3">
+              <span className="font-semibold text-[var(--ink)]">Resend</span>{' '}
+              (États-Unis) achemine l&apos;e-mail qui nous prévient
+              qu&apos;une demande vient d&apos;arriver. Cet e-mail ne
+              concerne que le formulaire « Démarrer un projet », et il en
+              reprend l&apos;intégralité des champs : identité, entreprise,
+              adresse e-mail, téléphone, site web, solution recherchée,
+              besoin, outils, budget, délai, message et provenance. Votre
+              adresse e-mail y sert aussi d&apos;adresse de réponse. Les
+              demandes déposées depuis une fiche solution ne passent pas
+              par Resend.
+            </p>
+
+            <p className="mt-3">
+              <span className="font-semibold text-[var(--ink)]">Calendly</span>{' '}
+              (États-Unis) gère la prise de rendez-vous. Si vous réservez un
+              appel, vous saisissez vos données directement chez Calendly,
+              sur son propre site : elles relèvent alors de sa politique de
+              confidentialité, et non de celle-ci.
+            </p>
+
+            <p className="mt-3">
+              Les transferts hors de l&apos;Union européenne qu&apos;impliquent
+              Vercel, Resend et Calendly sont encadrés par des clauses
               contractuelles types.
             </p>
 
@@ -176,7 +230,7 @@ export default function PolitiqueConfidentialite() {
 
           <div className="border-t border-[var(--rule)] pt-8 sm:mt-12">
             <p className="text-[0.875rem] leading-6 text-[var(--ink-muted)]">
-              Dernière mise à jour : septembre 2026
+              Dernière mise à jour : 20 septembre 2026
             </p>
           </div>
         </div>
