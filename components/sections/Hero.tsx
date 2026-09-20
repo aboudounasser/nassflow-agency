@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { homepageContent } from '@/lib/content/homepage';
 
 /**
  * Le Hero de la direction éditoriale : papier, encre, un seul accent.
@@ -35,9 +36,9 @@ export function Hero() {
                 italique vermillon, à 1.07em — le serif porte plus petit à
                 taille égale, l'écart le remet à la ligne du reste. */}
             <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2.4375rem,8.2vw,5.5rem)] font-extrabold leading-[0.95] tracking-[-0.038em] text-[var(--ink)]">
-              Vos outils méritent mieux que de travailler chacun dans leur coin.
+              {homepageContent.hero.lead}
               <span className="mt-1 block font-[family-name:var(--font-serif)] text-[1.07em] font-normal italic tracking-[-0.02em] text-[var(--accent)]">
-                Ils méritent un système intelligent.
+                {homepageContent.hero.accent}
               </span>
             </h1>
           </StaggerItem>

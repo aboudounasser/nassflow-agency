@@ -36,6 +36,17 @@ export const metadata: Metadata = {
     description: seo.openGraph.description,
     type: seo.openGraph.type,
   },
+
+  // Posé ici, donc hérité par toutes les routes : c'est ce qui fait
+  // afficher la grande carte plutôt que la vignette carrée. Les pages
+  // qui redéfinissent `twitter` le redisent, car redéfinir l'objet
+  // remplace l'hérité au lieu de le compléter.
+  twitter: {
+    card: 'summary_large_image',
+    title: seo.openGraph.title,
+    description: seo.openGraph.description,
+  },
+
   // Pas de `alternates` ici : posée sur le layout racine, la balise
   // canonique était héritée par toutes les pages, qui se déclaraient
   // alors toutes comme des doublons de l'accueil. Chaque page définit

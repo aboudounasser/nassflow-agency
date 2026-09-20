@@ -40,6 +40,23 @@ export async function generateMetadata({
     // inutile d'en réécrire une qui dirait la même chose autrement.
     description: solution.delivers,
     alternates: { canonical: `/solutions/${solution.slug}` },
+
+    // Sans ces deux blocs, les six fiches héritaient du openGraph du
+    // layout : partagées sur WhatsApp ou LinkedIn, elles annonçaient
+    // toutes le titre de l'accueil. L'image, elle, vient du fichier
+    // `opengraph-image.tsx` voisin, que Next rattache tout seul.
+    openGraph: {
+      title: `${solution.title} — NASSFLOW AGENCY`,
+      description: solution.delivers,
+      url: `/solutions/${solution.slug}`,
+      type: 'website',
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: `${solution.title} — NASSFLOW AGENCY`,
+      description: solution.delivers,
+    },
   };
 }
 
