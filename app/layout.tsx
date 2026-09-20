@@ -6,6 +6,7 @@ import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
+import { AssistantBubble } from '@/components/assistant/AssistantBubble';
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -84,6 +85,10 @@ export default function RootLayout({
             {children}
             <Footer />
           </div>
+
+          {/* Hors du flux : la bulle flotte au-dessus de toutes les
+              routes. Seul son bouton est chargé au départ. */}
+          <AssistantBubble />
         </MotionProvider>
       </body>
     </html>
