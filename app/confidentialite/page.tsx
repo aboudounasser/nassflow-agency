@@ -58,7 +58,8 @@ export default function PolitiqueConfidentialite() {
               Deux formulaires collectent des données sur ce site. Chacun
               indique quels champs sont facultatifs ; vous n&apos;êtes
               jamais tenu de renseigner les autres. L&apos;assistant IA,
-              lui, fait l&apos;objet de la section suivante.
+              qui peut lui aussi transmettre une demande si vous le lui
+              demandez, fait l&apos;objet de la section suivante.
             </p>
 
             <p className="mt-5 font-semibold text-[var(--ink)]">
@@ -116,7 +117,8 @@ export default function PolitiqueConfidentialite() {
               usage qui en est fait. NASSFLOW ne les enregistre pas : la
               conversation ne vit que dans l&apos;onglet de votre
               navigateur et disparaît dès que vous le rechargez ou le
-              fermez. Elle n&apos;est écrite dans aucune base, et nous
+              fermez. Elle n&apos;est écrite dans aucune base — sauf si
+              vous nous la confiez vous-même, voir plus bas — et nous
               demandons à OpenAI de ne pas la conserver non plus.
             </p>
 
@@ -127,6 +129,23 @@ export default function PolitiqueConfidentialite() {
               conserve en revanche jusqu&apos;à trente jours un journal
               destiné à détecter les usages abusifs, délai qu&apos;elle
               peut dépasser si la loi l&apos;y oblige.
+            </p>
+
+            <p className="mt-3">
+              Une exception, et une seule : le bouton{' '}
+              <span className="font-semibold text-[var(--ink)]">
+                « Être recontacté »
+              </span>
+              . Si vous l&apos;utilisez, votre adresse e-mail, votre
+              prénom et votre besoin nous sont transmis — et la
+              conversation que vous venez d&apos;avoir y est jointe,
+              pour que nous sachions de quoi vous avez parlé. Le tout
+              est alors enregistré dans notre base (Supabase, Union
+              européenne) et nous est envoyé par e-mail (Resend), comme
+              les demandes déposées par les formulaires, et conservé
+              aussi longtemps : trois ans à compter du dernier contact.
+              Tant que vous ne cliquez pas sur ce bouton, rien de la
+              conversation n&apos;est conservé.
             </p>
 
             <p className="mt-3">
