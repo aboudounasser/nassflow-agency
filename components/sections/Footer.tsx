@@ -112,7 +112,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
                 >
-                  Réserver 30 minutes
+                  Réserver un appel
                   <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
                 </a>
               </nav>
