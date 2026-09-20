@@ -55,9 +55,10 @@ export default function PolitiqueConfidentialite() {
             </h2>
 
             <p>
-              Deux formulaires collectent des données sur ce site, et eux
-              seuls. Chacun indique quels champs sont facultatifs ; vous
-              n&apos;êtes jamais tenu de renseigner les autres.
+              Deux formulaires collectent des données sur ce site. Chacun
+              indique quels champs sont facultatifs ; vous n&apos;êtes
+              jamais tenu de renseigner les autres. L&apos;assistant IA,
+              lui, fait l&apos;objet de la section suivante.
             </p>
 
             <p className="mt-5 font-semibold text-[var(--ink)]">
@@ -94,6 +95,45 @@ export default function PolitiqueConfidentialite() {
               Aucune donnée n&apos;est collectée à votre insu et aucun traceur
               publicitaire n&apos;est déposé. Le site ne dépose aucun cookie
               de mesure d&apos;audience.
+            </p>
+          </section>
+
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+              L&apos;assistant IA
+            </h2>
+
+            <p>
+              Le site propose un assistant conversationnel. Il est signalé
+              comme tel : vous parlez à une intelligence artificielle, pas
+              à un membre de l&apos;équipe.
+            </p>
+
+            <p className="mt-3">
+              Si vous l&apos;utilisez, vos messages sont transmis à{' '}
+              <span className="font-semibold text-[var(--ink)]">OpenAI</span>{' '}
+              (États-Unis), qui génère la réponse. C&apos;est le seul
+              usage qui en est fait. NASSFLOW ne les enregistre pas : la
+              conversation ne vit que dans l&apos;onglet de votre
+              navigateur et disparaît dès que vous le rechargez ou le
+              fermez. Elle n&apos;est écrite dans aucune base, et nous
+              demandons à OpenAI de ne pas la conserver non plus.
+            </p>
+
+            <p className="mt-3">
+              OpenAI indique que les données envoyées par son interface de
+              programmation ne servent pas à entraîner ses modèles, sauf
+              accord explicite — que nous n&apos;avons pas donné. Elle
+              conserve en revanche jusqu&apos;à trente jours un journal
+              destiné à détecter les usages abusifs, délai qu&apos;elle
+              peut dépasser si la loi l&apos;y oblige.
+            </p>
+
+            <p className="mt-3">
+              N&apos;indiquez pas d&apos;informations sensibles dans
+              l&apos;assistant. Pour transmettre quoi que ce soit de
+              confidentiel, écrivez-nous ou réservez un appel : ces
+              échanges ne passent pas par lui.
             </p>
           </section>
 
