@@ -2,6 +2,7 @@ import {
   assistantUnavailableMessage,
   systemInstructions,
 } from '@/lib/assistant/instructions';
+import { createMarkerFilter } from '@/lib/assistant/marker';
 
 /**
  * L'assistant IA du site.
@@ -182,12 +183,27 @@ export async function POST(request: Request) {
    * On ne relaie pas le flux d'OpenAI tel quel : il porte le nom du
    * modèle, les compteurs de jetons et la forme de nos requêtes, que le
    * navigateur n'a pas à connaître. On n'en ressort que le texte.
+   *
+   * Ce qui sort d'ici est une ligne JSON par événement : `{"delta"}`
+   * pour du texte, `{"lead":true}` pour le signal de rappel. Le texte
+   * brut ne suffisait plus — il aurait fallu y glisser le signal, donc
+   * réinventer un marqueur à l'endroit même où l'on vient d'en retirer
+   * un. Encoder chaque fragment met au passage ses retours à la ligne à
+   * l'abri du découpage en lignes.
    */
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const reader = upstream.body!.getReader();
       const decoder = new TextDecoder();
       const encoder = new TextEncoder();
+      const marker = createMarkerFilter();
+
+      const send = (event: Record<string, unknown>) =>
+        controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+
+      const sendText = (text: string) => {
+        if (text) send({ delta: text });
+      };
 
       let buffer = '';
 
@@ -218,7 +234,7 @@ export async function POST(request: Request) {
                   parsed.type === 'response.output_text.delta' &&
                   typeof parsed.delta === 'string'
                 ) {
-                  controller.enqueue(encoder.encode(parsed.delta));
+                  sendText(marker.push(parsed.delta));
                 }
               } catch {
                 // Un fragment illisible ne doit pas couper la réponse en
@@ -227,6 +243,12 @@ export async function POST(request: Request) {
             }
           }
         }
+
+        sendText(marker.flush());
+
+        // Le signal part en dernier : l'interface n'a besoin de savoir
+        // qu'une fois la réponse entièrement lue.
+        if (marker.seen()) send({ lead: true });
       } catch (error) {
         console.error(
           'Assistant : flux interrompu —',
@@ -241,7 +263,7 @@ export async function POST(request: Request) {
 
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
+      'Content-Type': 'application/x-ndjson; charset=utf-8',
       'Cache-Control': 'no-store',
       'X-Accel-Buffering': 'no',
     },
