@@ -48,7 +48,12 @@ const SUGGESTIONS = [
   'Comment se passe un projet ?',
 ];
 
-type Message = { role: 'user' | 'assistant'; content: string };
+type Message = {
+  role: 'user' | 'assistant';
+  content: string;
+  /** L'assistant a jugé le visiteur intéressé à ce tour-là. */
+  offer?: boolean;
+};
 
 export default function AssistantPanel({ onClose }: { onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -61,6 +66,9 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
    * le formulaire, « envoyé » ensuite. Ce n'est pas un message de
    * l'assistant, donc ça ne passe pas par `messages` — ce qui serait
    * renvoyé au modèle au tour suivant.
+   *
+   * Une fois envoyé, l'état ne revient jamais à « closed » : la
+   * proposition disparaît de la conversation pour de bon.
    */
   const [leadState, setLeadState] = useState<'closed' | 'open' | 'sent'>(
     'closed',
@@ -149,25 +157,53 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
 
-        for (;;) {
-          const { done, value } = await reader.read();
+        // Une ligne JSON par événement : { delta } ou { lead }.
+        let buffer = '';
 
-          if (done) break;
+        const handle = (line: string) => {
+          if (!line.trim()) return;
 
-          const chunk = decoder.decode(value, { stream: true });
+          let event: { delta?: string; lead?: boolean };
+
+          try {
+            event = JSON.parse(line);
+          } catch {
+            // Une ligne tronquée par une coupure réseau ne doit pas
+            // faire échouer la réponse déjà reçue.
+            return;
+          }
 
           setMessages((current) => {
             const next = [...current];
             const last = next[next.length - 1];
 
             next[next.length - 1] = {
-              role: 'assistant',
-              content: last.content + chunk,
+              ...last,
+              content:
+                typeof event.delta === 'string'
+                  ? last.content + event.delta
+                  : last.content,
+              offer: event.lead === true ? true : last.offer,
             };
 
             return next;
           });
+        };
+
+        for (;;) {
+          const { done, value } = await reader.read();
+
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+
+          const lines = buffer.split('\n');
+          buffer = lines.pop() ?? '';
+
+          for (const line of lines) handle(line);
         }
+
+        handle(buffer);
 
         // Un flux qui se termine sans un mot vaut une panne : le
         // visiteur ne doit pas rester devant une bulle vide.
@@ -290,6 +326,30 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                     />
                   )}
               </p>
+
+              {/* La proposition, attachée à la réponse qui l'a
+                  déclenchée. Elle ne survit pas à l'envoi du
+                  formulaire, et ne s'affiche que sous le dernier
+                  message : une conversation qui en aurait déclenché
+                  deux ne doit pas laisser traîner la première. */}
+              {message.offer &&
+                leadState === 'closed' &&
+                index === messages.length - 1 &&
+                !isAnswering && (
+                  <div className="mt-4 border-t border-[var(--rule)] pt-4">
+                    <p className="text-[0.875rem] leading-[1.5] text-[var(--ink-body)]">
+                      Vous voulez qu’on vous recontacte&nbsp;?
+                    </p>
+
+                    <button
+                      type="button"
+                      onClick={() => setLeadState('open')}
+                      className="mt-3 inline-flex min-h-10 items-center justify-center border border-[var(--ink)] px-4 font-[family-name:var(--font-archivo)] text-[0.8125rem] font-semibold text-[var(--ink)] transition-colors duration-200 ease-out hover:bg-[var(--ink)] hover:text-[var(--paper)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    >
+                      Être recontacté
+                    </button>
+                  </div>
+                )}
             </div>
           ))}
         </div>
@@ -324,18 +384,6 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
 
       {/* La saisie */}
       <div className="shrink-0 border-t border-[var(--rule)] px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
-        {/* Toujours visible : un visiteur décidé ne doit pas avoir à
-            demander à l'assistant comment nous joindre. Discret, parce
-            que la conversation reste la voie principale. */}
-        <button
-          type="button"
-          onClick={() => setLeadState('open')}
-          disabled={leadState !== 'closed'}
-          className="mb-3 font-[family-name:var(--font-archivo)] text-[0.75rem] font-semibold text-[var(--ink-muted)] underline underline-offset-4 transition-colors duration-200 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:no-underline disabled:opacity-40"
-        >
-          Être recontacté
-        </button>
-
         <div className="flex items-end gap-3 border-b border-[var(--rule)] transition-colors duration-200 focus-within:border-[var(--accent)]">
           <label htmlFor="assistant-question" className="sr-only">
             Votre question
