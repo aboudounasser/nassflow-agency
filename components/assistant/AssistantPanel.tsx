@@ -10,6 +10,7 @@ import {
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { assistantUnavailableMessage } from '@/lib/assistant/instructions';
 import { linkify } from '@/components/assistant/linkify';
+import { LeadForm } from '@/components/assistant/LeadForm';
 
 /**
  * Le panneau de l'assistant, et toute sa logique.
@@ -54,6 +55,16 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
   const [draft, setDraft] = useState('');
   const [isAnswering, setIsAnswering] = useState(false);
   const [error, setError] = useState('');
+
+  /**
+   * Le relais vers un humain : « ouvert » tant que le visiteur remplit
+   * le formulaire, « envoyé » ensuite. Ce n'est pas un message de
+   * l'assistant, donc ça ne passe pas par `messages` — ce qui serait
+   * renvoyé au modèle au tour suivant.
+   */
+  const [leadState, setLeadState] = useState<'closed' | 'open' | 'sent'>(
+    'closed',
+  );
 
   /**
    * Sous 640px le panneau couvre toute la page : il est alors modal, et
@@ -283,6 +294,24 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
           ))}
         </div>
 
+        <div aria-live="polite">
+          {leadState === 'open' && (
+            <LeadForm
+              transcript={messages}
+              onSent={() => setLeadState('sent')}
+            />
+          )}
+
+          {leadState === 'sent' && (
+            <p className="mt-6 border-y border-[var(--rule)] py-5 text-[0.9375rem] leading-[1.6] text-[var(--ink-body)]">
+              <span className="font-[family-name:var(--font-archivo)] font-bold text-[var(--ink)]">
+                C’est noté.
+              </span>{' '}
+              Nous revenons vers vous par e-mail.
+            </p>
+          )}
+        </div>
+
         {error && (
           <p
             role="alert"
@@ -295,6 +324,18 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
 
       {/* La saisie */}
       <div className="shrink-0 border-t border-[var(--rule)] px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
+        {/* Toujours visible : un visiteur décidé ne doit pas avoir à
+            demander à l'assistant comment nous joindre. Discret, parce
+            que la conversation reste la voie principale. */}
+        <button
+          type="button"
+          onClick={() => setLeadState('open')}
+          disabled={leadState !== 'closed'}
+          className="mb-3 font-[family-name:var(--font-archivo)] text-[0.75rem] font-semibold text-[var(--ink-muted)] underline underline-offset-4 transition-colors duration-200 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:no-underline disabled:opacity-40"
+        >
+          Être recontacté
+        </button>
+
         <div className="flex items-end gap-3 border-b border-[var(--rule)] transition-colors duration-200 focus-within:border-[var(--accent)]">
           <label htmlFor="assistant-question" className="sr-only">
             Votre question
