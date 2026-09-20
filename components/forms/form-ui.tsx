@@ -44,7 +44,7 @@ export const formStyles = {
   success: 'border-y border-[var(--rule)] py-7',
 
   submit:
-    'inline-flex min-h-12 w-full shrink-0 items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto',
+    'inline-flex min-h-12 w-full shrink-0 items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto',
 
   note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-[var(--ink-muted)]',
 };

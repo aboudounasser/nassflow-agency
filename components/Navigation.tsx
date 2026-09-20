@@ -98,7 +98,7 @@ export function Navigation() {
         {/* CTA desktop */}
         <Link
           href="/demarrer-un-projet"
-          className="hidden min-h-11 items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.875rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:inline-flex"
+          className="hidden min-h-11 items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.875rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:inline-flex"
         >
           {homepageContent.navigation.cta}
         </Link>
@@ -174,7 +174,7 @@ export function Navigation() {
               <div className="py-4">
                 <Link
                   href="/demarrer-un-projet"
-                  className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-6 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                  className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-6 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
                   onClick={closeMenu}
                 >
                   {homepageContent.navigation.cta}
