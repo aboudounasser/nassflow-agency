@@ -139,6 +139,13 @@ export async function POST(request: Request) {
         instructions: systemInstructions,
         input: result,
         max_output_tokens: MAX_OUTPUT_TOKENS,
+        // `store` vaut `true` par défaut : sans cette ligne, chaque
+        // échange resterait consultable dans le tableau de bord OpenAI
+        // pendant trente jours. On dit au visiteur qu'on ne garde pas sa
+        // conversation ; la garder ailleurs reviendrait au même.
+        // L'historique nous revient du navigateur à chaque message, on
+        // n'a donc rien à faire conserver.
+        store: false,
         stream: true,
       }),
     });
