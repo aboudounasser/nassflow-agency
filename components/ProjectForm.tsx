@@ -218,10 +218,6 @@ export function ProjectForm() {
                   Sélectionnez une solution
                 </option>
 
-                <option value="website" className={formStyles.option}>
-                  Site web
-                </option>
-
                 <option value="ai-assistant" className={formStyles.option}>
                   Assistant IA
                 </option>
@@ -402,7 +398,7 @@ export function ProjectForm() {
               htmlFor="source"
               className={formStyles.label}
             >
-              Comment avez-vous connu NASSFLOW ?
+              Comment avez-vous connu NASSFLOW ? <span className={formStyles.optional}>(facultatif)</span>
             </label>
 
             <select

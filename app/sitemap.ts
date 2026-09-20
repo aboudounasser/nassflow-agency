@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { solutions } from '@/lib/content/solutions';
+import { SITE_URL } from '@/lib/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://nassflow.com';
+  const baseUrl = SITE_URL;
 
   return [
     {

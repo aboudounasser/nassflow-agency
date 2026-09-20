@@ -12,12 +12,12 @@ import { Reveal } from '@/components/motion/Reveal';
 export const metadata: Metadata = {
   title: 'Démarrer un projet | NASSFLOW AGENCY',
   description:
-    'Une question rapide ou un besoin déjà cadré : décrivez ce qui vous fait perdre du temps, nous revenons vers vous.',
+    'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
   alternates: { canonical: '/demarrer-un-projet' },
   openGraph: {
     title: 'Démarrer un projet — NASSFLOW AGENCY',
     description:
-      'Dites-nous ce qui vous fait perdre du temps. Une question rapide ou un projet déjà cadré, c’est le même formulaire.',
+      'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
     type: 'website',
   },
 };
