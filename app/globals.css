@@ -61,6 +61,9 @@
   --ink-muted: #6b6862;
   --rule: #d6d2c8;
   --accent: #c9321c;
+  /* Même teinte que l'accent, assombrie pour garder un écart de
+     contraste de 1,30 ; texte --on-accent dessus : 6,08:1. */
+  --accent-hover: #a92a18;
   --on-accent: #f2f0eb;
 
   --font-heading: var(--font-archivo);
@@ -75,6 +78,7 @@
   --color-ink-muted: var(--ink-muted);
   --color-rule: var(--rule);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-on-accent: var(--on-accent);
   --font-sans: var(--font-body);
   --font-heading: var(--font-heading);

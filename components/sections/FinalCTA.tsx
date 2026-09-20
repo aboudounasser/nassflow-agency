@@ -33,7 +33,7 @@ export function FinalCTA() {
           <StaggerItem preset="soft" className="w-full lg:w-auto lg:shrink-0 lg:pb-3">
             <Link
               href="/demarrer-un-projet"
-              className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] lg:w-auto"
+              className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] lg:w-auto"
             >
               Démarrer un projet
             </Link>

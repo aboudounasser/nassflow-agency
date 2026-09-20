@@ -56,7 +56,7 @@ export function Hero() {
                   d'ombre. Le seul mouvement est un assombrissement. */}
               <Link
                 href="/demarrer-un-projet"
-                className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[#B92C18] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] sm:w-auto"
+                className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] sm:w-auto"
               >
                 Démarrer un projet
               </Link>
