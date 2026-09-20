@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { homepageContent } from '@/lib/content/homepage';
+import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 /**
@@ -64,7 +65,7 @@ export function Footer() {
             </p>
           </StaggerItem>
 
-          {/* Les deux colonnes de liens */}
+          {/* Les colonnes de liens */}
           <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-20">
             {colonnes.map((colonne) => (
               <StaggerItem key={colonne.titre}>
@@ -85,6 +86,37 @@ export function Footer() {
                 </nav>
               </StaggerItem>
             ))}
+
+            {/* La colonne « Contact » : la voie légère pour qui a juste une
+                question et ne veut pas remplir le formulaire en trois
+                parties. Elle sort du tableau `colonnes` parce que ses deux
+                liens quittent le site — un mailto et un créneau — et ne
+                passent donc pas par `next/link`. Les classes, elles, sont
+                exactement celles des colonnes voisines. */}
+            <StaggerItem>
+              <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+                Contact
+              </p>
+
+              <nav className="mt-5 flex flex-col items-start gap-3">
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                >
+                  Réserver 30 minutes
+                  <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
+                </a>
+              </nav>
+            </StaggerItem>
           </div>
 
           {/* Action et mention de copyright */}

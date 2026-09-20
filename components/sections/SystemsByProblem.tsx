@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { systemOffers } from '@/lib/content/systems';
+import { BOOKING_URL } from '@/lib/content/contact';
 
 /**
  * Les quatre phrases de dirigeant, et rien d'autre.
@@ -79,12 +79,18 @@ export function SystemsByProblem() {
               fréquent, et ça vaut une conversation plutôt qu&apos;un formulaire.
             </p>
 
-            <Link
-              href="/demarrer-un-projet"
+            {/* La phrase juste au-dessus promet une conversation ; elle
+                renvoyait pourtant au formulaire. Ce lien tient désormais
+                la promesse et ouvre un créneau de trente minutes. */}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex shrink-0 items-center self-start border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:self-auto"
             >
-              Décrivez-nous votre situation
-            </Link>
+              Réserver 30 minutes pour en parler
+              <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
+            </a>
           </div>
         </Reveal>
       </SectionShell>
