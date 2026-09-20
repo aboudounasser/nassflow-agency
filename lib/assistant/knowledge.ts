@@ -65,13 +65,14 @@ ${listeSolutions()}
 
 ## Les outils qu'on relie
 
-Connecteurs déjà en place : ${listeOutils(connectedTools)}.
+Les outils que NASSFLOW relie habituellement : ${listeOutils(connectedTools)}.
 
 Plateformes sur lesquelles on construit : ${listeOutils(builtWith)}.
 
-Un outil absent de cette liste n'est pas un refus : s'il expose une API,
-il se branche — et la plupart en exposent une. Mais il faut le vérifier
-au cas par cas, jamais l'affirmer d'avance.
+Cette liste n'est pas un catalogue fermé : ce sont les outils cités sur
+le site, pas les seuls qu'on sache relier. Un outil absent n'est donc
+pas un refus — s'il expose une API, il se relie, et la plupart en
+exposent une. Mais ça se vérifie au cas par cas, jamais d'avance.
 
 ## Comment on travaille
 
