@@ -55,6 +55,24 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
   const [isAnswering, setIsAnswering] = useState(false);
   const [error, setError] = useState('');
 
+  /**
+   * Sous 640px le panneau couvre toute la page : il est alors modal, et
+   * doit le dire. Au-dessus, il occupe un coin, la page reste lisible et
+   * cliquable pendant la discussion — `aria-modal` y serait un mensonge
+   * qui ferait masquer le reste de la page aux lecteurs d'écran.
+   */
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 639px)');
+    const sync = () => setIsFullScreen(query.matches);
+
+    sync();
+    query.addEventListener('change', sync);
+
+    return () => query.removeEventListener('change', sync);
+  }, []);
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -178,7 +196,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
     <div
       ref={panelRef}
       role="dialog"
-      aria-modal="false"
+      aria-modal={isFullScreen}
       aria-label="Assistant NASSFLOW"
       className="fixed inset-0 z-[60] flex flex-col border-[var(--ink)] bg-[var(--paper)] text-[var(--ink)] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100vh-3rem))] sm:w-[400px] sm:border"
     >
