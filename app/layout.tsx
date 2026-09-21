@@ -7,6 +7,7 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { AssistantBubble } from '@/components/assistant/AssistantBubble';
+import { Analytics } from '@vercel/analytics/next';
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -90,6 +91,11 @@ export default function RootLayout({
               routes. Seul son bouton est chargé au départ. */}
           <AssistantBubble />
         </MotionProvider>
+
+        {/* Mesure d'audience Vercel : sans cookie et sans identifiant
+            qui suive un visiteur d'un site à l'autre. Posée ici, donc
+            une seule fois pour toutes les routes. */}
+        <Analytics />
       </body>
     </html>
   );

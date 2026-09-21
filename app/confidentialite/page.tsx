@@ -158,6 +158,37 @@ export default function PolitiqueConfidentialite() {
 
           <section className="border-t border-[var(--rule)] py-9">
             <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+              Mesure d&apos;audience
+            </h2>
+
+            <p>
+              Le site utilise{' '}
+              <span className="font-semibold text-[var(--ink)]">
+                Vercel Web Analytics
+              </span>{' '}
+              pour compter les pages vues. Vercel indique que cette mesure
+              n&apos;utilise aucun cookie tiers : un visiteur y est
+              distingué par une empreinte calculée à partir de sa requête,
+              et cette durée de session n&apos;est pas conservée — elle est
+              automatiquement supprimée au bout de vingt-quatre heures.
+              Aucun identifiant permettant de vous suivre d&apos;un site à
+              l&apos;autre n&apos;est collecté, et les données ne sont
+              exploitées que sous forme agrégée, sans être rattachées à une
+              personne ni à une adresse IP.
+            </p>
+
+            <p className="mt-3">
+              Chaque page vue peut être enregistrée avec l&apos;horodatage,
+              l&apos;adresse de la page et les paramètres d&apos;URL filtrés,
+              la page d&apos;où vous venez, une géolocalisation approximative
+              (pays, région, ville), le système et la version de votre
+              appareil, votre navigateur et sa version, le type
+              d&apos;appareil, et la version du script de mesure.
+            </p>
+          </section>
+
+          <section className="border-t border-[var(--rule)] py-9">
+            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
               Finalités du traitement
             </h2>
 
@@ -289,7 +320,7 @@ export default function PolitiqueConfidentialite() {
 
           <div className="border-t border-[var(--rule)] pt-8 sm:mt-12">
             <p className="text-[0.875rem] leading-6 text-[var(--ink-muted)]">
-              Dernière mise à jour : 20 septembre 2026
+              Dernière mise à jour : 21 septembre 2026
             </p>
           </div>
         </div>
