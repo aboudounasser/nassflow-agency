@@ -81,7 +81,7 @@ export function SystemsByProblem() {
 
             {/* La phrase juste au-dessus promet une conversation ; elle
                 renvoyait pourtant au formulaire. Ce lien tient désormais
-                la promesse et ouvre un créneau de trente minutes. */}
+                la promesse et ouvre un créneau de quinze minutes. */}
             <a
               href={BOOKING_URL}
               target="_blank"

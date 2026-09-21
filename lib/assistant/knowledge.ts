@@ -83,7 +83,7 @@ dépendent des réponses.
 
 ## Prendre contact
 
-- Réserver un appel de 30 minutes : ${BOOKING_URL}
+- Réserver un appel de 15 minutes : ${BOOKING_URL}
 - Écrire : ${CONTACT_EMAIL}
 - Formulaire détaillé : https://www.nassflow.com/demarrer-un-projet
 - Chaque fiche solution a son propre formulaire, plus court.
