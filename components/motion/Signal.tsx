@@ -49,6 +49,7 @@ export function Signal({
   loop = false,
   pause = motionTokens.duration.slow * 2,
   showPath = true,
+  paused = false,
   className,
 }: {
   /** L'attribut `d` du chemin, dans un repère de `width` × `height`. */
@@ -63,13 +64,16 @@ export function Signal({
   pause?: number;
   /** Trace le chemin d'un filet `rule` sous le carré. */
   showPath?: boolean;
+  /** Suspend le parcours (bouton Pause d'une démonstration). */
+  paused?: boolean;
   className?: string;
 }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const squareRef = useRef<SVGRectElement>(null);
 
-  const { enabled, playing } = usePlaying(svgRef);
+  const { enabled, playing: visible } = usePlaying(svgRef);
+  const playing = visible && !paused;
 
   // Temps écoulé dans le cycle courant, conservé entre deux pauses.
   const elapsed = useRef(0);

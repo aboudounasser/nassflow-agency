@@ -51,6 +51,7 @@ export function Status({
   interval = motionTokens.duration.slow * 3,
   loop = false,
   live = false,
+  paused = false,
   className,
 }: {
   states?: StatusState[];
@@ -63,10 +64,13 @@ export function Status({
   /** Repart du premier état après le dernier (avec `autoplay`). */
   loop?: boolean;
   live?: boolean;
+  /** Suspend la séquence et la pulsation. */
+  paused?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const { enabled, playing } = usePlaying(ref);
+  const { enabled, playing: visible } = usePlaying(ref);
+  const playing = visible && !paused;
 
   const last = states.length - 1;
 
