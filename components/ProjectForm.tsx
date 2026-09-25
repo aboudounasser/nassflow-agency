@@ -6,8 +6,18 @@ import { getSupabaseClient } from '@/lib/supabase/client';
 import { sendNotification } from '@/lib/notify';
 import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 
+/** Motion n'est chargé que sur les pages qui portent ce formulaire. */
 export function ProjectForm() {
+  return (
+    <MotionProvider>
+      <ProjectFormFields />
+    </MotionProvider>
+  );
+}
+
+function ProjectFormFields() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');

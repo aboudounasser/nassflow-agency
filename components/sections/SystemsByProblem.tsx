@@ -1,7 +1,6 @@
 import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { systemOffers } from '@/lib/content/systems';
 import { BOOKING_URL } from '@/lib/content/contact';
 import { Button } from '@/components/ui/Button';
@@ -25,7 +24,7 @@ export function SystemsByProblem() {
       className="border-t border-rule bg-paper text-ink"
     >
       <SectionShell className="py-16 sm:py-20 lg:py-24">
-        <Reveal preset="soft" className="max-w-[24ch]">
+        <div data-reveal className="max-w-[24ch]">
           <Eyebrow>Ce que nous résolvons</Eyebrow>
 
           {/* La seconde phrase bascule dans la voix, mais reste à
@@ -35,7 +34,7 @@ export function SystemsByProblem() {
             lead="Quatre symptômes."
             voice="Une seule cause."
           />
-        </Reveal>
+        </div>
 
         <p className="mt-7 max-w-[62ch] text-body text-ink-body">
           Vous vous reconnaîtrez sûrement dans l&apos;une de ces phrases. Elles
@@ -46,12 +45,9 @@ export function SystemsByProblem() {
         {/* Quatre lignes, filet en haut de chacune, filet en bas de la
             dernière. La colonne de gauche tient le nom court du symptôme,
             celle de droite la phrase citée. */}
-        <Stagger
-          gap={0.09}
-          className="mt-14 border-b border-rule sm:mt-16"
-        >
+        <div className="mt-14 border-b border-rule sm:mt-16">
           {systemOffers.map((offer) => (
-            <StaggerItem key={offer.id}>
+            <div key={offer.id} data-reveal>
               <div
                 id={offer.id}
                 className="grid scroll-mt-28 grid-cols-1 gap-2 border-t border-rule py-8 sm:grid-cols-[210px_1fr] sm:gap-6 sm:py-10"
@@ -64,11 +60,11 @@ export function SystemsByProblem() {
                   «&nbsp;{offer.situation}&nbsp;»
                 </p>
               </div>
-            </StaggerItem>
+            </div>
           ))}
-        </Stagger>
+        </div>
 
-        <Reveal preset="soft" className="pt-10">
+        <div data-reveal className="pt-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
             <p className="max-w-[52ch] text-body text-ink-body">
               Aucune de ces quatre situations ne ressemble à la vôtre ? C&apos;est
@@ -89,7 +85,7 @@ export function SystemsByProblem() {
               <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
             </Button>
           </div>
-        </Reveal>
+        </div>
       </SectionShell>
     </section>
   );

@@ -226,3 +226,25 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ─────────────────────────────────────────────
+   APPARITION DES BLOCS — amélioration progressive
+
+   L'état initial (bloc effacé) n'existe que sous `data-motion="on"`,
+   posé par lib/motion-boot.ts quand JavaScript tourne et que le système
+   ne demande pas moins d'animations. Le HTML serveur n'est jamais
+   masqué ; l'observateur partagé pose `data-in-view` à l'entrée dans le
+   viewport.
+   ───────────────────────────────────────────── */
+@layer components {
+  html[data-motion='on'] [data-reveal] {
+    transition:
+      opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html[data-motion='on'] [data-reveal]:not([data-in-view]) {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

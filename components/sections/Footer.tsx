@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { homepageContent } from '@/lib/content/homepage';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
-import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { Button } from '@/components/ui/Button';
 
 /**
@@ -39,12 +38,9 @@ export function Footer() {
   return (
     <footer className="border-t border-rule bg-paper text-ink">
       <div className="mx-auto max-w-site px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-        <Stagger
-          gap={0.06}
-          className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16"
-        >
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
           {/* Marque */}
-          <StaggerItem>
+          <div data-reveal>
             <span className="flex flex-col leading-none">
               <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink">
                 {homepageContent.navigation.brand}
@@ -64,12 +60,12 @@ export function Footer() {
               Agence d&apos;automatisation et d&apos;IA. Nous relions vos
               outils entre eux.
             </p>
-          </StaggerItem>
+          </div>
 
           {/* Les colonnes de liens */}
           <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-20">
             {colonnes.map((colonne) => (
-              <StaggerItem key={colonne.titre}>
+              <div key={colonne.titre} data-reveal>
                 <p className="font-sans text-micro uppercase text-ink-muted">
                   {colonne.titre}
                 </p>
@@ -85,7 +81,7 @@ export function Footer() {
                     </Link>
                   ))}
                 </nav>
-              </StaggerItem>
+              </div>
             ))}
 
             {/* La colonne « Contact » : la voie légère pour qui a juste une
@@ -94,7 +90,7 @@ export function Footer() {
                 liens quittent le site — un mailto et un créneau — et ne
                 passent donc pas par `next/link`. Les classes, elles, sont
                 exactement celles des colonnes voisines. */}
-            <StaggerItem>
+            <div data-reveal>
               <p className="font-sans text-micro uppercase text-ink-muted">
                 Contact
               </p>
@@ -117,11 +113,11 @@ export function Footer() {
                   <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
                 </a>
               </nav>
-            </StaggerItem>
+            </div>
           </div>
 
           {/* Action et mention de copyright */}
-          <StaggerItem className="lg:text-right">
+          <div data-reveal className="lg:text-right">
             <Button href="/demarrer-un-projet" variant="secondary" tone="strong">
               Démarrer un projet
             </Button>
@@ -129,8 +125,8 @@ export function Footer() {
             <p className="mt-6 text-[0.75rem] text-ink-muted">
               © 2026 NASSFLOW AGENCY
             </p>
-          </StaggerItem>
-        </Stagger>
+          </div>
+        </div>
       </div>
     </footer>
   );

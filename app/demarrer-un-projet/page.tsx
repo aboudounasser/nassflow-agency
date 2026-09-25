@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { SectionShell } from '@/components/SectionShell';
 import { ProjectForm } from '@/components/ProjectForm';
-import { Reveal } from '@/components/motion/Reveal';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
@@ -43,7 +42,7 @@ export default function DemarrerUnProjetPage() {
         <div className="mx-auto max-w-[900px] px-1 sm:px-0">
           {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
               déjà « Accueil », et le logo mène au même endroit. */}
-          <Reveal onMount preset="soft" className="mb-10 sm:mb-14 lg:mb-16">
+          <div className="mb-10 sm:mb-14 lg:mb-16">
             <Eyebrow as="p">Démarrer un projet</Eyebrow>
 
             <h1 className="mt-5 font-heading text-title text-ink">
@@ -54,11 +53,11 @@ export default function DemarrerUnProjetPage() {
               Une question rapide ou un besoin déjà cadré, c’est le même
               formulaire. Répondez à ce qui vous concerne, laissez le reste.
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal preset="soft" delay={0.12}>
+          <div>
             <ProjectForm />
-          </Reveal>
+          </div>
         </div>
       </SectionShell>
     </main>

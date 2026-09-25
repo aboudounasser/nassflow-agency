@@ -5,6 +5,7 @@ import { AnimatePresence, m } from 'motion/react';
 import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 import type { Question, Solution } from '@/lib/content/solutions';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 
 /**
  * Formulaire d'une fiche solution : les champs communs, puis un champ par
@@ -83,7 +84,16 @@ function QuestionField({ question }: { question: Question }) {
   );
 }
 
+/** Motion n'est chargé que sur les pages qui portent ce formulaire. */
 export function SolutionRequestForm({ solution }: { solution: Solution }) {
+  return (
+    <MotionProvider>
+      <SolutionRequestFormFields solution={solution} />
+    </MotionProvider>
+  );
+}
+
+function SolutionRequestFormFields({ solution }: { solution: Solution }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');

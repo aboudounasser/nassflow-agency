@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { solutions, type Solution } from '@/lib/content/solutions';
 
 /**
@@ -91,7 +90,7 @@ export function SolutionsCatalog() {
       className="border-t border-rule bg-paper text-ink"
     >
       <SectionShell className="py-16 sm:py-20 lg:py-24">
-        <Reveal preset="soft" className="max-w-[24ch]">
+        <div data-reveal className="max-w-[24ch]">
           <Eyebrow>Par où on commence</Eyebrow>
 
           <SectionTitle
@@ -99,7 +98,7 @@ export function SolutionsCatalog() {
             lead="Six points de départ,"
             voice="pas six produits."
           />
-        </Reveal>
+        </div>
 
         <p className="mt-7 max-w-[62ch] text-body text-ink-body">
           Chacune s&apos;adapte à votre façon de travailler : vos tarifs, vos
@@ -111,10 +110,7 @@ export function SolutionsCatalog() {
             <div key={group.category}>
               {/* Titre et description sur la même ligne de base : la
                   description prolonge le titre au lieu de l'empiler. */}
-              <Reveal
-                preset="soft"
-                className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6"
-              >
+              <div data-reveal className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
                 <h3 className="shrink-0 font-sans text-[0.8125rem] font-bold uppercase tracking-label text-ink">
                   {group.title}
                 </h3>
@@ -122,23 +118,20 @@ export function SolutionsCatalog() {
                 <p className="max-w-[62ch] text-[0.9375rem] leading-[1.55] text-ink-muted">
                   {group.description}
                 </p>
-              </Reveal>
+              </div>
 
-              <Stagger
-                gap={0.08}
-                className="mt-8 border-b border-rule"
-              >
+              <div className="mt-8 border-b border-rule">
                 {solutions
                   .filter((solution) => solution.category === group.category)
                   .map((solution) => (
-                    <StaggerItem key={solution.slug}>
+                    <div key={solution.slug} data-reveal>
                       <SolutionRow
                         solution={solution}
                         index={solutions.indexOf(solution)}
                       />
-                    </StaggerItem>
+                    </div>
                   ))}
-              </Stagger>
+              </div>
             </div>
           ))}
         </div>

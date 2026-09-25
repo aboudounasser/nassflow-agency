@@ -3,6 +3,7 @@
 import { m, useScroll, useSpring } from 'motion/react';
 import { usePrefersReducedMotion } from '@/lib/use-reduced-motion';
 import { transitions } from '@/lib/motion';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 
 /**
  * Fine barre de progression de lecture, collée sous l'en-tête.
@@ -20,10 +21,12 @@ export function ScrollProgress() {
   if (reduced) return null;
 
   return (
-    <m.div
-      aria-hidden="true"
-      style={{ scaleX }}
-      className="pointer-events-none fixed inset-x-0 top-0 z-(--z-overlay) h-px origin-left bg-accent"
-    />
+    <MotionProvider>
+      <m.div
+        aria-hidden="true"
+        style={{ scaleX }}
+        className="pointer-events-none fixed inset-x-0 top-0 z-(--z-overlay) h-px origin-left bg-accent"
+      />
+    </MotionProvider>
   );
 }
