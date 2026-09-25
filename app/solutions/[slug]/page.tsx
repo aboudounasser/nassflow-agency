@@ -119,7 +119,7 @@ export default async function SolutionPage({
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
           <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
-            <h2 className="font-heading text-title text-ink">
+            <h2 className="font-heading text-heading text-ink">
               Dites-nous où vous en êtes
             </h2>
 
