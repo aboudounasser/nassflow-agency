@@ -130,7 +130,7 @@ export function linkify(text: string): ReactNode[] {
           href={trimmed}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-[var(--accent)]"
+          className="underline underline-offset-2 hover:text-accent"
         >
           {label}
           <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>

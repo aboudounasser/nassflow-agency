@@ -79,27 +79,27 @@ export default async function SolutionPage({
               ancre. Deux liens identiques à quarante pixels l'un de l'autre
               n'aident personne. */}
           <Reveal onMount preset="soft">
-            <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+            <span className="block font-sans text-label uppercase text-accent">
               {solution.categoryLabel}
             </span>
 
-            <h1 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,6.4vw,4rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
+            <h1 className="mt-5 font-heading text-title text-ink">
               {solution.title}
             </h1>
 
             {/* La phrase du dirigeant, citée comme sur la home. */}
-            <p className="mt-6 max-w-[30ch] font-[family-name:var(--font-serif)] text-[1.75rem] italic leading-[1.25] text-[var(--ink-muted)]">
+            <p className="mt-6 max-w-[30ch] font-serif text-[1.75rem] italic leading-[1.25] text-ink-muted">
               «&nbsp;{solution.problem}&nbsp;»
             </p>
           </Reveal>
 
           <Reveal preset="soft" delay={0.12} className="mt-10 sm:mt-12">
-            <div className="border-t border-[var(--rule)] pt-8">
-              <h2 className="font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+            <div className="border-t border-rule pt-8">
+              <h2 className="font-sans text-label uppercase text-ink-muted">
                 Ce qu&apos;on installe
               </h2>
 
-              <p className="mt-5 max-w-[48ch] text-[1.375rem] leading-[1.4] text-[var(--ink)]">
+              <p className="mt-5 max-w-[48ch] text-[1.375rem] leading-[1.4] text-ink">
                 {solution.delivers}
               </p>
 
@@ -107,7 +107,7 @@ export default async function SolutionPage({
                 {solution.includes.map((item) => (
                   <li
                     key={item}
-                    className="border-t border-[var(--rule)] py-5 text-[1.0625rem] leading-[1.55] text-[var(--ink-body)]"
+                    className="border-t border-rule py-5 text-[1.0625rem] leading-[1.55] text-ink-body"
                   >
                     {item}
                   </li>
@@ -120,11 +120,11 @@ export default async function SolutionPage({
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
           <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
-            <h2 className="font-[family-name:var(--font-archivo)] text-[clamp(1.75rem,5vw,2.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[var(--ink)]">
+            <h2 className="font-heading text-title text-ink">
               Dites-nous où vous en êtes
             </h2>
 
-            <p className="mt-4 max-w-[52ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+            <p className="mt-4 max-w-[52ch] text-body text-ink-body">
               On part de votre situation, pas d&apos;un modèle tout fait.
             </p>
 
@@ -134,15 +134,15 @@ export default async function SolutionPage({
           </Reveal>
 
           <Reveal preset="soft" delay={0.24} className="mt-10 sm:mt-12">
-            <div className="flex flex-col gap-6 border-t border-[var(--rule)] pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
-              <p className="max-w-[52ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+            <div className="flex flex-col gap-6 border-t border-rule pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
+              <p className="max-w-[52ch] text-body text-ink-body">
                 Cette solution est un point de départ. On l&apos;adapte à votre
                 façon de travailler après en avoir parlé avec vous.
               </p>
 
               <Link
                 href="/demarrer-un-projet"
-                className="inline-flex shrink-0 items-center self-start border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)] sm:self-auto"
+                className="inline-flex shrink-0 items-center self-start border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink-body transition-colors duration-200 ease-out hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink sm:self-auto"
               >
                 En parler avec nous
               </Link>

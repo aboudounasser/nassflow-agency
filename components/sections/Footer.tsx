@@ -36,7 +36,7 @@ const colonnes = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+    <footer className="border-t border-rule bg-paper text-ink">
       <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <Stagger
           gap={0.06}
@@ -45,11 +45,11 @@ export function Footer() {
           {/* Marque */}
           <StaggerItem>
             <span className="flex flex-col leading-none">
-              <span className="font-[family-name:var(--font-archivo)] text-[1.0625rem] font-extrabold tracking-[-0.02em] text-[var(--ink)]">
+              <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink">
                 {homepageContent.navigation.brand}
               </span>
 
-              <span className="mt-1.5 font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.24em] text-[var(--ink-muted)]">
+              <span className="mt-1.5 font-sans text-micro uppercase tracking-signature text-ink-muted">
                 {homepageContent.navigation.signature}
               </span>
             </span>
@@ -59,7 +59,7 @@ export function Footer() {
                 c'est pourquoi elle revient après avoir disparu avec
                 l'ancien pied de page. Elle dit « agence » et non
                 « studio », comme partout ailleurs. */}
-            <p className="mt-5 max-w-[34ch] text-[0.875rem] leading-[1.5] text-[var(--ink-muted)]">
+            <p className="mt-5 max-w-[34ch] text-[0.875rem] leading-[1.5] text-ink-muted">
               Agence d&apos;automatisation et d&apos;IA. Nous relions vos
               outils entre eux.
             </p>
@@ -69,7 +69,7 @@ export function Footer() {
           <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-20">
             {colonnes.map((colonne) => (
               <StaggerItem key={colonne.titre}>
-                <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+                <p className="font-sans text-micro uppercase text-ink-muted">
                   {colonne.titre}
                 </p>
 
@@ -78,7 +78,7 @@ export function Footer() {
                     <Link
                       key={lien.label}
                       href={lien.href}
-                      className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                      className="font-sans text-[0.9375rem] text-ink-body transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
                     >
                       {lien.label}
                     </Link>
@@ -94,14 +94,14 @@ export function Footer() {
                 passent donc pas par `next/link`. Les classes, elles, sont
                 exactement celles des colonnes voisines. */}
             <StaggerItem>
-              <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+              <p className="font-sans text-micro uppercase text-ink-muted">
                 Contact
               </p>
 
               <nav className="mt-5 flex flex-col items-start gap-3">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                  className="font-sans text-[0.9375rem] text-ink-body transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
                 >
                   {CONTACT_EMAIL}
                 </a>
@@ -110,7 +110,7 @@ export function Footer() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-[family-name:var(--font-archivo)] text-[0.9375rem] text-[var(--ink-body)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                  className="font-sans text-[0.9375rem] text-ink-body transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
                 >
                   Réserver un appel
                   <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
@@ -123,12 +123,12 @@ export function Footer() {
           <StaggerItem className="lg:text-right">
             <Link
               href="/demarrer-un-projet"
-              className="inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink)] transition-colors duration-200 ease-out hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+              className="inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink transition-colors duration-200 ease-out hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
               Démarrer un projet
             </Link>
 
-            <p className="mt-6 text-[0.75rem] text-[var(--ink-muted)]">
+            <p className="mt-6 text-[0.75rem] text-ink-muted">
               © 2026 NASSFLOW AGENCY
             </p>
           </StaggerItem>

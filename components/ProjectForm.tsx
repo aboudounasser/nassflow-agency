@@ -73,9 +73,9 @@ export function ProjectForm() {
   return (
       <form
         onSubmit={handleSubmit}
-        className="border-t border-[var(--rule)]"
+        className="border-t border-rule"
       >
-        <div className="border-b border-[var(--rule)] py-7 sm:py-8">
+        <div className="border-b border-rule py-7 sm:py-8">
           <FormStepTitle step="01">Votre entreprise</FormStepTitle>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
@@ -196,7 +196,7 @@ export function ProjectForm() {
           </div>
         </div>
 
-        <div className="border-b border-[var(--rule)] py-7 sm:py-8">
+        <div className="border-b border-rule py-7 sm:py-8">
           <FormStepTitle step="02">Votre projet</FormStepTitle>
 
           <div className="space-y-8 sm:space-y-9">
@@ -439,9 +439,9 @@ export function ProjectForm() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={transitions.quick}
-                className={`${formStyles.success} mb-6 text-[1.0625rem] leading-[1.6] text-[var(--ink-body)]`}
+                className={`${formStyles.success} mb-6 text-[1.0625rem] leading-[1.6] text-ink-body`}
               >
-                <span className="font-[family-name:var(--font-archivo)] font-bold text-[var(--ink)]">
+                <span className="font-sans font-bold text-ink">
                   Demande envoyée.
                 </span>{' '}
                 Merci. Nous avons bien reçu votre projet et nous reviendrons
@@ -465,7 +465,7 @@ export function ProjectForm() {
           </AnimatePresence>
         </div>
 
-        <div className="flex flex-col gap-5 border-t border-[var(--rule)] pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
+        <div className="flex flex-col gap-5 border-t border-rule pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
           <p className={formStyles.note}>
             Les informations transmises servent uniquement à comprendre
             votre projet et à vous recontacter au sujet de votre demande.

@@ -39,7 +39,7 @@ export function AssistantBubble() {
           type="button"
           onClick={() => setIsOpen(true)}
           aria-haspopup="dialog"
-          className="fixed bottom-5 right-5 z-[60] inline-flex min-h-11 items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.875rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] sm:bottom-6 sm:right-6"
+          className="fixed bottom-5 right-5 z-[60] inline-flex min-h-11 items-center justify-center bg-accent px-5 font-sans text-[0.875rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:bottom-6 sm:right-6"
         >
           Une question&nbsp;?
         </button>

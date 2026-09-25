@@ -53,7 +53,7 @@ export function Navigation() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+    <header className="sticky top-0 z-50 border-b border-rule bg-paper text-ink">
       <div
         className={[
           'mx-auto flex max-w-[1280px] items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8',
@@ -68,12 +68,12 @@ export function Navigation() {
           onClick={closeMenu}
         >
           <span className="flex flex-col leading-none">
-            <span className="font-[family-name:var(--font-archivo)] text-[1.0625rem] font-extrabold tracking-[-0.02em] text-[var(--ink)] transition-colors duration-200 group-hover:text-[var(--accent)]">
+            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors duration-200 group-hover:text-accent">
               {homepageContent.navigation.brand}
             </span>
 
             {/* Signature : 10px · 600 · 0.24em · majuscules. */}
-            <span className="mt-1.5 font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.24em] text-[var(--ink-muted)]">
+            <span className="mt-1.5 font-sans text-micro uppercase tracking-signature text-ink-muted">
               {homepageContent.navigation.signature}
             </span>
           </span>
@@ -88,7 +88,7 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
-              className="font-[family-name:var(--font-archivo)] text-[0.875rem] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+              className="font-sans text-[0.875rem] font-medium text-ink transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
               {link.label}
             </Link>
@@ -98,7 +98,7 @@ export function Navigation() {
         {/* CTA desktop */}
         <Link
           href="/demarrer-un-projet"
-          className="hidden min-h-11 items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.875rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:inline-flex"
+          className="hidden min-h-11 items-center justify-center bg-accent px-5 font-sans text-[0.875rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:inline-flex"
         >
           {homepageContent.navigation.cta}
         </Link>
@@ -110,7 +110,7 @@ export function Navigation() {
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-[60] inline-flex h-11 w-11 shrink-0 items-center justify-center border border-[var(--rule)] text-[var(--ink)] transition-colors duration-200 hover:border-[var(--ink)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:hidden"
+          className="relative z-[60] inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors duration-200 hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
         >
           <span className="sr-only">
             {menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -148,7 +148,7 @@ export function Navigation() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={transitions.quick}
-            className="overflow-hidden border-t border-[var(--rule)] bg-[var(--paper)] md:hidden"
+            className="overflow-hidden border-t border-rule bg-paper md:hidden"
           >
             <nav
               aria-label="Menu mobile"
@@ -163,7 +163,7 @@ export function Navigation() {
                 >
                   <Link
                     href={link.href}
-                    className="flex min-h-12 items-center border-b border-[var(--rule)] font-[family-name:var(--font-archivo)] text-base font-medium text-[var(--ink)] transition-colors duration-150 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors duration-150 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                     onClick={closeMenu}
                   >
                     {link.label}
@@ -174,7 +174,7 @@ export function Navigation() {
               <div className="py-4">
                 <Link
                   href="/demarrer-un-projet"
-                  className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-6 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                  className="inline-flex min-h-12 w-full items-center justify-center bg-accent px-6 font-sans text-[0.9375rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                   onClick={closeMenu}
                 >
                   {homepageContent.navigation.cta}

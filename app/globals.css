@@ -19,38 +19,51 @@
      lueur : ni halo, ni dégradé, ni box-shadow, ni backdrop-blur.
    - `border-radius: 0` partout, boutons compris. Les angles sont vifs.
 
-   LE THÈME SOMBRE A ÉTÉ RETIRÉ. Il n'y a plus qu'une seule palette, ni
-   mode clair ni mode sombre : les jetons ci-dessous sont les seuls du
-   site. Si vous cherchez `--background`, `--text-primary`, `--border`
-   ou `--accent-primary`, ils n'existent plus — leurs équivalents sont
-   `--paper`, `--ink`, `--rule` et `--accent`.
+   Il n'y a qu'une seule palette, ni mode clair ni mode sombre. Dans le
+   JSX, les couleurs s'écrivent avec les utilitaires générés
+   (`bg-paper`, `text-ink`, `border-rule`, `bg-accent`…), jamais en
+   `bg-[var(--…)]`.
 
    ─────────────────────────────────────────────
-   ÉCHELLE TYPOGRAPHIQUE
+   POLICES
 
-   Deux familles, pas trois, et pas de troisième à ajouter. Archivo
-   (`--font-archivo`) porte TOUT ce qui n'est pas la voix : les titres,
-   l'UI, les micro-labels, et le CORPS DE TEXTE — elle est dessinée pour
-   tenir en taille de lecture, il n'y a donc pas de police de labeur
-   séparée. Instrument Serif (`--font-serif`) porte la voix, et elle
-   seule : les citations de dirigeants et la seconde moitié des grands
-   titres.
+   Archivo (`font-sans`, `font-heading`) porte tout ce qui n'est pas la
+   voix : titres, UI, micro-labels et corps de texte. Instrument Serif
+   (`font-serif`) porte la voix, et elle seule : les citations de
+   dirigeants et la seconde moitié des grands titres.
 
-   Le monospace et Inter ont disparu du projet. Les micro-labels que le
-   monospace portait sont en Archivo 600 majuscule interlettré ; le
-   corps qu'Inter portait est en Archivo 400. `--font-body` reste comme
-   alias de lecture, mais il pointe sur Archivo : si un chantier a
-   besoin d'une police de corps, la réponse est Archivo, pas une
-   nouvelle famille.
+   IBM Plex Mono (`font-mono`) est réservée aux annotations « machine »
+   — statuts, étapes, horodatages. Elle n'est pas préchargée : tant
+   qu'aucun élément ne l'appelle, le navigateur ne la télécharge pas.
+   N'en faites ni un corps de texte ni un titre.
 
-     h1         88px desktop / 39px mobile · lh 0.95 · tracking -0.038em · 800
-     h2         64px                       · lh 1.0  · tracking -0.035em · 800
-     h3 index   34px                       · lh 1.05 · tracking -0.028em · 700
-     citation   46px serif italique (grande) / 21px serif italique (petite)
-     corps      18–20px                    · lh 1.55–1.6
-     sur-titre  11px · 600 · tracking 0.2em  · majuscules
-     tag        11px · 600 · tracking 0.16em · majuscules
-     signature  10px · 600 · tracking 0.24em · majuscules
+   Les variables posées par `next/font` (`--font-archivo`,
+   `--font-instrument-serif`, `--font-plex-mono`) portent des noms
+   distincts des jetons Tailwind : un jeton `--font-serif` défini comme
+   `var(--font-serif)` se référençait lui-même.
+
+   ─────────────────────────────────────────────
+   ÉCHELLE TYPOGRAPHIQUE — un utilitaire par rôle
+
+   Chaque rôle porte sa taille, son interligne, son interlettrage et,
+   quand il en a une, sa graisse. Un `leading-*` ou `tracking-*` posé à
+   côté les remplace ponctuellement.
+
+     text-display   h1 d'accueil   clamp 39px → 88px · lh 0.95 · -0.038em · 800
+     text-title     h2 de section  clamp 34px → 64px · lh 1.0  · -0.035em · 800
+     text-subtitle  h3 d'index     clamp 24px → 34px · lh 1.05 · -0.028em · 700
+     text-lead      chapeau        20px              · lh 1.55
+     text-body      corps          18px              · lh 1.6
+     text-small     texte d'appui  15px              · lh 1.6
+     text-label     sur-titre      11px · 0.2em · 600 (majuscules via `uppercase`)
+     text-micro     signature      10px · 0.2em · 600
+
+   Les interlettrages de micro-labels ont trois valeurs nommées :
+   `tracking-label` (0.2em, sur-titres), `tracking-tag` (0.16em,
+   étiquettes et libellés de champ), `tracking-signature` (0.24em).
+
+   `text-label` et `text-micro` n'ont volontairement pas d'interligne :
+   ils héritent de leur parent, comme avant leur création.
    ═════════════════════════════════════════════ */
 
 :root {
@@ -66,9 +79,18 @@
   --accent-hover: #a92a18;
   --on-accent: #f2f0eb;
 
-  --font-heading: var(--font-archivo);
-  /* Le corps aussi : voir l'en-tête, il n'y a pas de troisième famille. */
-  --font-body: var(--font-archivo);
+  /* Hauteurs de l'en-tête, normale et resserrée au défilement. Le
+     `scroll-padding-top` ci-dessous en dépend : une ancre ne doit pas
+     finir sous l'en-tête. */
+  --header-h: 68px;
+  --header-h-lg: 82px;
+  --header-h-condensed: 62px;
+  --header-h-condensed-lg: 70px;
+
+  /* Échelle des plans, s'utilise avec `z-(--z-header)`. */
+  --z-header: 50;
+  --z-overlay: 60;
+  --z-assistant: 70;
 }
 
 @theme inline {
@@ -80,9 +102,56 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-on-accent: var(--on-accent);
-  --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
-  --font-serif: var(--font-serif);
+
+  --font-sans: var(--font-archivo);
+  --font-heading: var(--font-archivo);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-plex-mono);
+
+  --text-display: clamp(2.4375rem, 8.2vw, 5.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.038em;
+  --text-display--font-weight: 800;
+
+  --text-title: clamp(2.125rem, 6.4vw, 4rem);
+  --text-title--line-height: 1;
+  --text-title--letter-spacing: -0.035em;
+  --text-title--font-weight: 800;
+
+  --text-subtitle: clamp(1.5rem, 5.2vw, 2.125rem);
+  --text-subtitle--line-height: 1.05;
+  --text-subtitle--letter-spacing: -0.028em;
+  --text-subtitle--font-weight: 700;
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.55;
+
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.6;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.6;
+
+  --text-label: 0.6875rem;
+  --text-label--letter-spacing: 0.2em;
+  --text-label--font-weight: 600;
+
+  --text-micro: 0.625rem;
+  --text-micro--letter-spacing: 0.2em;
+  --text-micro--font-weight: 600;
+
+  --tracking-label: 0.2em;
+  --tracking-tag: 0.16em;
+  --tracking-signature: 0.24em;
+
+  /* `max-w-site` : la largeur de la grille, partout la même. */
+  --container-site: 1280px;
+
+  /* `h-header`, `lg:h-header-lg`… */
+  --spacing-header: var(--header-h);
+  --spacing-header-lg: var(--header-h-lg);
+  --spacing-header-condensed: var(--header-h-condensed);
+  --spacing-header-condensed-lg: var(--header-h-condensed-lg);
 }
 
 /* Ces règles visent des éléments HTML : sans `@layer base`, elles
@@ -92,12 +161,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 68px;
+    scroll-padding-top: var(--header-h);
   }
 
   @media (min-width: 1024px) {
     html {
-      scroll-padding-top: 82px;
+      scroll-padding-top: var(--header-h-lg);
     }
   }
 
@@ -105,7 +174,7 @@
     min-height: 100vh;
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-body), Arial, Helvetica, sans-serif;
+    font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

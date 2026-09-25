@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Instrument_Serif } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/lib/seo";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
@@ -22,11 +22,22 @@ const archivo = Archivo({
 // moitié des grands titres. Une seule graisse, mais l'italique est
 // indispensable — c'est elle qui est appelée, pas le romain.
 const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
   display: "swap",
+});
+
+// IBM Plex Mono porte les annotations « machine » : statuts, étapes,
+// horodatages. Pas de préchargement : elle ne sert qu'à des détails, et
+// le navigateur ne la télécharge que si un élément l'appelle.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -61,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${archivo.variable} ${instrumentSerif.variable}`}
+      className={`${archivo.variable} ${instrumentSerif.variable} ${plexMono.variable}`}
     >
       <head>
         {/* Sans JavaScript, Motion laisse ses blocs à l'état initial,
@@ -81,7 +92,7 @@ export default function RootLayout({
               que sur l'accueil. Ils encadrent désormais toutes les
               pages, et le fond papier est porté ici plutôt que répété
               sur chaque <main>. */}
-          <div className="flex min-h-screen flex-col bg-[var(--paper)] text-[var(--ink)]">
+          <div className="flex min-h-screen flex-col bg-paper text-ink">
             <Navigation />
             {children}
             <Footer />
