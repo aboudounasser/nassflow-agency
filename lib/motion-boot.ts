@@ -5,8 +5,8 @@
  *
  * 1. Il pose `data-motion="on"` sur <html> seulement si JavaScript tourne
  *    ET si le système ne demande pas moins d'animations. Tout état
- *    initial d'animation (un filet pas encore tracé, un bloc pas encore
- *    apparu) est écrit en CSS SOUS cet attribut : sans JS, ou avec
+ *    initial d'animation (un filet pas encore tracé, un curseur de
+ *    saisie) est écrit en CSS SOUS cet attribut : sans JS, ou avec
  *    « réduire les animations », le HTML s'affiche directement dans son
  *    état final. Rien n'est jamais masqué dans le HTML serveur.
  *

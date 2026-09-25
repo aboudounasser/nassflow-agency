@@ -2,6 +2,7 @@ import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { connectedTools } from '@/lib/content/tools';
+import { Trace } from '@/components/motion/Trace';
 
 /**
  * Les intégrations, en tableau.
@@ -21,12 +22,14 @@ export function IntegrationsTable() {
     <section
       id="outils"
       aria-label="Intégrations"
-      className="border-t border-rule bg-paper text-ink"
+      className="bg-paper text-ink"
     >
+      <Trace />
+
       <SectionShell className="py-16 sm:py-20 lg:py-24">
         {/* Sur desktop le paragraphe se pose à droite du titre, aligné sur
             sa dernière ligne ; en mobile il repasse dessous. */}
-        <div data-reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
             <Eyebrow>Intégrations</Eyebrow>
 
@@ -53,7 +56,7 @@ export function IntegrationsTable() {
             porte. */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:gap-x-20">
           {connectedTools.map((tool, index) => (
-            <div key={tool.name} data-reveal>
+            <div key={tool.name}>
               <div
                 className={[
                   'flex items-baseline justify-between gap-4 border-t border-rule py-4',
@@ -73,7 +76,7 @@ export function IntegrationsTable() {
           ))}
         </div>
 
-        <div data-reveal className="mt-12 sm:mt-14">
+        <div className="mt-12 sm:mt-14">
           <p className="max-w-[62ch] text-lead text-ink-body">
             Votre logiciel métier n&apos;est pas dans la liste ? S&apos;il
             expose une API, il se branche — et la plupart en exposent une.{' '}

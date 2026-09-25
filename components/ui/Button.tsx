@@ -14,6 +14,12 @@ import type { ComponentProps, ReactNode } from 'react';
  * site, `<a>` pour une ancre (`#…`), un `mailto:` ou une URL externe.
  * Sans `href`, il rend un `<button>`.
  *
+ * Au survol et au focus, le bouton plein fonce (`accent-hover`) et une
+ * flèche avance de 3 px dans sa marge droite. Elle n'existe qu'à ce
+ * moment-là : au repos, le bouton garde exactement sa taille et son
+ * dessin. `arrow={false}` la retire (la bulle de l'assistant, qui ouvre
+ * un panneau et ne mène nulle part).
+ *
  * Désactivé, le bouton plein perd son vermillon plutôt que de pâlir :
  * fond `rule`, texte `ink-body` (7,76:1). L'ancienne opacité à 60 %
  * laissait le texte à 2,4:1.
@@ -67,36 +73,93 @@ export function buttonClasses({
   return [...parts, className].filter(Boolean).join(' ');
 }
 
+type ArrowProps = {
+  /** Flèche au survol, bouton plein uniquement (par défaut : oui). */
+  arrow?: boolean;
+};
+
 type LinkButtonProps = StyleProps &
+  ArrowProps &
   Omit<ComponentProps<'a'>, 'className' | 'href'> & {
     href: string;
     children: ReactNode;
   };
 
 type NativeButtonProps = StyleProps &
+  ArrowProps &
   Omit<ComponentProps<'button'>, 'className'> & {
     href?: undefined;
     children: ReactNode;
   };
 
+/** Retrait de la flèche dans la marge droite, selon la taille. */
+const arrowInset = { md: 'right-2.5', sm: 'right-1.5', xs: 'right-1.5' } as const;
+
+/** La flèche : deux traits vifs, dans la couleur du texte. */
+function Arrow({ size }: { size: Size }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-y-0 flex -translate-x-[3px] items-center opacity-0 transition-[opacity,transform] group-hover/button:translate-x-0 group-hover/button:opacity-100 group-focus-visible/button:translate-x-0 group-focus-visible/button:opacity-100 group-disabled/button:hidden ${arrowInset[size]}`}
+    >
+      <svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M0 4h9M5.5.5 9 4 5.5 7.5" strokeLinejoin="miter" />
+      </svg>
+    </span>
+  );
+}
+
 export function Button(props: LinkButtonProps | NativeButtonProps) {
-  const { variant, size, tone, className, ...rest } = props;
-  const classes = buttonClasses({ variant, size, tone, className });
+  const { variant = 'primary', size = 'md', tone, arrow = true, className, ...rest } =
+    props;
+  const withArrow = variant === 'primary' && arrow;
+  const classes = buttonClasses({
+    variant,
+    size,
+    tone,
+    className: [withArrow ? 'group/button relative' : '', className]
+      .filter(Boolean)
+      .join(' '),
+  });
+
+  const children = withArrow ? (
+    <>
+      {rest.children}
+      <Arrow size={size} />
+    </>
+  ) : (
+    rest.children
+  );
 
   if (rest.href === undefined) {
     const { type = 'button', ...buttonProps } = rest as Omit<
       NativeButtonProps,
-      keyof StyleProps
+      keyof StyleProps | 'arrow'
     >;
 
-    return <button type={type} className={classes} {...buttonProps} />;
+    return (
+      <button type={type} className={classes} {...buttonProps}>
+        {children}
+      </button>
+    );
   }
 
-  const { href, ...anchorProps } = rest as Omit<LinkButtonProps, keyof StyleProps>;
+  const { href, ...anchorProps } = rest as Omit<
+    LinkButtonProps,
+    keyof StyleProps | 'arrow'
+  >;
 
   if (href.startsWith('/')) {
-    return <Link href={href} className={classes} {...anchorProps} />;
+    return (
+      <Link href={href} className={classes} {...anchorProps}>
+        {children}
+      </Link>
+    );
   }
 
-  return <a href={href} className={classes} {...anchorProps} />;
+  return (
+    <a href={href} className={classes} {...anchorProps}>
+      {children}
+    </a>
+  );
 }

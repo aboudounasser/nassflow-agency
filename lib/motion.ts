@@ -86,5 +86,3 @@ export const transitions = {
     ease: ease.exit,
   },
 } satisfies Record<string, Transition>;
-
-export const reducedMotionQuery = '(prefers-reduced-motion: reduce)';

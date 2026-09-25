@@ -3,6 +3,7 @@ import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { solutions, type Solution } from '@/lib/content/solutions';
+import { Trace } from '@/components/motion/Trace';
 
 /**
  * Le catalogue, juste après les quatre symptômes : la section #systems
@@ -44,40 +45,49 @@ const groups = [
 function SolutionRow({
   solution,
   index,
+  order,
 }: {
   solution: Solution;
   index: number;
+  /** Rang dans le groupe, pour la cascade des filets. */
+  order: number;
 }) {
   return (
     <Link
       href={`/solutions/${solution.slug}`}
-      className="group grid grid-cols-2 items-start gap-x-4 gap-y-3 border-t border-rule py-8 text-ink transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:grid-cols-[84px_1fr_250px] sm:gap-x-6 sm:py-10"
+      className="group relative block text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
     >
+      <div className="grid grid-cols-2 items-start gap-x-4 gap-y-3 py-8 sm:grid-cols-[84px_1fr_250px] sm:gap-x-6 sm:py-10">
+        <span
+          aria-hidden="true"
+          className="col-start-1 row-start-1 font-serif text-[2.25rem] leading-none text-accent"
+        >
+          {String(index + 1).padStart(2, '0')}
+        </span>
+
+        <span className="col-start-2 row-start-1 justify-self-end self-center font-sans text-label uppercase tracking-tag text-ink-muted sm:col-start-3 sm:justify-self-end sm:self-start sm:pt-2 sm:text-right">
+          {solution.categoryLabel}
+        </span>
+
+        <div className="col-span-2 col-start-1 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1">
+          <h3 className="font-heading text-subtitle">
+            {solution.title}
+          </h3>
+
+          <p className="mt-3 font-serif text-[1.3125rem] italic leading-[1.3] text-ink-muted">
+            «&nbsp;{solution.problem}&nbsp;»
+          </p>
+        </div>
+      </div>
+
+      {/* Le filet du bas de la ligne : tracé à l'entrée dans le viewport,
+          en cascade. Au survol ou au focus, un filet vermillon se trace
+          par-dessus, de gauche à droite — la seule réaction de la ligne. */}
+      <Trace order={order} />
       <span
         aria-hidden="true"
-        className="col-start-1 row-start-1 font-serif text-[2.25rem] leading-none text-accent"
-      >
-        {String(index + 1).padStart(2, '0')}
-      </span>
-
-      <span className="col-start-2 row-start-1 justify-self-end self-center font-sans text-label uppercase tracking-tag text-ink-muted transition-colors sm:col-start-3 sm:justify-self-end sm:self-start sm:pt-2 sm:text-right">
-        {solution.categoryLabel}
-      </span>
-
-      <div className="col-span-2 col-start-1 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1">
-        {/* Au survol : l'encre passe au vermillon et le titre se souligne
-            d'un filet 1px. Rien ne bouge, rien ne grandit. */}
-        {/* Pas de classe de couleur ici : le titre hérite celle du lien,
-            qui bascule au vermillon au survol. Un `text-ink` posé
-            sur le h3 reprenait le dessus sur le `group-hover:`. */}
-        <h3 className="font-heading text-subtitle underline-offset-[6px] group-hover:underline group-hover:decoration-1 group-focus-visible:underline group-focus-visible:decoration-1">
-          {solution.title}
-        </h3>
-
-        <p className="mt-3 font-serif text-[1.3125rem] italic leading-[1.3] text-ink-muted">
-          «&nbsp;{solution.problem}&nbsp;»
-        </p>
-      </div>
+        className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-(--motion-duration-base) group-hover:scale-x-100 group-focus-visible:scale-x-100"
+      />
     </Link>
   );
 }
@@ -87,10 +97,12 @@ export function SolutionsCatalog() {
     <section
       id="solutions"
       aria-label="Catalogue de solutions"
-      className="border-t border-rule bg-paper text-ink"
+      className="bg-paper text-ink"
     >
+      <Trace />
+
       <SectionShell className="py-16 sm:py-20 lg:py-24">
-        <div data-reveal className="max-w-[24ch]">
+        <div className="max-w-[24ch]">
           <Eyebrow>Par où on commence</Eyebrow>
 
           <SectionTitle
@@ -110,7 +122,7 @@ export function SolutionsCatalog() {
             <div key={group.category}>
               {/* Titre et description sur la même ligne de base : la
                   description prolonge le titre au lieu de l'empiler. */}
-              <div data-reveal className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-6">
                 <h3 className="shrink-0 font-sans text-[0.8125rem] font-bold uppercase tracking-label text-ink">
                   {group.title}
                 </h3>
@@ -120,16 +132,20 @@ export function SolutionsCatalog() {
                 </p>
               </div>
 
-              <div className="mt-8 border-b border-rule">
+              {/* Un filet en tête, puis chaque ligne porte le sien en bas :
+                  mêmes pixels que les anciennes bordures, mais chaque
+                  ligne possède désormais son filet du bas. */}
+              <div className="mt-8">
+                <Trace />
                 {solutions
                   .filter((solution) => solution.category === group.category)
-                  .map((solution) => (
-                    <div key={solution.slug} data-reveal>
-                      <SolutionRow
-                        solution={solution}
-                        index={solutions.indexOf(solution)}
-                      />
-                    </div>
+                  .map((solution, order) => (
+                    <SolutionRow
+                      key={solution.slug}
+                      solution={solution}
+                      index={solutions.indexOf(solution)}
+                      order={order + 1}
+                    />
                   ))}
               </div>
             </div>

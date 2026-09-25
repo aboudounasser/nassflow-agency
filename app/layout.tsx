@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/lib/seo";
-import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { AssistantBubble } from '@/components/assistant/AssistantBubble';
@@ -104,8 +103,6 @@ export default function RootLayout({
         >
           Aller au contenu
         </a>
-
-        <ScrollProgress />
 
         {/* L'en-tête et le pied vivaient dans app/page.tsx : les huit
             autres routes n'avaient donc ni navigation ni mentions

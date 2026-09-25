@@ -117,7 +117,7 @@ export default async function SolutionPage({
           {/* Le formulaire tire ses champs spécifiques de
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
-          <div data-reveal className="mt-12 sm:mt-16">
+          <div className="mt-12 sm:mt-16">
             <h2 className="font-heading text-heading text-ink">
               Dites-nous où vous en êtes
             </h2>
@@ -131,7 +131,7 @@ export default async function SolutionPage({
             </div>
           </div>
 
-          <div data-reveal className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12">
             <div className="flex flex-col gap-6 border-t border-rule pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
               <p className="max-w-[52ch] text-body text-ink-body">
                 Cette solution est un point de départ. On l&apos;adapte à votre

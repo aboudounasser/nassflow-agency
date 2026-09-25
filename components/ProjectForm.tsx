@@ -7,6 +7,7 @@ import { sendNotification } from '@/lib/notify';
 import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 import { MotionProvider } from '@/components/motion/MotionProvider';
+import { Button } from '@/components/ui/Button';
 
 /** Motion n'est chargé que sur les pages qui portent ce formulaire. */
 export function ProjectForm() {
@@ -481,13 +482,13 @@ function ProjectFormFields() {
             votre projet et à vous recontacter au sujet de votre demande.
           </p>
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className={formStyles.submit}
+            className="w-full shrink-0 sm:w-auto"
           >
             {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
-          </button>
+          </Button>
         </div>
       </form>
   );

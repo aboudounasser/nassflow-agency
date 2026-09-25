@@ -245,28 +245,6 @@
 }
 
 /* ─────────────────────────────────────────────
-   APPARITION DES BLOCS — amélioration progressive
-
-   L'état initial (bloc effacé) n'existe que sous `data-motion="on"`,
-   posé par lib/motion-boot.ts quand JavaScript tourne et que le système
-   ne demande pas moins d'animations. Le HTML serveur n'est jamais
-   masqué ; l'observateur partagé pose `data-in-view` à l'entrée dans le
-   viewport.
-   ───────────────────────────────────────────── */
-@layer components {
-  html[data-motion='on'] [data-reveal]:not([data-trace]) {
-    transition:
-      opacity var(--motion-duration-slow) var(--motion-ease-standard),
-      transform var(--motion-duration-slow) var(--motion-ease-standard);
-  }
-
-  html[data-motion='on'] [data-reveal]:not([data-trace], [data-in-view]) {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-/* ─────────────────────────────────────────────
    PRIMITIVES — components/motion/
 
    Même règle partout : l'état initial et le mouvement n'existent que
@@ -300,6 +278,28 @@
   html[data-motion='on'] [data-cursor='idle'] {
     animation: blink calc(var(--motion-duration-slow) * 2) steps(1, end)
       infinite;
+  }
+}
+
+/* Lien dans le texte : un soulignement de 1 px, en couleur du texte,
+   qui se redessine de gauche à droite au survol et au focus. Posé en
+   image de fond pour suivre le texte sur plusieurs lignes. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+
+  &:hover,
+  &:focus-visible {
+    animation: underline-redraw var(--motion-duration-base)
+      var(--motion-ease-standard);
+  }
+}
+
+@keyframes underline-redraw {
+  from {
+    background-size: 0% 1px;
   }
 }
 

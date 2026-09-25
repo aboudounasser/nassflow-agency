@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { homepageContent } from '@/lib/content/homepage';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { Button } from '@/components/ui/Button';
+import { Trace } from '@/components/motion/Trace';
 
 /**
  * Le pied de page, réduit à ce qu'on y cherche vraiment : qui parle, où
@@ -36,11 +37,13 @@ const colonnes = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-rule bg-paper text-ink">
+    <footer className="bg-paper text-ink">
+      <Trace />
+
       <div className="mx-auto max-w-site px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
           {/* Marque */}
-          <div data-reveal>
+          <div>
             <span className="flex flex-col leading-none">
               <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink">
                 {homepageContent.navigation.brand}
@@ -65,7 +68,7 @@ export function Footer() {
           {/* Les colonnes de liens */}
           <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-20">
             {colonnes.map((colonne) => (
-              <div key={colonne.titre} data-reveal>
+              <div key={colonne.titre}>
                 <p className="font-sans text-micro uppercase text-ink-muted">
                   {colonne.titre}
                 </p>
@@ -90,7 +93,7 @@ export function Footer() {
                 liens quittent le site — un mailto et un créneau — et ne
                 passent donc pas par `next/link`. Les classes, elles, sont
                 exactement celles des colonnes voisines. */}
-            <div data-reveal>
+            <div>
               <p className="font-sans text-micro uppercase text-ink-muted">
                 Contact
               </p>
@@ -117,7 +120,7 @@ export function Footer() {
           </div>
 
           {/* Action et mention de copyright */}
-          <div data-reveal className="lg:text-right">
+          <div className="lg:text-right">
             <Button href="/demarrer-un-projet" variant="secondary" tone="strong">
               Démarrer un projet
             </Button>

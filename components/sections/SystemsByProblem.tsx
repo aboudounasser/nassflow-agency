@@ -4,6 +4,7 @@ import { SectionTitle } from '@/components/ui/SectionTitle';
 import { systemOffers } from '@/lib/content/systems';
 import { BOOKING_URL } from '@/lib/content/contact';
 import { Button } from '@/components/ui/Button';
+import { Trace } from '@/components/motion/Trace';
 
 /**
  * Les quatre phrases de dirigeant, et rien d'autre.
@@ -21,10 +22,12 @@ export function SystemsByProblem() {
     <section
       id="systems"
       aria-label="Ce que nous résolvons"
-      className="border-t border-rule bg-paper text-ink"
+      className="bg-paper text-ink"
     >
+      <Trace />
+
       <SectionShell className="py-16 sm:py-20 lg:py-24">
-        <div data-reveal className="max-w-[24ch]">
+        <div className="max-w-[24ch]">
           <Eyebrow>Ce que nous résolvons</Eyebrow>
 
           {/* La seconde phrase bascule dans la voix, mais reste à
@@ -47,7 +50,7 @@ export function SystemsByProblem() {
             celle de droite la phrase citée. */}
         <div className="mt-14 border-b border-rule sm:mt-16">
           {systemOffers.map((offer) => (
-            <div key={offer.id} data-reveal>
+            <div key={offer.id}>
               <div
                 id={offer.id}
                 className="grid scroll-mt-28 grid-cols-1 gap-2 border-t border-rule py-8 sm:grid-cols-[210px_1fr] sm:gap-6 sm:py-10"
@@ -64,7 +67,7 @@ export function SystemsByProblem() {
           ))}
         </div>
 
-        <div data-reveal className="pt-10">
+        <div className="pt-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-10">
             <p className="max-w-[52ch] text-body text-ink-body">
               Aucune de ces quatre situations ne ressemble à la vôtre ? C&apos;est

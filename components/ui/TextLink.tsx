@@ -3,8 +3,9 @@ import type { ComponentProps } from 'react';
 /**
  * Le lien dans le texte : souligné, qui change de couleur au survol —
  * vers le vermillon dans un message, vers l'encre dans une note en gris
- * (`hover="ink"`). Au clavier, le même contour à l'encre que le reste du
- * site.
+ * (`hover="ink"`). Au survol et au focus, le soulignement se redessine
+ * de gauche à droite (`link-underline`, app/globals.css). Au clavier, le
+ * même contour à l'encre que le reste du site.
  *
  * Toujours un `<a>` : ces liens vivent dans l'assistant, qui ouvre des
  * pages externes ou des pages légales qu'il n'y a pas lieu de
@@ -27,7 +28,7 @@ export function TextLink({
   return (
     <a
       className={[
-        'underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
+        'link-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
         hovers[hover],
         className,
       ]

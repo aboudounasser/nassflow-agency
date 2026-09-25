@@ -6,6 +6,7 @@ import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 import type { Question, Solution } from '@/lib/content/solutions';
 import { MotionProvider } from '@/components/motion/MotionProvider';
+import { Button } from '@/components/ui/Button';
 
 /**
  * Formulaire d'une fiche solution : les champs communs, puis un champ par
@@ -323,13 +324,13 @@ function SolutionRequestFormFields({ solution }: { solution: Solution }) {
           situation et à vous recontacter au sujet de cette demande.
         </p>
 
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className={formStyles.submit}
+          className="w-full shrink-0 sm:w-auto"
         >
           {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
-        </button>
+        </Button>
       </div>
     </form>
   );
