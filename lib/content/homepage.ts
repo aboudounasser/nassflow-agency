@@ -24,17 +24,8 @@ export const homepageContent = {
     cta: 'Démarrer un projet',
   },
 
-  /**
-   * Le titre de l'accueil, en deux voix : la première en Archivo, la
-   * seconde en Instrument Serif italique vermillon. Il vit ici et plus
-   * dans le JSX du Hero parce que l'image de partage le reprend mot pour
-   * mot — deux copies auraient fini par diverger.
-   */
-  hero: {
-    lead: 'Vos outils méritent mieux que de travailler chacun dans leur coin.',
-
-    accent: 'Ils méritent un système intelligent.',
-  },
+  // Le titre de l'accueil vit dans lib/content/hero.ts, avec le reste du
+  // Hero : l'image de partage et l'assistant le reprennent de là.
 
   layout: {
     tagline: 'VOS OUTILS, RELIÉS',

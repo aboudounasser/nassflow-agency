@@ -20,8 +20,12 @@ export type Tool = {
   role: string;
 };
 
-/** Les outils que le client utilise déjà, et qu'on vient relier. */
-export const connectedTools: Tool[] = [
+/**
+ * Les outils que le client utilise déjà, et qu'on vient relier. Les noms
+ * sont littéraux : la démonstration du Hero ne peut citer qu'un outil de
+ * cette liste (`ConnectedToolName`).
+ */
+export const connectedTools = [
   { name: 'Gmail', role: 'Messagerie' },
   { name: 'Outlook', role: 'Messagerie' },
   { name: 'WhatsApp', role: 'Messages clients' },
@@ -32,7 +36,9 @@ export const connectedTools: Tool[] = [
   { name: 'Shopify', role: 'Boutique en ligne' },
   { name: 'Calendly', role: 'Rendez-vous' },
   { name: 'HubSpot', role: 'CRM' },
-];
+] as const satisfies readonly Tool[];
+
+export type ConnectedToolName = (typeof connectedTools)[number]['name'];
 
 /** Les plateformes sur lesquelles on construit les systèmes. */
 export const builtWith: Tool[] = [
