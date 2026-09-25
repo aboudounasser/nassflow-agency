@@ -67,9 +67,12 @@ export function Navigation() {
         <Link
           href="/"
           className="group flex min-h-11 items-center"
-          aria-label="Accueil NASSFLOW AGENCY"
           onClick={closeMenu}
         >
+          {/* Pas d'aria-label : il remplaçait le texte visible au lieu de
+              le contenir. Le nom accessible est désormais « Accueil,
+              NASSFLOW AGENCY VOS OUTILS, RELIÉS ». */}
+          <span className="sr-only">Accueil, </span>
           <span className="flex flex-col leading-none">
             <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors duration-200 group-hover:text-accent">
               {homepageContent.navigation.brand}

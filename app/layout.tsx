@@ -8,6 +8,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/sections/Footer";
 import { AssistantBubble } from '@/components/assistant/AssistantBubble';
 import { Analytics } from '@vercel/analytics/next';
+import { buttonClasses } from '@/components/ui/Button';
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -83,6 +84,20 @@ export default function RootLayout({
       </head>
 
       <body>
+        {/* Premier arrêt de la tabulation : sauter l'en-tête. Invisible
+            tant qu'il n'a pas le focus ; chaque page porte `id="contenu"`
+            sur son <main>. */}
+        <a
+          href="#contenu"
+          className={buttonClasses({
+            size: 'sm',
+            className:
+              'sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-(--z-assistant) focus:px-5',
+          })}
+        >
+          Aller au contenu
+        </a>
+
         <MotionProvider>
           <ScrollProgress />
 

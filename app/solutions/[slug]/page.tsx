@@ -72,7 +72,7 @@ export default async function SolutionPage({
   if (!solution) notFound();
 
   return (
-    <main className="flex-1">
+    <main id="contenu" className="flex-1">
       <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
           {/* Pas de lien « Retour aux solutions » ici : la navigation, juste

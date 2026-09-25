@@ -13,6 +13,10 @@ import type { ComponentProps, ReactNode } from 'react';
  * Avec `href`, le composant rend un lien : `next/link` pour une route du
  * site, `<a>` pour une ancre (`#…`), un `mailto:` ou une URL externe.
  * Sans `href`, il rend un `<button>`.
+ *
+ * Désactivé, le bouton plein perd son vermillon plutôt que de pâlir :
+ * fond `rule`, texte `ink-body` (7,76:1). L'ancienne opacité à 60 %
+ * laissait le texte à 2,4:1.
  */
 
 type Variant = 'primary' | 'secondary';
@@ -33,7 +37,7 @@ const focus = 'focus-visible:outline-2 focus-visible:outline-ink';
 
 const styles = {
   primary: {
-    base: `inline-flex items-center justify-center bg-accent font-sans font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover ${focus} focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60`,
+    base: `inline-flex items-center justify-center bg-accent font-sans font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover ${focus} focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:bg-rule disabled:text-ink-body disabled:hover:bg-rule`,
     size: {
       md: 'min-h-12 px-7 text-[0.9375rem]',
       sm: 'min-h-11 px-5 text-[0.875rem]',

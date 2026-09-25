@@ -402,7 +402,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={() => void send(draft)}
             disabled={isAnswering || draft.trim().length === 0}
-            className="mb-1 shrink-0 font-sans text-[0.8125rem] font-semibold text-accent transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-40"
+            className="mb-1 shrink-0 font-sans text-[0.8125rem] font-semibold text-accent transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:text-ink-muted disabled:hover:text-ink-muted"
           >
             Envoyer
           </button>
