@@ -73,9 +73,10 @@
   --ink-body: #3a3833;
   --ink-muted: #6b6862;
   --rule: #d6d2c8;
+  /* Texte --on-accent sur --accent : 4,66:1 (AA, sans marge). */
   --accent: #c9321c;
   /* Même teinte que l'accent, assombrie pour garder un écart de
-     contraste de 1,30 ; texte --on-accent dessus : 6,08:1. */
+     contraste de 1,30 ; texte --on-accent sur --accent-hover : 6,08:1. */
   --accent-hover: #a92a18;
   --on-accent: #f2f0eb;
 

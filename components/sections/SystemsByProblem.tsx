@@ -9,11 +9,9 @@ import { Button } from '@/components/ui/Button';
 /**
  * Les quatre phrases de dirigeant, et rien d'autre.
  *
- * La section ne montre plus `delivers` ni `includes` : ce détail vit dans
- * le catalogue, juste en dessous, où il est à sa place. Ici on ne cherche
- * qu'une chose — que le lecteur se reconnaisse dans une phrase. Les deux
- * champs restent définis dans `lib/content/systems.ts`, où ils servent de
- * référence d'écriture même si plus rien ne les rend pour l'instant.
+ * Ce qu'on installe vit dans le catalogue, juste en dessous, où il est à
+ * sa place. Ici on ne cherche qu'une chose — que le lecteur se
+ * reconnaisse dans une phrase.
  *
  * Voir l'en-tête de `app/globals.css` pour la direction : filets 1px,
  * aucun arrondi, aucun effet.
