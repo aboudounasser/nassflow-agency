@@ -51,6 +51,7 @@ export function Status({
   interval = motionTokens.duration.slow * 3,
   loop = false,
   live = false,
+  paused = false,
   className,
 }: {
   states?: StatusState[];
@@ -63,10 +64,13 @@ export function Status({
   /** Repart du premier état après le dernier (avec `autoplay`). */
   loop?: boolean;
   live?: boolean;
+  /** Suspend la séquence et la pulsation. */
+  paused?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const { enabled, playing } = usePlaying(ref);
+  const { enabled, playing: visible } = usePlaying(ref);
+  const playing = visible && !paused;
 
   const last = states.length - 1;
 
@@ -91,6 +95,36 @@ export function Status({
   const state = states[Math.min(Math.max(index, 0), last)];
 
   return (
+    <StatusView
+      ref={ref}
+      state={state}
+      live={live}
+      playing={playing}
+      className={className}
+    />
+  );
+}
+
+/**
+ * Le rendu seul d'un état, sans observateur ni minuterie : pour un état
+ * figé (rendu final, démonstration à l'arrêt), il évite d'abonner chaque
+ * étiquette au viewport. `Status` s'en sert pour son propre rendu.
+ */
+export function StatusView({
+  state,
+  live = false,
+  playing = false,
+  className,
+  ref,
+}: {
+  state: StatusState;
+  live?: boolean;
+  /** Autorise la pulsation de l'état « en cours ». */
+  playing?: boolean;
+  className?: string;
+  ref?: React.Ref<HTMLSpanElement>;
+}) {
+  return (
     <span
       ref={ref}
       role={live ? 'status' : undefined}
@@ -98,7 +132,7 @@ export function Status({
       data-status={state.tone}
       data-playing={playing ? '' : undefined}
       className={[
-        'inline-flex items-center gap-2.5 font-mono text-label font-medium uppercase text-ink',
+        'inline-flex items-center gap-2.5 font-mono text-label font-normal uppercase text-ink',
         className,
       ]
         .filter(Boolean)

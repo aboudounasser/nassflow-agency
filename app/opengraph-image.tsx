@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { heroContent } from '@/lib/content/hero';
 import { homepageContent } from '@/lib/content/homepage';
 import { loadOgFonts, ogColors, ogContentType, ogSize } from '@/lib/og';
 
@@ -11,7 +12,7 @@ import { loadOgFonts, ogColors, ogContentType, ogSize } from '@/lib/og';
  * ombre, ni arrondi. Une carte de partage est vue à la taille d'une
  * vignette : tout ce qui décore s'y perd, seul le contraste tient.
  */
-export const alt = `${homepageContent.navigation.brand} — ${homepageContent.hero.lead} ${homepageContent.hero.accent}`;
+export const alt = `${homepageContent.navigation.brand} — ${heroContent.title.lead} ${heroContent.title.voice}`;
 
 export const size = ogSize;
 
@@ -80,7 +81,7 @@ export default async function Image() {
               maxWidth: 1000,
             }}
           >
-            {homepageContent.hero.lead}
+            {heroContent.title.lead}
           </div>
 
           <div
@@ -95,7 +96,7 @@ export default async function Image() {
               color: ogColors.accent,
             }}
           >
-            {homepageContent.hero.accent}
+            {heroContent.title.voice}
           </div>
         </div>
       </div>

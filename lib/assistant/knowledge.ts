@@ -1,6 +1,7 @@
 import { solutions } from '@/lib/content/solutions';
 import { builtWith, connectedTools } from '@/lib/content/tools';
 import { homepageContent } from '@/lib/content/homepage';
+import { heroContent } from '@/lib/content/hero';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 
 /**
@@ -36,7 +37,7 @@ function listeSolutions(): string {
     .join('\n\n');
 }
 
-function listeOutils(outils: { name: string; role: string }[]): string {
+function listeOutils(outils: readonly { name: string; role: string }[]): string {
   return outils.map((outil) => `${outil.name} (${outil.role})`).join(', ');
 }
 
@@ -51,7 +52,7 @@ export const knowledge = `
 ${homepageContent.navigation.brand} — ${homepageContent.navigation.signature}.
 ${homepageContent.layout.description}
 
-Le titre de l'accueil : « ${homepageContent.hero.lead} ${homepageContent.hero.accent} »
+Le titre de l'accueil : « ${heroContent.title.lead} ${heroContent.title.voice} »
 
 ## Ce que fait l'agence
 

@@ -23,6 +23,8 @@ export function Typewriter({
   speed = 45,
   as: Tag = 'span',
   keepCursor = false,
+  paused = false,
+  onDone,
   className,
 }: {
   text: string;
@@ -31,10 +33,19 @@ export function Typewriter({
   as?: 'span' | 'p';
   /** Garde le curseur, clignotant, une fois le texte écrit. */
   keepCursor?: boolean;
+  /** Suspend la saisie (bouton Pause d'une démonstration). */
+  paused?: boolean;
+  /**
+   * Appelé quand la saisie animée se termine. Une chronologie qui enchaîne
+   * sur la saisie doit attendre ce signal plutôt que calculer
+   * `longueur × speed` : chaque caractère coûte aussi un rendu.
+   */
+  onDone?: () => void;
   className?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const { enabled, playing } = usePlaying(ref);
+  const { enabled, playing: visible } = usePlaying(ref);
+  const playing = visible && !paused;
 
   // Caractères déjà écrits. Tant que le mouvement est coupé (rendu
   // serveur compris), on affiche le texte complet.
@@ -56,6 +67,10 @@ export function Typewriter({
     return () => window.clearTimeout(timer);
   }, [playing, count, text.length, speed]);
 
+  useEffect(() => {
+    if (enabled && typed >= text.length) onDone?.();
+  }, [enabled, typed, text.length, onDone]);
+
   const typing = enabled && count < text.length;
   const showCursor = enabled && (typing || keepCursor);
 
@@ -70,8 +85,10 @@ export function Typewriter({
         {text.slice(0, count)}
         {showCursor && (
           // Largeur nulle : le curseur se pose sur le caractère suivant
-          // sans rien pousser.
-          <span className="relative inline-block w-0">
+          // sans rien pousser. Remonté à chaque caractère (clé) : un
+          // élément qui vient d'apparaître ne compte pas comme un
+          // déplacement de mise en page (CLS), un élément qui avance, si.
+          <span key={count} className="relative inline-block w-0">
             <span
               data-cursor={typing ? 'typing' : 'idle'}
               className="absolute bottom-[0.12em] left-0 h-[0.95em] w-[0.6em] bg-accent"

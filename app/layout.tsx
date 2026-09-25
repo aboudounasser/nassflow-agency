@@ -31,14 +31,16 @@ const instrumentSerif = Instrument_Serif({
 });
 
 // IBM Plex Mono porte les annotations « machine » : statuts, étapes,
-// horodatages. Pas de préchargement : elle ne sert qu'à des détails, et
-// le navigateur ne la télécharge que si un élément l'appelle.
+// horodatages. Une seule graisse, 400, et préchargée : la démonstration
+// du Hero l'affiche au-dessus de la ligne de flottaison, et découverte
+// tard (après le CSS) elle retardait le premier rendu. Une instance
+// propre à l'accueil aurait ajouté une feuille CSS bloquante, qui coûtait
+// plus que ces 10 Ko.
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400",
   display: "swap",
-  preload: false,
 });
 
 export const metadata: Metadata = {
