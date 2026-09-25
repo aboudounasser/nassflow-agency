@@ -264,7 +264,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
           type="button"
           onClick={onClose}
           aria-label="Fermer l’assistant"
-          className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center text-[1.25rem] leading-none text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+          className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center text-[1.25rem] leading-none text-ink-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         >
           <span aria-hidden="true">✕</span>
         </button>
@@ -291,7 +291,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                 key={suggestion}
                 type="button"
                 onClick={() => void send(suggestion)}
-                className="border border-rule px-3 py-2 text-left font-sans text-[0.8125rem] text-ink-body transition-colors duration-200 hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                className="border border-rule px-3 py-2 text-left font-sans text-[0.8125rem] text-ink-body transition-colors hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
                 {suggestion}
               </button>
@@ -318,7 +318,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                   message.role === 'assistant' && (
                     <span
                       aria-hidden="true"
-                      className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-accent motion-safe:animate-pulse"
+                      className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-accent motion-safe:animate-working"
                     />
                   )}
               </p>
@@ -340,7 +340,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                     <button
                       type="button"
                       onClick={() => setLeadState('open')}
-                      className="mt-3 inline-flex min-h-10 items-center justify-center border border-ink px-4 font-sans text-[0.8125rem] font-semibold text-ink transition-colors duration-200 ease-out hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                      className="mt-3 inline-flex min-h-10 items-center justify-center border border-ink px-4 font-sans text-[0.8125rem] font-semibold text-ink transition-colors hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                     >
                       Être recontacté
                     </button>
@@ -380,7 +380,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
 
       {/* La saisie */}
       <div className="shrink-0 border-t border-rule px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
-        <div className="flex items-end gap-3 border-b border-rule transition-colors duration-200 focus-within:border-accent">
+        <div className="flex items-end gap-3 border-b border-rule transition-colors focus-within:border-accent">
           <label htmlFor="assistant-question" className="sr-only">
             Votre question
           </label>
@@ -402,7 +402,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
             type="button"
             onClick={() => void send(draft)}
             disabled={isAnswering || draft.trim().length === 0}
-            className="mb-1 shrink-0 font-sans text-[0.8125rem] font-semibold text-accent transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:text-ink-muted disabled:hover:text-ink-muted"
+            className="mb-1 shrink-0 font-sans text-[0.8125rem] font-semibold text-accent transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:text-ink-muted disabled:hover:text-ink-muted"
           >
             Envoyer
           </button>

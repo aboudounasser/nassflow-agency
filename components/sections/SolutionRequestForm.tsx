@@ -177,7 +177,7 @@ function SolutionRequestFormFields({ solution }: { solution: Solution }) {
       <m.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={transitions.quick}
+        transition={transitions.base}
         role="status"
         className={formStyles.success}
       >
@@ -307,8 +307,8 @@ function SolutionRequestFormFields({ solution }: { solution: Solution }) {
               role="alert"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={transitions.quick}
+              exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+              transition={transitions.base}
               className={formStyles.error}
             >
               {error}

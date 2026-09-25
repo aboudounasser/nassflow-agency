@@ -5,7 +5,7 @@ import { AnimatePresence, m } from 'motion/react';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { Button } from '@/components/ui/Button';
 import { homepageContent } from '@/lib/content/homepage';
-import { transitions } from '@/lib/motion';
+import { motionTokens, seconds, transitions } from '@/lib/motion';
 
 /**
  * Le panneau du menu mobile. Il vit dans son propre fichier pour être
@@ -32,8 +32,8 @@ export default function MobileMenu({
             key="mobile-navigation"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={transitions.quick}
+            exit={{ height: 0, opacity: 0, transition: transitions.exit }}
+            transition={transitions.base}
             className="overflow-hidden border-t border-rule bg-paper md:hidden"
           >
             <nav
@@ -45,11 +45,14 @@ export default function MobileMenu({
                   key={link.label}
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ ...transitions.quick, delay: 0.04 * index }}
+                  transition={{
+                    ...transitions.base,
+                    delay: seconds(motionTokens.stagger) * index,
+                  }}
                 >
                   <Link
                     href={link.href}
-                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors duration-150 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                     onClick={onNavigate}
                   >
                     {link.label}

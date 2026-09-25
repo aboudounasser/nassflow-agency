@@ -447,8 +447,8 @@ function ProjectFormFields() {
                 key="success"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={transitions.quick}
+                exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+                transition={transitions.base}
                 className={`${formStyles.success} mb-6 text-[1.0625rem] leading-[1.6] text-ink-body`}
               >
                 <span className="font-sans font-bold text-ink">
@@ -465,8 +465,8 @@ function ProjectFormFields() {
                 role="alert"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={transitions.quick}
+                exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+                transition={transitions.base}
                 className={formStyles.error}
               >
                 {error}

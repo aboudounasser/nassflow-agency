@@ -78,7 +78,7 @@ export function LeadForm({
   const label =
     'mb-1.5 block font-sans text-micro uppercase tracking-tag text-ink-muted';
   const field =
-    'border-b border-rule pb-1 transition-colors duration-200 focus-within:border-accent';
+    'border-b border-rule pb-1 transition-colors focus-within:border-accent';
   const input =
     'min-h-10 w-full bg-transparent text-[0.9375rem] text-ink outline-none placeholder:text-ink-muted';
 

@@ -2,7 +2,6 @@
 
 import { m, useScroll, useSpring } from 'motion/react';
 import { usePrefersReducedMotion } from '@/lib/use-reduced-motion';
-import { transitions } from '@/lib/motion';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 
 /**
@@ -16,7 +15,11 @@ import { MotionProvider } from '@/components/motion/MotionProvider';
 export function ScrollProgress() {
   const reduced = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, transitions.progress);
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 26,
+    restDelta: 0.001,
+  });
 
   if (reduced) return null;
 

@@ -88,7 +88,7 @@ export function Navigation() {
     <header className="sticky top-0 z-(--z-header) border-b border-rule bg-paper text-ink">
       <div
         className={[
-          'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8',
+          'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-(--motion-duration-base) sm:px-6 lg:px-8',
           condensed
             ? 'h-header-condensed lg:h-header-condensed-lg'
             : 'h-header lg:h-header-lg',
@@ -105,7 +105,7 @@ export function Navigation() {
               NASSFLOW AGENCY VOS OUTILS, RELIÉS ». */}
           <span className="sr-only">Accueil, </span>
           <span className="flex flex-col leading-none">
-            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors duration-200 group-hover:text-accent">
+            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors group-hover:text-accent">
               {homepageContent.navigation.brand}
             </span>
 
@@ -125,7 +125,7 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
-              className="font-sans text-[0.875rem] font-medium text-ink transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              className="font-sans text-[0.875rem] font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
               {link.label}
             </Link>
@@ -152,7 +152,7 @@ export function Navigation() {
             setMenuLoaded(true);
             setMenuOpen(!menuOpen);
           }}
-          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors duration-200 hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
+          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
         >
           <span className="sr-only">
             {menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -160,19 +160,19 @@ export function Navigation() {
 
           <span className="relative flex h-5 w-5 items-center justify-center">
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-transform duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-transform ${
                 menuOpen ? 'rotate-45' : '-translate-y-1.5'
               }`}
             />
 
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-opacity duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-opacity ${
                 menuOpen ? 'opacity-0' : 'opacity-100'
               }`}
             />
 
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-transform duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-transform ${
                 menuOpen ? '-rotate-45' : 'translate-y-1.5'
               }`}
             />

@@ -25,7 +25,7 @@ export const formStyles = {
 
   /** L'enveloppe qui porte le filet, et son passage au vermillon. */
   fieldWrap:
-    'border-b border-rule py-5 transition-colors duration-200 focus-within:border-accent',
+    'border-b border-rule py-5 transition-colors focus-within:border-accent',
 
   input:
     'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none placeholder:text-ink-muted',

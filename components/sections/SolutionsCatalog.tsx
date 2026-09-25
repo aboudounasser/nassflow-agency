@@ -51,7 +51,7 @@ function SolutionRow({
   return (
     <Link
       href={`/solutions/${solution.slug}`}
-      className="group grid grid-cols-2 items-start gap-x-4 gap-y-3 border-t border-rule py-8 text-ink transition-colors duration-200 ease-out hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:grid-cols-[84px_1fr_250px] sm:gap-x-6 sm:py-10"
+      className="group grid grid-cols-2 items-start gap-x-4 gap-y-3 border-t border-rule py-8 text-ink transition-colors hover:text-accent focus-visible:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:grid-cols-[84px_1fr_250px] sm:gap-x-6 sm:py-10"
     >
       <span
         aria-hidden="true"
@@ -60,7 +60,7 @@ function SolutionRow({
         {String(index + 1).padStart(2, '0')}
       </span>
 
-      <span className="col-start-2 row-start-1 justify-self-end self-center font-sans text-label uppercase tracking-tag text-ink-muted transition-colors duration-200 ease-out sm:col-start-3 sm:justify-self-end sm:self-start sm:pt-2 sm:text-right">
+      <span className="col-start-2 row-start-1 justify-self-end self-center font-sans text-label uppercase tracking-tag text-ink-muted transition-colors sm:col-start-3 sm:justify-self-end sm:self-start sm:pt-2 sm:text-right">
         {solution.categoryLabel}
       </span>
 

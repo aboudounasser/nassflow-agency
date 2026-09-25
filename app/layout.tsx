@@ -9,6 +9,7 @@ import { AssistantBubble } from '@/components/assistant/AssistantBubble';
 import { Analytics } from '@vercel/analytics/next';
 import { buttonClasses } from '@/components/ui/Button';
 import { motionBootScript } from '@/lib/motion-boot';
+import { motionCssVariables } from '@/lib/motion';
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -83,6 +84,10 @@ export default function RootLayout({
             lib/motion-boot.ts. Sans lui (JS coupé) ou avec « réduire les
             animations », tout s'affiche dans son état final. */}
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
+
+        {/* Les tokens de mouvement en variables CSS, générés depuis
+            lib/motion.ts : une seule définition pour le CSS et le TS. */}
+        <style dangerouslySetInnerHTML={{ __html: motionCssVariables }} />
       </head>
 
       <body>
