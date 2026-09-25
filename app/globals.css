@@ -254,14 +254,57 @@
    viewport.
    ───────────────────────────────────────────── */
 @layer components {
-  html[data-motion='on'] [data-reveal] {
+  html[data-motion='on'] [data-reveal]:not([data-trace]) {
     transition:
       opacity var(--motion-duration-slow) var(--motion-ease-standard),
       transform var(--motion-duration-slow) var(--motion-ease-standard);
   }
 
-  html[data-motion='on'] [data-reveal]:not([data-in-view]) {
+  html[data-motion='on'] [data-reveal]:not([data-trace], [data-in-view]) {
     opacity: 0;
     transform: translateY(12px);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   PRIMITIVES — components/motion/
+
+   Même règle partout : l'état initial et le mouvement n'existent que
+   sous html[data-motion="on"]. Sans cet attribut, chaque primitive est
+   dans son état final.
+   ───────────────────────────────────────────── */
+@layer components {
+  /* Trace : le filet se dessine de gauche à droite. */
+  html[data-motion='on'] [data-trace] {
+    transition: transform var(--motion-duration-trace)
+      var(--motion-ease-standard);
+    transition-delay: calc(var(--trace-order, 0) * var(--motion-stagger));
+  }
+
+  html[data-motion='on'] [data-trace]:not([data-in-view]) {
+    transform: scaleX(0);
+  }
+
+  /* Status : seul l'état « en cours » pulse, et seulement en jeu. */
+  html[data-motion='on'] [data-status='active'] [data-status-dot] {
+    animation: working var(--motion-duration-slow)
+      var(--motion-ease-standard) infinite alternate;
+    animation-play-state: paused;
+  }
+
+  html[data-motion='on'] [data-status='active'][data-playing] [data-status-dot] {
+    animation-play-state: running;
+  }
+
+  /* Typewriter : curseur plein pendant la saisie, clignotant au repos. */
+  html[data-motion='on'] [data-cursor='idle'] {
+    animation: blink calc(var(--motion-duration-slow) * 2) steps(1, end)
+      infinite;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
