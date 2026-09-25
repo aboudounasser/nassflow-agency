@@ -38,13 +38,6 @@ export const transitions = {
     duration: 0.32,
     ease: easeSignature,
   },
-  /** Ressort utilisé pour tout ce qui suit le curseur. */
-  cursor: {
-    type: 'spring',
-    stiffness: 150,
-    damping: 18,
-    mass: 0.4,
-  },
   /** Ressort de la barre de progression de lecture. */
   progress: {
     type: 'spring',

@@ -171,11 +171,11 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         role="status"
         className={formStyles.success}
       >
-        <p className="font-[family-name:var(--font-archivo)] text-[1.375rem] font-bold tracking-[-0.028em] text-[var(--ink)]">
+        <p className="font-sans text-[1.375rem] font-bold tracking-[-0.028em] text-ink">
           Demande envoyée.
         </p>
 
-        <p className="mt-4 max-w-[62ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+        <p className="mt-4 max-w-[62ch] text-body text-ink-body">
           Merci. Nous avons bien reçu vos réponses pour «&nbsp;
           {solution.title}&nbsp;». Nous revenons vers vous pour en parler et
           voir comment l&apos;adapter à votre façon de travailler.
@@ -186,7 +186,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="border-b border-[var(--rule)] pb-7 sm:pb-8">
+      <div className="border-b border-rule pb-7 sm:pb-8">
         <FormStepTitle step="01">Vous joindre</FormStepTitle>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-10">
@@ -277,7 +277,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
       <div className="py-7 sm:py-8">
         <FormStepTitle step="02">Votre situation</FormStepTitle>
 
-        <p className="mb-7 max-w-[62ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+        <p className="mb-7 max-w-[62ch] text-body text-ink-body">
           Ces questions sont celles qu&apos;on vous poserait de toute façon.
           Y répondre maintenant nous évite de vous les reposer.
         </p>
@@ -307,7 +307,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
         </AnimatePresence>
       </div>
 
-      <div className="flex flex-col gap-5 border-t border-[var(--rule)] pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
+      <div className="flex flex-col gap-5 border-t border-rule pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:pt-8">
         <p className={formStyles.note}>
           Les informations transmises servent uniquement à comprendre votre
           situation et à vous recontacter au sujet de cette demande.

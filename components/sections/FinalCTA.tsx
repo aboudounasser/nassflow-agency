@@ -1,6 +1,8 @@
-import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { Button } from '@/components/ui/Button';
 
 /**
  * La clôture. Le titre ne demande plus si le lecteur est « prêt » — il
@@ -10,33 +12,27 @@ import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 
 export function FinalCTA() {
   return (
-    <section className="border-t border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+    <section className="border-t border-rule bg-paper text-ink">
       <SectionShell className="py-16 sm:py-20 lg:py-24">
         <Stagger
           gap={0.09}
           className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
         >
           <StaggerItem preset="soft" className="lg:flex-1">
-            <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Prochaines étapes
-            </span>
+            <Eyebrow>Prochaines étapes</Eyebrow>
 
-            {/* 72px · lh 0.98 · tracking -0.038em · 800. */}
-            <h2 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,7vw,4.5rem)] font-extrabold leading-[0.98] tracking-[-0.038em] text-[var(--ink)]">
-              On part de votre situation,
-              <span className="block font-[family-name:var(--font-serif)] text-[1.07em] font-normal italic tracking-[-0.02em] text-[var(--accent)]">
-                pas d&apos;un modèle tout fait.
-              </span>
-            </h2>
+            <SectionTitle
+              className="mt-5"
+              lead="On part de votre situation,"
+              voice="pas d'un modèle tout fait."
+              voiceTone="accent"
+            />
           </StaggerItem>
 
           <StaggerItem preset="soft" className="w-full lg:w-auto lg:shrink-0 lg:pb-3">
-            <Link
-              href="/demarrer-un-projet"
-              className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] lg:w-auto"
-            >
+            <Button href="/demarrer-un-projet" className="w-full lg:w-auto">
               Démarrer un projet
-            </Link>
+            </Button>
           </StaggerItem>
         </Stagger>
       </SectionShell>

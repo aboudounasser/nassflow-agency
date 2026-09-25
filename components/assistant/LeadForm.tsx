@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Button } from '@/components/ui/Button';
+import { TextLink } from '@/components/ui/TextLink';
 
 /**
  * Le mini-formulaire de rappel, inséré dans le fil de la conversation.
@@ -74,19 +76,19 @@ export function LeadForm({
   }
 
   const label =
-    'mb-1.5 block font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.16em] text-[var(--ink-muted)]';
+    'mb-1.5 block font-sans text-micro uppercase tracking-tag text-ink-muted';
   const field =
-    'border-b border-[var(--rule)] pb-1 transition-colors duration-200 focus-within:border-[var(--accent)]';
+    'border-b border-rule pb-1 transition-colors duration-200 focus-within:border-accent';
   const input =
-    'min-h-10 w-full bg-transparent text-[0.9375rem] text-[var(--ink)] outline-none placeholder:text-[var(--ink-muted)]';
+    'min-h-10 w-full bg-transparent text-[0.9375rem] text-ink outline-none placeholder:text-ink-muted';
 
   return (
     <form
       onSubmit={handleSubmit}
       aria-label="Être recontacté"
-      className="mt-6 border border-[var(--rule)] p-4"
+      className="mt-6 border border-rule p-4"
     >
-      <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+      <p className="font-sans text-micro uppercase text-ink-muted">
         Être recontacté
       </p>
 
@@ -157,28 +159,26 @@ export function LeadForm({
       </div>
 
       {error && (
-        <p role="alert" className="mt-4 text-[0.8125rem] leading-[1.5] text-[var(--accent)]">
+        <p role="alert" className="mt-4 text-[0.8125rem] leading-[1.5] text-accent">
           {error}
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
+        size="xs"
         disabled={isSending}
-        className="mt-5 inline-flex min-h-10 w-full items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.8125rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-5 w-full"
       >
         {isSending ? 'Envoi en cours…' : 'Envoyer'}
-      </button>
+      </Button>
 
-      <p className="mt-3 text-[0.6875rem] leading-[1.5] text-[var(--ink-muted)]">
+      <p className="mt-3 text-[0.6875rem] leading-[1.5] text-ink-muted">
         La conversation sera jointe à votre demande, pour que nous sachions
         de quoi vous avez parlé.{' '}
-        <a
-          href="/confidentialite"
-          className="underline underline-offset-2 hover:text-[var(--ink)]"
-        >
+        <TextLink href="/confidentialite" hover="ink">
           Confidentialité
-        </a>
+        </TextLink>
       </p>
     </form>
   );

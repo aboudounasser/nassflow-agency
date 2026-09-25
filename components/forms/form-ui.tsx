@@ -1,3 +1,6 @@
+import { buttonClasses } from '@/components/ui/Button';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+
 /**
  * Les classes partagées par les deux formulaires du site.
  *
@@ -15,43 +18,43 @@
 export const formStyles = {
   /** Libellé : 11px · 600 · 0.16em · majuscules · ink-muted. */
   label:
-    'mb-2 block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--ink-muted)]',
+    'mb-2 block font-sans text-label uppercase tracking-tag text-ink-muted',
 
   /** « (facultatif) » : même couleur, mais sans majuscules ni interlettrage. */
-  optional: 'ml-1.5 normal-case tracking-normal text-[var(--ink-muted)]',
+  optional: 'ml-1.5 normal-case tracking-normal text-ink-muted',
 
   /** L'enveloppe qui porte le filet, et son passage au vermillon. */
   fieldWrap:
-    'border-b border-[var(--rule)] py-5 transition-colors duration-200 focus-within:border-[var(--accent)]',
+    'border-b border-rule py-5 transition-colors duration-200 focus-within:border-accent',
 
   input:
-    'min-h-11 w-full bg-transparent py-1 text-base text-[var(--ink)] outline-none placeholder:text-[var(--ink-muted)]',
+    'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none placeholder:text-ink-muted',
 
   textarea:
-    'min-h-28 w-full resize-none bg-transparent py-1 text-base leading-7 text-[var(--ink)] outline-none placeholder:text-[var(--ink-muted)]',
+    'min-h-28 w-full resize-none bg-transparent py-1 text-base leading-7 text-ink outline-none placeholder:text-ink-muted',
 
   select:
-    'min-h-11 w-full bg-transparent py-1 text-base text-[var(--ink)] outline-none',
+    'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none',
 
   /** Les listes déroulantes natives ne suivent pas le fond de la page. */
-  option: 'bg-[var(--paper)] text-[var(--ink)]',
+  option: 'bg-paper text-ink',
 
   /** Message d'erreur : du vermillon, pas un encadré. */
   error:
-    'mb-6 text-[0.9375rem] leading-6 text-[var(--accent)]',
+    'mb-6 text-small text-accent',
 
   /** Confirmation : deux filets, aucun fond. */
-  success: 'border-y border-[var(--rule)] py-7',
+  success: 'border-y border-rule py-7',
 
-  submit:
-    'inline-flex min-h-12 w-full shrink-0 items-center justify-center bg-[var(--accent)] px-7 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto',
+  /** Le bouton d'envoi : le bouton plein du site, pleine largeur en mobile. */
+  submit: buttonClasses({ className: 'w-full shrink-0 sm:w-auto' }),
 
-  note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-[var(--ink-muted)]',
+  note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-ink-muted',
 };
 
 /**
- * L'intitulé d'une étape : le numéro en vermillon, le reste en Archivo
- * 600 majuscule interlettré.
+ * L'intitulé d'une étape : un sur-titre à l'encre, dont seul le numéro
+ * passe au vermillon.
  */
 export function FormStepTitle({
   step,
@@ -61,8 +64,8 @@ export function FormStepTitle({
   children: React.ReactNode;
 }) {
   return (
-    <p className="mb-6 font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink)]">
-      <span className="text-[var(--accent)]">{step}</span> — {children}
-    </p>
+    <Eyebrow as="p" tone="ink" className="mb-6">
+      <span className="text-accent">{step}</span> — {children}
+    </Eyebrow>
   );
 }

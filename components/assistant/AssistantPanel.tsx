@@ -11,6 +11,7 @@ import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { assistantUnavailableMessage } from '@/lib/assistant/instructions';
 import { linkify } from '@/components/assistant/linkify';
 import { LeadForm } from '@/components/assistant/LeadForm';
+import { TextLink } from '@/components/ui/TextLink';
 
 /**
  * Le panneau de l'assistant, et toute sa logique.
@@ -245,16 +246,16 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
       role="dialog"
       aria-modal={isFullScreen}
       aria-label="Assistant NASSFLOW"
-      className="fixed inset-0 z-[60] flex flex-col border-[var(--ink)] bg-[var(--paper)] text-[var(--ink)] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100vh-3rem))] sm:w-[400px] sm:border"
+      className="fixed inset-0 z-(--z-assistant) flex flex-col border-ink bg-paper text-ink sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100vh-3rem))] sm:w-[400px] sm:border"
     >
       {/* En-tête */}
-      <div className="flex shrink-0 items-start justify-between gap-4 border-b border-[var(--rule)] px-5 py-4">
+      <div className="flex shrink-0 items-start justify-between gap-4 border-b border-rule px-5 py-4">
         <div className="flex flex-col">
-          <span className="font-[family-name:var(--font-archivo)] text-[0.9375rem] font-extrabold tracking-[-0.02em]">
+          <span className="font-sans text-[0.9375rem] font-extrabold tracking-[-0.02em]">
             Assistant NASSFLOW
           </span>
 
-          <span className="mt-1 font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+          <span className="mt-1 font-sans text-micro uppercase text-ink-muted">
             IA · répond 24h/24
           </span>
         </div>
@@ -263,7 +264,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
           type="button"
           onClick={onClose}
           aria-label="Fermer l’assistant"
-          className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center text-[1.25rem] leading-none text-[var(--ink-muted)] transition-colors duration-200 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+          className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center text-[1.25rem] leading-none text-ink-muted transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         >
           <span aria-hidden="true">✕</span>
         </button>
@@ -274,17 +275,12 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         ref={logRef}
         className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-5 py-5"
       >
-        <p className="text-[0.9375rem] leading-[1.6] text-[var(--ink-body)]">
+        <p className="text-small text-ink-body">
           {GREETING_BEFORE}
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-[var(--accent)]"
-          >
+          <TextLink href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
             {GREETING_LINK}
             <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
-          </a>
+          </TextLink>
           {GREETING_AFTER}
         </p>
 
@@ -295,7 +291,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                 key={suggestion}
                 type="button"
                 onClick={() => void send(suggestion)}
-                className="border border-[var(--rule)] px-3 py-2 text-left font-[family-name:var(--font-archivo)] text-[0.8125rem] text-[var(--ink-body)] transition-colors duration-200 hover:border-[var(--ink)] hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                className="border border-rule px-3 py-2 text-left font-sans text-[0.8125rem] text-ink-body transition-colors duration-200 hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
                 {suggestion}
               </button>
@@ -308,11 +304,11 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         <div aria-live="polite" className="flex flex-col gap-5 empty:hidden">
           {messages.map((message, index) => (
             <div key={index} className={index === 0 ? 'mt-6' : undefined}>
-              <p className="font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)]">
+              <p className="font-sans text-micro uppercase text-ink-muted">
                 {message.role === 'user' ? 'Vous' : 'Assistant'}
               </p>
 
-              <p className="mt-1.5 whitespace-pre-wrap break-words text-[0.9375rem] leading-[1.6] text-[var(--ink-body)]">
+              <p className="mt-1.5 whitespace-pre-wrap break-words text-small text-ink-body">
                 {message.role === 'assistant'
                   ? linkify(message.content)
                   : message.content}
@@ -322,7 +318,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                   message.role === 'assistant' && (
                     <span
                       aria-hidden="true"
-                      className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-[var(--accent)] motion-safe:animate-pulse"
+                      className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] bg-accent motion-safe:animate-pulse"
                     />
                   )}
               </p>
@@ -336,15 +332,15 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
                 leadState === 'closed' &&
                 index === messages.length - 1 &&
                 !isAnswering && (
-                  <div className="mt-4 border-t border-[var(--rule)] pt-4">
-                    <p className="text-[0.875rem] leading-[1.5] text-[var(--ink-body)]">
+                  <div className="mt-4 border-t border-rule pt-4">
+                    <p className="text-[0.875rem] leading-[1.5] text-ink-body">
                       Vous voulez qu’on vous recontacte&nbsp;?
                     </p>
 
                     <button
                       type="button"
                       onClick={() => setLeadState('open')}
-                      className="mt-3 inline-flex min-h-10 items-center justify-center border border-[var(--ink)] px-4 font-[family-name:var(--font-archivo)] text-[0.8125rem] font-semibold text-[var(--ink)] transition-colors duration-200 ease-out hover:bg-[var(--ink)] hover:text-[var(--paper)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                      className="mt-3 inline-flex min-h-10 items-center justify-center border border-ink px-4 font-sans text-[0.8125rem] font-semibold text-ink transition-colors duration-200 ease-out hover:bg-ink hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                     >
                       Être recontacté
                     </button>
@@ -363,8 +359,8 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
           )}
 
           {leadState === 'sent' && (
-            <p className="mt-6 border-y border-[var(--rule)] py-5 text-[0.9375rem] leading-[1.6] text-[var(--ink-body)]">
-              <span className="font-[family-name:var(--font-archivo)] font-bold text-[var(--ink)]">
+            <p className="mt-6 border-y border-rule py-5 text-small text-ink-body">
+              <span className="font-sans font-bold text-ink">
                 C’est noté.
               </span>{' '}
               Nous revenons vers vous par e-mail.
@@ -375,7 +371,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         {error && (
           <p
             role="alert"
-            className="mt-5 text-[0.875rem] leading-[1.6] text-[var(--accent)]"
+            className="mt-5 text-[0.875rem] leading-[1.6] text-accent"
           >
             {error}
           </p>
@@ -383,8 +379,8 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* La saisie */}
-      <div className="shrink-0 border-t border-[var(--rule)] px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
-        <div className="flex items-end gap-3 border-b border-[var(--rule)] transition-colors duration-200 focus-within:border-[var(--accent)]">
+      <div className="shrink-0 border-t border-rule px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4">
+        <div className="flex items-end gap-3 border-b border-rule transition-colors duration-200 focus-within:border-accent">
           <label htmlFor="assistant-question" className="sr-only">
             Votre question
           </label>
@@ -399,14 +395,14 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={onKeyDown}
             placeholder={isAnswering ? 'Réponse en cours…' : 'Votre question'}
-            className="max-h-28 min-h-11 w-full resize-none bg-transparent py-2 text-base leading-[1.5] text-[var(--ink)] outline-none placeholder:text-[var(--ink-muted)] disabled:opacity-60"
+            className="max-h-28 min-h-11 w-full resize-none bg-transparent py-2 text-base leading-[1.5] text-ink outline-none placeholder:text-ink-muted disabled:opacity-60"
           />
 
           <button
             type="button"
             onClick={() => void send(draft)}
             disabled={isAnswering || draft.trim().length === 0}
-            className="mb-1 shrink-0 font-[family-name:var(--font-archivo)] text-[0.8125rem] font-semibold text-[var(--accent)] transition-colors duration-200 hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="mb-1 shrink-0 font-sans text-[0.8125rem] font-semibold text-accent transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:text-ink-muted disabled:hover:text-ink-muted"
           >
             Envoyer
           </button>
@@ -415,28 +411,22 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         {draft.length >= COUNTER_FROM && (
           <p
             aria-live="polite"
-            className={`mt-2 text-right text-[0.75rem] ${tooLong ? 'text-[var(--accent)]' : 'text-[var(--ink-muted)]'}`}
+            className={`mt-2 text-right text-[0.75rem] ${tooLong ? 'text-accent' : 'text-ink-muted'}`}
           >
             {draft.length} / {MAX_CHARS}
           </p>
         )}
 
-        <p className="mt-3 text-[0.6875rem] leading-[1.5] text-[var(--ink-muted)]">
+        <p className="mt-3 text-[0.6875rem] leading-[1.5] text-ink-muted">
           Assistant IA. Vos messages sont traités par OpenAI ; n’y indiquez
           pas d’informations sensibles.{' '}
-          <a
-            href="/confidentialite"
-            className="underline underline-offset-2 hover:text-[var(--ink)]"
-          >
+          <TextLink href="/confidentialite" hover="ink">
             Confidentialité
-          </a>
+          </TextLink>
           . Écrire directement :{' '}
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="underline underline-offset-2 hover:text-[var(--ink)]"
-          >
+          <TextLink href={`mailto:${CONTACT_EMAIL}`} hover="ink">
             {CONTACT_EMAIL}
-          </a>
+          </TextLink>
         </p>
       </div>
     </div>

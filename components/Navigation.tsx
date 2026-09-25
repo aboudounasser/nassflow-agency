@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react';
 import { homepageContent } from '@/lib/content/homepage';
 import { transitions } from '@/lib/motion';
+import { Button } from '@/components/ui/Button';
 
 /**
  * L'en-tête, en direction éditoriale : papier, un filet dessous, aucun
@@ -53,27 +54,32 @@ export function Navigation() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
+    <header className="sticky top-0 z-(--z-header) border-b border-rule bg-paper text-ink">
       <div
         className={[
-          'mx-auto flex max-w-[1280px] items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8',
-          condensed ? 'h-[62px] lg:h-[70px]' : 'h-[68px] lg:h-[82px]',
+          'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8',
+          condensed
+            ? 'h-header-condensed lg:h-header-condensed-lg'
+            : 'h-header lg:h-header-lg',
         ].join(' ')}
       >
         {/* Marque */}
         <Link
           href="/"
           className="group flex min-h-11 items-center"
-          aria-label="Accueil NASSFLOW AGENCY"
           onClick={closeMenu}
         >
+          {/* Pas d'aria-label : il remplaçait le texte visible au lieu de
+              le contenir. Le nom accessible est désormais « Accueil,
+              NASSFLOW AGENCY VOS OUTILS, RELIÉS ». */}
+          <span className="sr-only">Accueil, </span>
           <span className="flex flex-col leading-none">
-            <span className="font-[family-name:var(--font-archivo)] text-[1.0625rem] font-extrabold tracking-[-0.02em] text-[var(--ink)] transition-colors duration-200 group-hover:text-[var(--accent)]">
+            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors duration-200 group-hover:text-accent">
               {homepageContent.navigation.brand}
             </span>
 
             {/* Signature : 10px · 600 · 0.24em · majuscules. */}
-            <span className="mt-1.5 font-[family-name:var(--font-archivo)] text-[0.625rem] font-semibold uppercase tracking-[0.24em] text-[var(--ink-muted)]">
+            <span className="mt-1.5 font-sans text-micro uppercase tracking-signature text-ink-muted">
               {homepageContent.navigation.signature}
             </span>
           </span>
@@ -88,20 +94,20 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
-              className="font-[family-name:var(--font-archivo)] text-[0.875rem] font-medium text-[var(--ink)] transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+              className="font-sans text-[0.875rem] font-medium text-ink transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* CTA desktop */}
-        <Link
-          href="/demarrer-un-projet"
-          className="hidden min-h-11 items-center justify-center bg-[var(--accent)] px-5 font-[family-name:var(--font-archivo)] text-[0.875rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:inline-flex"
-        >
-          {homepageContent.navigation.cta}
-        </Link>
+        {/* CTA desktop. L'enveloppe porte le masquage mobile : posé sur
+            le bouton, `hidden` perdrait contre son `inline-flex`. */}
+        <div className="hidden md:flex">
+          <Button href="/demarrer-un-projet" size="sm">
+            {homepageContent.navigation.cta}
+          </Button>
+        </div>
 
         {/* Bouton menu mobile */}
         <button
@@ -110,7 +116,7 @@ export function Navigation() {
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-[60] inline-flex h-11 w-11 shrink-0 items-center justify-center border border-[var(--rule)] text-[var(--ink)] transition-colors duration-200 hover:border-[var(--ink)] hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)] md:hidden"
+          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors duration-200 hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
         >
           <span className="sr-only">
             {menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -148,11 +154,11 @@ export function Navigation() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={transitions.quick}
-            className="overflow-hidden border-t border-[var(--rule)] bg-[var(--paper)] md:hidden"
+            className="overflow-hidden border-t border-rule bg-paper md:hidden"
           >
             <nav
               aria-label="Menu mobile"
-              className="mx-auto flex max-w-[1280px] flex-col px-4 py-2 sm:px-6"
+              className="mx-auto flex max-w-site flex-col px-4 py-2 sm:px-6"
             >
               {homepageContent.navigation.links.map((link, index) => (
                 <m.div
@@ -163,7 +169,7 @@ export function Navigation() {
                 >
                   <Link
                     href={link.href}
-                    className="flex min-h-12 items-center border-b border-[var(--rule)] font-[family-name:var(--font-archivo)] text-base font-medium text-[var(--ink)] transition-colors duration-150 hover:text-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors duration-150 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
                     onClick={closeMenu}
                   >
                     {link.label}
@@ -172,13 +178,13 @@ export function Navigation() {
               ))}
 
               <div className="py-4">
-                <Link
+                <Button
                   href="/demarrer-un-projet"
-                  className="inline-flex min-h-12 w-full items-center justify-center bg-[var(--accent)] px-6 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--on-accent)] transition-colors duration-200 ease-out hover:bg-[var(--accent-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+                  className="w-full"
                   onClick={closeMenu}
                 >
                   {homepageContent.navigation.cta}
-                </Link>
+                </Button>
               </div>
             </nav>
           </m.div>

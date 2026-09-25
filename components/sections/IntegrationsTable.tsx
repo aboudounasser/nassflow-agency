@@ -1,4 +1,6 @@
 import { SectionShell } from '@/components/SectionShell';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { connectedTools } from '@/lib/content/tools';
 
@@ -20,7 +22,7 @@ export function IntegrationsTable() {
     <section
       id="outils"
       aria-label="Intégrations"
-      className="border-t border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]"
+      className="border-t border-rule bg-paper text-ink"
     >
       <SectionShell className="py-16 sm:py-20 lg:py-24">
         {/* Sur desktop le paragraphe se pose à droite du titre, aligné sur
@@ -30,27 +32,24 @@ export function IntegrationsTable() {
           className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
         >
           <div className="lg:flex-1">
-            <span className="block font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-              Intégrations
-            </span>
+            <Eyebrow>Intégrations</Eyebrow>
 
-            <h2 className="mt-5 font-[family-name:var(--font-archivo)] text-[clamp(2.125rem,6.4vw,4rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
-              On ne remplace rien.
-              <span className="block font-[family-name:var(--font-serif)] text-[1.06em] font-normal italic tracking-[-0.02em]">
-                On relie.
-              </span>
-            </h2>
+            <SectionTitle
+              className="mt-5"
+              lead="On ne remplace rien."
+              voice="On relie."
+            />
           </div>
 
-          <p className="max-w-[46ch] text-[1.125rem] leading-[1.6] text-[var(--ink-body)] lg:shrink-0 lg:basis-[34%] lg:pb-2">
+          <p className="max-w-[46ch] text-body text-ink-body lg:shrink-0 lg:basis-[34%] lg:pb-2">
             Vos logiciels actuels restent en place. On les fait communiquer
             entre eux, et on ajoute seulement ce qui manque.
           </p>
         </Reveal>
 
-        <p className="mt-14 font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[var(--ink-muted)] sm:mt-16">
+        <Eyebrow as="p" tone="muted" className="mt-14 sm:mt-16">
           Ce qu&apos;on relie chez vous
-        </p>
+        </Eyebrow>
 
         {/* Deux colonnes remplies par lignes, dans l'ordre du tableau. Les
             deux dernières cellules ferment leur colonne d'un filet bas ;
@@ -61,16 +60,16 @@ export function IntegrationsTable() {
             <StaggerItem key={tool.name}>
               <div
                 className={[
-                  'flex items-baseline justify-between gap-4 border-t border-[var(--rule)] py-4',
+                  'flex items-baseline justify-between gap-4 border-t border-rule py-4',
                   index === dernier ? 'border-b' : '',
                   index === dernier - 1 ? 'sm:border-b' : '',
                 ].join(' ')}
               >
-                <span className="font-[family-name:var(--font-archivo)] text-[1.375rem] font-semibold tracking-[-0.02em] text-[var(--ink)]">
+                <span className="font-sans text-[1.375rem] font-semibold tracking-[-0.02em] text-ink">
                   {tool.name}
                 </span>
 
-                <span className="shrink-0 font-[family-name:var(--font-archivo)] text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--ink-muted)]">
+                <span className="shrink-0 font-sans text-label uppercase tracking-tag text-ink-muted">
                   {tool.role}
                 </span>
               </div>
@@ -79,10 +78,10 @@ export function IntegrationsTable() {
         </Stagger>
 
         <Reveal preset="soft" className="mt-12 sm:mt-14">
-          <p className="max-w-[62ch] text-[1.25rem] leading-[1.55] text-[var(--ink-body)]">
+          <p className="max-w-[62ch] text-lead text-ink-body">
             Votre logiciel métier n&apos;est pas dans la liste ? S&apos;il
             expose une API, il se branche — et la plupart en exposent une.{' '}
-            <span className="font-[family-name:var(--font-serif)] italic text-[var(--ink)]">
+            <span className="font-serif italic text-ink">
               Dites-nous lequel, on vous répond franchement.
             </span>
           </p>

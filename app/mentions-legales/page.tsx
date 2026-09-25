@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Mentions légales — NASSFLOW AGENCY',
@@ -10,97 +10,97 @@ export const metadata: Metadata = {
 
 export default function MentionsLegales() {
   return (
-    <main className="flex-1">
+    <main id="contenu" className="flex-1">
       <div className="mx-auto max-w-[68ch] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
-          <h1 className="font-[family-name:var(--font-archivo)] text-[clamp(2rem,7vw,3rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-[var(--ink)]">
+          <h1 className="font-sans text-[clamp(2rem,7vw,3rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-ink">
             Mentions légales
           </h1>
 
-          <p className="mt-4 max-w-[680px] text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
+          <p className="mt-4 max-w-[680px] text-body text-ink-body">
             Informations légales et réglementaires relatives au site NASSFLOW
             AGENCY.
           </p>
         </div>
 
-        <div className="text-[1.125rem] leading-[1.6] text-[var(--ink-body)]">
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+        <div className="text-body text-ink-body">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Éditeur du site
             </h2>
 
             <div className="space-y-2">
               <p>
-                <span className="text-[var(--ink-muted)]">Dénomination :</span>{' '}
-                <span className="text-[var(--ink)]">Nasser Aboudou</span>
+                <span className="text-ink-muted">Dénomination :</span>{' '}
+                <span className="text-ink">Nasser Aboudou</span>
               </p>
 
               <p>
-                <span className="text-[var(--ink-muted)]">Forme juridique :</span>{' '}
-                <span className="text-[var(--ink)]">
+                <span className="text-ink-muted">Forme juridique :</span>{' '}
+                <span className="text-ink">
                   Entrepreneur individuel
                 </span>
               </p>
 
               <p>
-                <span className="text-[var(--ink-muted)]">Adresse :</span>{' '}
-                <span className="text-[var(--ink)]">
+                <span className="text-ink-muted">Adresse :</span>{' '}
+                <span className="text-ink">
                   70 avenue Rhin et Danube, 86000 Poitiers, France
                 </span>
               </p>
 
               <p>
-                <span className="text-[var(--ink-muted)]">SIREN :</span>{' '}
-                <span className="text-[var(--ink)]">105 022 537</span>
+                <span className="text-ink-muted">SIREN :</span>{' '}
+                <span className="text-ink">105 022 537</span>
               </p>
             </div>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Responsable de publication
             </h2>
 
             <p>
-              <span className="text-[var(--ink-muted)]">Directeur publication :</span>{' '}
-              <span className="text-[var(--ink)]">Nasser Aboudou</span>
+              <span className="text-ink-muted">Directeur publication :</span>{' '}
+              <span className="text-ink">Nasser Aboudou</span>
             </p>
 
             <p className="mt-2">
-              <span className="text-[var(--ink-muted)]">Email :</span>{' '}
-              <span className="break-words text-[var(--ink)]">
+              <span className="text-ink-muted">Email :</span>{' '}
+              <span className="break-words text-ink">
                 contact@nassflow.com
               </span>
             </p>
 
             <p className="mt-2">
-              <span className="text-[var(--ink-muted)]">Téléphone :</span>{' '}
-              <span className="text-[var(--ink)]">06 56 76 51 28</span>
+              <span className="text-ink-muted">Téléphone :</span>{' '}
+              <span className="text-ink">06 56 76 51 28</span>
             </p>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Hébergeur
             </h2>
 
             <div className="space-y-2">
               <p>
-                <span className="text-[var(--ink-muted)]">Prestataire :</span>{' '}
-                <span className="text-[var(--ink)]">Vercel Inc.</span>
+                <span className="text-ink-muted">Prestataire :</span>{' '}
+                <span className="text-ink">Vercel Inc.</span>
               </p>
 
               <p>
-                <span className="text-[var(--ink-muted)]">Adresse :</span>{' '}
-                <span className="text-[var(--ink)]">
+                <span className="text-ink-muted">Adresse :</span>{' '}
+                <span className="text-ink">
                   440 N Barranca Ave #4133, Covina, CA 91723, États-Unis
                 </span>
               </p>
             </div>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Propriété intellectuelle
             </h2>
 
@@ -118,8 +118,8 @@ export default function MentionsLegales() {
             </p>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Limitation de responsabilité
             </h2>
 
@@ -132,8 +132,8 @@ export default function MentionsLegales() {
             </p>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Modifications
             </h2>
 
@@ -144,8 +144,8 @@ export default function MentionsLegales() {
             </p>
           </section>
 
-          <section className="border-t border-[var(--rule)] py-9">
-            <h2 className="mb-5 font-[family-name:var(--font-archivo)] text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-[var(--ink)]">
+          <section className="border-t border-rule py-9">
+            <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Droit applicable
             </h2>
 
@@ -155,20 +155,17 @@ export default function MentionsLegales() {
             </p>
           </section>
 
-          <div className="border-t border-[var(--rule)] pt-8 sm:mt-12">
-            <p className="text-[0.875rem] leading-6 text-[var(--ink-muted)]">
+          <div className="border-t border-rule pt-8 sm:mt-12">
+            <p className="text-[0.875rem] leading-6 text-ink-muted">
               Dernière mise à jour : septembre 2026
             </p>
           </div>
         </div>
 
         <div className="mt-8 sm:mt-12">
-          <Link
-            href="/"
-            className="inline-flex items-center border-b border-[var(--ink)] pb-1 font-[family-name:var(--font-archivo)] text-[0.9375rem] font-semibold text-[var(--ink-body)] transition-colors duration-200 ease-out hover:text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
-          >
+          <Button href="/" variant="secondary">
             Retour à l&apos;accueil
-          </Link>
+          </Button>
         </div>
       </div>
     </main>

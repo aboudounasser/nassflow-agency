@@ -1,5 +1,6 @@
 import { Fragment, type ReactNode } from 'react';
 import { BOOKING_URL } from '@/lib/content/contact';
+import { TextLink } from '@/components/ui/TextLink';
 
 /**
  * Transforme en liens les seules URL qu'on accepte d'afficher, et rend
@@ -125,16 +126,15 @@ export function linkify(text: string): ReactNode[] {
 
     if (allowed) {
       out.push(
-        <a
+        <TextLink
           key={`${start}-${trimmed}`}
           href={trimmed}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-[var(--accent)]"
         >
           {label}
           <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
-        </a>,
+        </TextLink>,
       );
     } else {
       out.push(trimmed);

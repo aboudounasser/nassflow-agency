@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="home" className="flex-1">
+    <main id="contenu" className="flex-1">
       <Hero />
       <SystemsByProblem />
       <SolutionsCatalog />

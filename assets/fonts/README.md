@@ -1,7 +1,7 @@
 # Polices embarquées
 
-Elles ne servent qu'à la génération des images de partage
-(`opengraph-image.tsx`), jamais au rendu du site — celui-ci passe par
+Elles ne servent qu'à la génération des images de partage et de l'icône
+(`opengraph-image.tsx`, `lib/brand-icon.tsx`), jamais au rendu du site — celui-ci passe par
 `next/font/google`, qui sert du woff2.
 
 Elles sont ici parce que `ImageResponse` (satori) ne lit ni le woff2 ni
