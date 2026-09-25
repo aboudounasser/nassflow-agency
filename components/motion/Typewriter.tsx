@@ -85,8 +85,10 @@ export function Typewriter({
         {text.slice(0, count)}
         {showCursor && (
           // Largeur nulle : le curseur se pose sur le caractère suivant
-          // sans rien pousser.
-          <span className="relative inline-block w-0">
+          // sans rien pousser. Remonté à chaque caractère (clé) : un
+          // élément qui vient d'apparaître ne compte pas comme un
+          // déplacement de mise en page (CLS), un élément qui avance, si.
+          <span key={count} className="relative inline-block w-0">
             <span
               data-cursor={typing ? 'typing' : 'idle'}
               className="absolute bottom-[0.12em] left-0 h-[0.95em] w-[0.6em] bg-accent"

@@ -168,7 +168,7 @@ export function MotionDemo() {
               title="Un seul passage"
               note="S'arrête à l'arrivée. Avec « réduire les animations », il y est d'emblée."
             >
-              <div className="flex items-center gap-4 font-mono text-label uppercase text-ink-muted">
+              <div className="flex items-center gap-4 font-mono text-label font-normal uppercase text-ink-muted">
                 <span>Formulaire</span>
                 <Signal path="M0 3H240" width={240} height={6} />
                 <span>CRM</span>

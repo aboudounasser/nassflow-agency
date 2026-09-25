@@ -33,8 +33,9 @@
    dirigeants et la seconde moitié des grands titres.
 
    IBM Plex Mono (`font-mono`) est réservée aux annotations « machine »
-   — statuts, étapes, horodatages. Elle n'est pas préchargée : tant
-   qu'aucun élément ne l'appelle, le navigateur ne la télécharge pas.
+   — statuts, étapes, horodatages, la démonstration du Hero. Une seule
+   graisse, 400, préchargée (app/layout.tsx) : posez `font-normal` à côté
+   d'un `text-label`, dont la graisse 600 serait sinon synthétisée.
    N'en faites ni un corps de texte ni un titre.
 
    Les variables posées par `next/font` (`--font-archivo`,

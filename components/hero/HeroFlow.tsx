@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from 'react';
 import { Signal } from '@/components/motion/Signal';
-import { Status, type StatusState } from '@/components/motion/Status';
+import { Status, StatusView, type StatusState } from '@/components/motion/Status';
 import { Typewriter } from '@/components/motion/Typewriter';
 import { heroContent, type HeroScenario } from '@/lib/content/hero';
 import { usePlaying } from '@/lib/in-view';
@@ -83,6 +83,7 @@ function Station({
   marker,
   signal,
   paused,
+  measure,
   last = false,
   children,
 }: {
@@ -92,6 +93,8 @@ function Station({
   /** Un Signal descend vers l'étape suivante (clé de remontage). */
   signal: string | null;
   paused: boolean;
+  /** Mesure le connecteur (seulement quand le scénario se joue). */
+  measure: boolean;
   last?: boolean;
   children: ReactNode;
 }) {
@@ -103,7 +106,7 @@ function Station({
   useEffect(() => {
     const el = connector.current;
 
-    if (!el) return;
+    if (!el || !measure) return;
 
     const observer = new ResizeObserver(([entry]) =>
       setHeight(Math.round(entry.contentRect.height)),
@@ -112,7 +115,7 @@ function Station({
     observer.observe(el);
 
     return () => observer.disconnect();
-  }, []);
+  }, [measure]);
 
   return (
     <li className={['relative grid grid-cols-[1.5rem_1fr]', last ? '' : 'pb-7'].join(' ')}>
@@ -146,7 +149,7 @@ function Station({
       </span>
 
       <div className="min-w-0">
-        <p className="font-mono text-label font-medium uppercase text-ink">
+        <p className="font-mono text-label font-normal uppercase text-ink">
           <span className="text-ink-muted">{String(index).padStart(2, '0')}</span>{' '}
           {label}
         </p>
@@ -201,8 +204,9 @@ function Scenario({
         marker={marker(0, typeEnd)}
         signal={signalAt(0)}
         paused={paused}
+        measure={animate}
       >
-        <p className="font-mono text-label uppercase text-ink-muted">
+        <p className="font-mono text-label font-normal uppercase text-ink-muted">
           {scenario.message.from} · {scenario.message.channel}
         </p>
         <p className="mt-2 text-small text-ink">
@@ -226,6 +230,7 @@ function Scenario({
         marker={marker(agentStart, agentEnd)}
         signal={signalAt(1)}
         paused={paused}
+        measure={animate}
       >
         <ul className="space-y-2">
           {scenario.extracted.map((item, index) => {
@@ -239,11 +244,15 @@ function Scenario({
                   phase === 'hidden' ? 'invisible' : '',
                 ].join(' ')}
               >
-                <Status
-                  states={extractStates}
-                  value={phase === 'done' ? 1 : 0}
-                  paused={paused}
-                />
+                {animate ? (
+                  <Status
+                    states={extractStates}
+                    value={phase === 'done' ? 1 : 0}
+                    paused={paused}
+                  />
+                ) : (
+                  <StatusView state={extractStates[phase === 'done' ? 1 : 0]} />
+                )}
                 <span className="text-small text-ink">
                   <span className="text-ink-muted">{item.label} :</span>{' '}
                   {item.value}
@@ -260,6 +269,7 @@ function Scenario({
         marker={marker(actionsShown, automationEnd)}
         signal={signalAt(2)}
         paused={paused}
+        measure={animate}
       >
         <ul className={['space-y-2', t >= actionsShown ? '' : 'invisible'].join(' ')}>
           {scenario.actions.map((action, index) => {
@@ -271,10 +281,14 @@ function Scenario({
                 key={action.label}
                 className="grid grid-cols-[7rem_1fr] items-baseline gap-x-3"
               >
-                <Status states={actionStates} value={value} paused={paused} />
-                <span className="flex flex-wrap items-baseline justify-between gap-x-3">
+                {animate ? (
+                  <Status states={actionStates} value={value} paused={paused} />
+                ) : (
+                  <StatusView state={actionStates[value]} />
+                )}
+                <span className="flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-3">
                   <span className="text-small text-ink">{action.label}</span>
-                  <span className="font-mono text-label uppercase text-ink-muted">
+                  <span className="font-mono text-label font-normal uppercase text-ink-muted">
                     {action.tool}
                   </span>
                 </span>
@@ -290,6 +304,7 @@ function Scenario({
         marker={t >= resultAt ? 'done' : 'pending'}
         signal={null}
         paused={paused}
+        measure={false}
         last
       >
         <div className={t >= resultAt ? '' : 'invisible'}>
@@ -323,12 +338,30 @@ export function HeroFlow() {
   const position = useRef(0);
 
   const { enabled, playing } = usePlaying(root);
-  const running = enabled && playing && !paused;
+
+  // La démonstration ne démarre qu'au premier moment d'inactivité du
+  // navigateur : jusque-là, l'hydratation rend exactement le HTML serveur
+  // (état final), et le chargement de la page n'a rien de plus à faire.
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    if (!enabled || started) return;
+
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const id = idle(() => setStarted(true), { timeout: 2000 });
+
+    return () => cancel(id);
+  }, [enabled, started]);
+
+  const live = enabled && started;
+  const running = live && playing && !paused;
 
   const timeline = timelines[active];
 
-  // Sans mouvement (serveur, JS coupé, « réduire les animations ») : fin.
-  const time = enabled ? t : timeline.end;
+  // Sans mouvement (serveur, JS coupé, « réduire les animations »), ou
+  // avant le démarrage : l'état final.
+  const time = live ? t : timeline.end;
 
   const run = `${active}-${cycle}`;
 
@@ -388,6 +421,7 @@ export function HeroFlow() {
 
   function select(index: number) {
     setAuto(false);
+    setStarted(true);
     start(index);
 
     // Sans mouvement, le scénario choisi est aussitôt complet : on
@@ -421,7 +455,7 @@ export function HeroFlow() {
   return (
     <div ref={root}>
       <div className="flex items-center justify-between gap-4">
-        <p className="font-mono text-label font-medium uppercase text-ink-muted">
+        <p className="font-mono text-label font-normal uppercase text-ink-muted">
           {demoLabel}
         </p>
 
@@ -431,7 +465,7 @@ export function HeroFlow() {
           type="button"
           onClick={() => setPaused((value) => !value)}
           className={[
-            'inline-flex min-h-11 items-center border-b border-ink font-mono text-label font-medium uppercase text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink',
+            'inline-flex min-h-11 items-center border-b border-ink font-mono text-label font-normal uppercase text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink',
             enabled ? '' : 'invisible',
           ].join(' ')}
         >
@@ -458,7 +492,10 @@ export function HeroFlow() {
               role="tab"
               id={`hero-tab-${scenario.id}`}
               aria-selected={selected}
-              aria-controls={`hero-panel-${scenario.id}`}
+              // Le panneau n'existe qu'une fois rendu (voir plus bas).
+              aria-controls={
+                selected || live ? `hero-panel-${scenario.id}` : undefined
+              }
               tabIndex={selected ? 0 : -1}
               onClick={() => select(index)}
               className={[
@@ -480,6 +517,11 @@ export function HeroFlow() {
         {scenarios.map((scenario, index) => {
           const selected = index === active;
 
+          // Avant le démarrage (et sans mouvement), seul le scénario
+          // affiché est rendu : les autres ne servent qu'à réserver la
+          // hauteur pendant la rotation.
+          if (!selected && !live) return null;
+
           return (
             <div
               key={scenario.id}
@@ -492,7 +534,7 @@ export function HeroFlow() {
                 scenario={scenario}
                 timeline={timelines[index]}
                 t={selected ? time : timelines[index].end}
-                animate={selected && enabled}
+                animate={selected && live}
                 paused={!running}
                 run={run}
                 onTyped={onTyped}
