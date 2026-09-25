@@ -38,6 +38,7 @@ export function AssistantBubble() {
         <Button
           ref={buttonRef}
           size="sm"
+          arrow={false}
           onClick={() => setIsOpen(true)}
           aria-haspopup="dialog"
           className="fixed bottom-5 right-5 z-(--z-assistant) sm:bottom-6 sm:right-6"

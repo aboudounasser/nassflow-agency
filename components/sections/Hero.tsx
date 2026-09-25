@@ -1,5 +1,4 @@
 import { SectionShell } from '@/components/SectionShell';
-import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { Button } from '@/components/ui/Button';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { homepageContent } from '@/lib/content/homepage';
@@ -30,8 +29,8 @@ export function Hero() {
   return (
     <div className="bg-paper text-ink">
       <SectionShell className="pt-14 pb-0 sm:pt-20 lg:pt-24">
-        <Stagger onMount gap={0.085}>
-          <StaggerItem preset="soft">
+        <div>
+          <div>
             {/* La seconde phrase bascule dans la voix, en vermillon. */}
             <SectionTitle
               as="h1"
@@ -40,16 +39,16 @@ export function Hero() {
               lead={homepageContent.hero.lead}
               voice={homepageContent.hero.accent}
             />
-          </StaggerItem>
+          </div>
 
-          <StaggerItem preset="soft">
+          <div>
             <p className="mt-8 max-w-[58ch] text-body text-ink-body sm:text-lead">
               Nous relions vos logiciels entre eux et automatisons ce qui vous
               fait perdre du temps. L’IA intervient là où elle sert vraiment.
             </p>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem preset="soft">
+          <div>
             <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
               {/* Aplat vermillon, angles vifs : pas de `rounded-*`, pas
                   d'ombre. Le seul mouvement est un assombrissement. */}
@@ -63,8 +62,8 @@ export function Hero() {
                 Découvrir les solutions
               </Button>
             </div>
-          </StaggerItem>
-        </Stagger>
+          </div>
+        </div>
       </SectionShell>
 
       {/* ─────────────────────────────

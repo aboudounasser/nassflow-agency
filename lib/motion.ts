@@ -1,79 +1,88 @@
-import type { Transition, Variants } from 'motion/react';
+import type { Transition } from 'motion/react';
 
 /* ─────────────────────────────────────────────
-   Tokens de mouvement NASSFLOW
-   Une seule source de vérité pour toutes les
-   durées, courbes et variantes du site.
+   Tokens de mouvement NASSFLOW — la seule source de vérité
+
+   Le vermillon en mouvement signifie toujours « la machine
+   travaille ». Aucun geste n'est décoratif : chaque animation
+   représente un processus.
+
+   Cette définition est lue deux fois :
+   - en CSS, par `motionCssVariables`, injecté dans le <head> par
+     `app/layout.tsx` : `--motion-duration-fast`, `--motion-ease-standard`…
+     Tailwind s'y branche via `app/globals.css` (`ease-standard`, et les
+     durées et courbes par défaut de `transition-*`) ;
+   - en TypeScript, par les constantes ci-dessous (`duration`, `ease`,
+     `transitions`) pour ce qui anime en JS.
+
+   On ne change une valeur qu'ici.
    ───────────────────────────────────────────── */
 
 export const motionTokens = {
+  /** Durées, en millisecondes. */
   duration: {
-    fast: '180ms',
-    normal: '240ms',
-    slow: '500ms',
-    reveal: '700ms',
+    /** Retour immédiat : un état qui bascule. */
+    instant: 120,
+    /** Couleurs, soulignements, micro-interactions. */
+    fast: 200,
+    /** Ouvertures, messages, changements d'état. */
+    base: 320,
+    /** Ce qui doit se lire : une pulsation, un passage. */
+    slow: 560,
+    /** Un filet qui se trace. */
+    trace: 900,
   },
+  /** Courbes. */
   easing: {
-    standard: 'cubic-bezier(0.22, 1, 0.36, 1)',
-    easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    /** Départ franc, arrivée douce : tout ce qui entre ou change. */
+    standard: [0.2, 0, 0, 1],
+    /** Départ doux, sortie franche : tout ce qui s'en va. */
+    exit: [0.4, 0, 1, 1],
+    /** Vitesse constante : le Signal, qui représente un flux. */
+    linear: 'linear',
   },
-  transitions: {
-    button: '180ms cubic-bezier(0.16, 1, 0.3, 1)',
-    panel: '240ms cubic-bezier(0.16, 1, 0.3, 1)',
-    reveal: '700ms cubic-bezier(0.16, 1, 0.3, 1)',
-  },
+  /** Décalage entre deux éléments d'une cascade, en millisecondes. */
+  stagger: 60,
 } as const;
 
-export const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
+type Bezier = readonly [number, number, number, number];
 
-/** Courbe d'amortissement maison — départ franc, arrivée très douce. */
-export const easeSignature = [0.16, 1, 0.3, 1] as const;
-
-export const transitions = {
-  reveal: {
-    duration: 0.62,
-    ease: easeSignature,
-  },
-  quick: {
-    duration: 0.32,
-    ease: easeSignature,
-  },
-  /** Ressort de la barre de progression de lecture. */
-  progress: {
-    type: 'spring',
-    stiffness: 90,
-    damping: 26,
-    restDelta: 0.001,
-  },
-} satisfies Record<string, Transition>;
-
-/**
- * Fenêtre de déclenchement des reveals : l'élément s'anime quand il
- * entre à 12 % du bas du viewport, jamais plus d'une fois.
- */
-export const viewport = { once: true, margin: '0px 0px -12% 0px' } as const;
-
-/* ─────────────────────────────────────────────
-   Variantes
-   ───────────────────────────────────────────── */
-
-export const revealSoftVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0 },
-};
-
-/** Conteneur qui cadence l'apparition de ses enfants. */
-export function staggerVariants(stagger = 0.075, delay = 0): Variants {
-  return {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: stagger, delayChildren: delay },
-    },
-  };
+function cssEasing(value: Bezier | 'linear') {
+  return value === 'linear' ? 'linear' : `cubic-bezier(${value.join(', ')})`;
 }
 
-/** Variantes neutres, servies quand l'utilisateur refuse les animations. */
-export const staticVariants: Variants = {
-  hidden: { opacity: 1, y: 0 },
-  visible: { opacity: 1, y: 0 },
-};
+/** Les tokens en variables CSS, pour la balise <style> du layout. */
+export const motionCssVariables = `:root{${[
+  ...Object.entries(motionTokens.duration).map(
+    ([name, ms]) => `--motion-duration-${name}:${ms}ms`,
+  ),
+  ...Object.entries(motionTokens.easing).map(
+    ([name, value]) => `--motion-ease-${name}:${cssEasing(value)}`,
+  ),
+  `--motion-stagger:${motionTokens.stagger}ms`,
+].join(';')}}`;
+
+/* ─────────────────────────────────────────────
+   Constantes TS, dérivées des mêmes tokens
+   ───────────────────────────────────────────── */
+
+export const duration = motionTokens.duration;
+
+export const ease = motionTokens.easing;
+
+/** Une durée en secondes, l'unité qu'attend Motion. */
+export const seconds = (ms: number) => ms / 1000;
+
+/** Les transitions Motion du site. */
+export const transitions = {
+  /** Ouvertures et messages : 320 ms, courbe standard. */
+  base: {
+    duration: seconds(duration.base),
+    ease: ease.standard,
+  },
+  /** Ce qui disparaît : 200 ms, courbe de sortie. */
+  exit: {
+    duration: seconds(duration.fast),
+    ease: ease.exit,
+  },
+} satisfies Record<string, Transition>;

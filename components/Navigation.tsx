@@ -1,11 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { AnimatePresence, m, useMotionValueEvent, useScroll } from 'motion/react';
 import { homepageContent } from '@/lib/content/homepage';
-import { transitions } from '@/lib/motion';
 import { Button } from '@/components/ui/Button';
+
+/**
+ * Le panneau du menu mobile est le seul endroit de l'en-tête qui anime
+ * avec Motion. Il est chargé au premier geste sur le bouton (survol,
+ * focus ou appui) plutôt qu'au chargement : ainsi l'en-tête, présent sur
+ * toutes les pages, n'embarque plus la bibliothèque d'animation.
+ */
+const loadMobileMenu = () => import('@/components/MobileMenu');
+const MobileMenu = dynamic(loadMobileMenu, { ssr: false });
 
 /**
  * L'en-tête, en direction éditoriale : papier, un filet dessous, aucun
@@ -16,18 +24,41 @@ import { Button } from '@/components/ui/Button';
  * Le comportement du menu mobile n'est pas touché : état, fermeture au
  * clavier, blocage du défilement derrière le panneau et fermeture au clic
  * sur un lien viennent d'un correctif dédié (iPhone, ancres masquées par
- * l'en-tête). Seuls les jetons de couleur et de police ont changé.
+ * l'en-tête).
+ *
+ * Le resserrement suit le défilement par un écouteur natif, limité à une
+ * mise à jour par image : il n'a pas besoin d'un moteur d'animation.
  */
 
 export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuLoaded, setMenuLoaded] = useState(false);
   const [condensed, setCondensed] = useState(false);
 
-  const { scrollY } = useScroll();
+  useEffect(() => {
+    let frame = 0;
 
-  useMotionValueEvent(scrollY, 'change', (value) => {
-    setCondensed(value > 24);
-  });
+    const update = () => {
+      frame = 0;
+      setCondensed(window.scrollY > 24);
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  function prefetchMenu() {
+    void loadMobileMenu();
+  }
 
   function closeMenu() {
     setMenuOpen(false);
@@ -57,7 +88,7 @@ export function Navigation() {
     <header className="sticky top-0 z-(--z-header) border-b border-rule bg-paper text-ink">
       <div
         className={[
-          'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8',
+          'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-(--motion-duration-base) sm:px-6 lg:px-8',
           condensed
             ? 'h-header-condensed lg:h-header-condensed-lg'
             : 'h-header lg:h-header-lg',
@@ -74,7 +105,7 @@ export function Navigation() {
               NASSFLOW AGENCY VOS OUTILS, RELIÉS ». */}
           <span className="sr-only">Accueil, </span>
           <span className="flex flex-col leading-none">
-            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors duration-200 group-hover:text-accent">
+            <span className="font-sans text-[1.0625rem] font-extrabold tracking-[-0.02em] text-ink transition-colors group-hover:text-accent">
               {homepageContent.navigation.brand}
             </span>
 
@@ -94,7 +125,7 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
-              className="font-sans text-[0.875rem] font-medium text-ink transition-colors duration-200 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              className="font-sans text-[0.875rem] font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
               {link.label}
             </Link>
@@ -115,8 +146,13 @@ export function Navigation() {
           aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors duration-200 hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
+          onPointerEnter={prefetchMenu}
+          onFocus={prefetchMenu}
+          onClick={() => {
+            setMenuLoaded(true);
+            setMenuOpen(!menuOpen);
+          }}
+          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
         >
           <span className="sr-only">
             {menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -124,19 +160,19 @@ export function Navigation() {
 
           <span className="relative flex h-5 w-5 items-center justify-center">
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-transform duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-transform ${
                 menuOpen ? 'rotate-45' : '-translate-y-1.5'
               }`}
             />
 
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-opacity duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-opacity ${
                 menuOpen ? 'opacity-0' : 'opacity-100'
               }`}
             />
 
             <span
-              className={`absolute left-0 block h-px w-5 bg-current transition-transform duration-200 ${
+              className={`absolute left-0 block h-px w-5 bg-current transition-transform ${
                 menuOpen ? '-rotate-45' : 'translate-y-1.5'
               }`}
             />
@@ -144,52 +180,8 @@ export function Navigation() {
         </button>
       </div>
 
-      {/* Menu mobile */}
-      <AnimatePresence initial={false}>
-        {menuOpen && (
-          <m.div
-            id="mobile-navigation"
-            key="mobile-navigation"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={transitions.quick}
-            className="overflow-hidden border-t border-rule bg-paper md:hidden"
-          >
-            <nav
-              aria-label="Menu mobile"
-              className="mx-auto flex max-w-site flex-col px-4 py-2 sm:px-6"
-            >
-              {homepageContent.navigation.links.map((link, index) => (
-                <m.div
-                  key={link.label}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ ...transitions.quick, delay: 0.04 * index }}
-                >
-                  <Link
-                    href={link.href}
-                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors duration-150 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                    onClick={closeMenu}
-                  >
-                    {link.label}
-                  </Link>
-                </m.div>
-              ))}
-
-              <div className="py-4">
-                <Button
-                  href="/demarrer-un-projet"
-                  className="w-full"
-                  onClick={closeMenu}
-                >
-                  {homepageContent.navigation.cta}
-                </Button>
-              </div>
-            </nav>
-          </m.div>
-        )}
-      </AnimatePresence>
+      {/* Menu mobile : chargé au premier geste, voir MobileMenu.tsx. */}
+      {menuLoaded && <MobileMenu open={menuOpen} onNavigate={closeMenu} />}
     </header>
   );
 }

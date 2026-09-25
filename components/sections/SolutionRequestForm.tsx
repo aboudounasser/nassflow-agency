@@ -5,6 +5,8 @@ import { AnimatePresence, m } from 'motion/react';
 import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
 import type { Question, Solution } from '@/lib/content/solutions';
+import { MotionProvider } from '@/components/motion/MotionProvider';
+import { Button } from '@/components/ui/Button';
 
 /**
  * Formulaire d'une fiche solution : les champs communs, puis un champ par
@@ -83,7 +85,16 @@ function QuestionField({ question }: { question: Question }) {
   );
 }
 
+/** Motion n'est chargé que sur les pages qui portent ce formulaire. */
 export function SolutionRequestForm({ solution }: { solution: Solution }) {
+  return (
+    <MotionProvider>
+      <SolutionRequestFormFields solution={solution} />
+    </MotionProvider>
+  );
+}
+
+function SolutionRequestFormFields({ solution }: { solution: Solution }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -167,7 +178,7 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
       <m.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={transitions.quick}
+        transition={transitions.base}
         role="status"
         className={formStyles.success}
       >
@@ -297,8 +308,8 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
               role="alert"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={transitions.quick}
+              exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+              transition={transitions.base}
               className={formStyles.error}
             >
               {error}
@@ -313,13 +324,13 @@ export function SolutionRequestForm({ solution }: { solution: Solution }) {
           situation et à vous recontacter au sujet de cette demande.
         </p>
 
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className={formStyles.submit}
+          className="w-full shrink-0 sm:w-auto"
         >
           {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
-        </button>
+        </Button>
       </div>
     </form>
   );

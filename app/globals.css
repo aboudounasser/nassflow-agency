@@ -153,6 +153,17 @@
   --tracking-tag: 0.16em;
   --tracking-signature: 0.24em;
 
+  /* Mouvement : les valeurs vivent dans lib/motion.ts, qui les injecte
+     en variables CSS (--motion-*). Toute transition Tailwind sans durée
+     ni courbe explicites prend `fast` et `standard`. */
+  --ease-standard: var(--motion-ease-standard);
+  --ease-exit: var(--motion-ease-exit);
+  --default-transition-duration: var(--motion-duration-fast);
+  --default-transition-timing-function: var(--motion-ease-standard);
+  /* « La machine travaille » : l'indicateur vermillon qui pulse. */
+  --animate-working: working var(--motion-duration-slow)
+    var(--motion-ease-standard) infinite alternate;
+
   /* `max-w-site` : la largeur de la grille, partout la même. */
   --container-site: 1280px;
 
@@ -161,6 +172,12 @@
   --spacing-header-lg: var(--header-h-lg);
   --spacing-header-condensed: var(--header-h-condensed);
   --spacing-header-condensed-lg: var(--header-h-condensed-lg);
+}
+
+@keyframes working {
+  to {
+    opacity: 0.25;
+  }
 }
 
 /* Ces règles visent des éléments HTML : sans `@layer base`, elles
@@ -224,5 +241,70 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   PRIMITIVES — components/motion/
+
+   Même règle partout : l'état initial et le mouvement n'existent que
+   sous html[data-motion="on"]. Sans cet attribut, chaque primitive est
+   dans son état final.
+   ───────────────────────────────────────────── */
+@layer components {
+  /* Trace : le filet se dessine de gauche à droite. */
+  html[data-motion='on'] [data-trace] {
+    transition: transform var(--motion-duration-trace)
+      var(--motion-ease-standard);
+    transition-delay: calc(var(--trace-order, 0) * var(--motion-stagger));
+  }
+
+  html[data-motion='on'] [data-trace]:not([data-in-view]) {
+    transform: scaleX(0);
+  }
+
+  /* Status : seul l'état « en cours » pulse, et seulement en jeu. */
+  html[data-motion='on'] [data-status='active'] [data-status-dot] {
+    animation: working var(--motion-duration-slow)
+      var(--motion-ease-standard) infinite alternate;
+    animation-play-state: paused;
+  }
+
+  html[data-motion='on'] [data-status='active'][data-playing] [data-status-dot] {
+    animation-play-state: running;
+  }
+
+  /* Typewriter : curseur plein pendant la saisie, clignotant au repos. */
+  html[data-motion='on'] [data-cursor='idle'] {
+    animation: blink calc(var(--motion-duration-slow) * 2) steps(1, end)
+      infinite;
+  }
+}
+
+/* Lien dans le texte : un soulignement de 1 px, en couleur du texte,
+   qui se redessine de gauche à droite au survol et au focus. Posé en
+   image de fond pour suivre le texte sur plusieurs lignes. */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+
+  &:hover,
+  &:focus-visible {
+    animation: underline-redraw var(--motion-duration-base)
+      var(--motion-ease-standard);
+  }
+}
+
+@keyframes underline-redraw {
+  from {
+    background-size: 0% 1px;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }

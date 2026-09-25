@@ -6,8 +6,19 @@ import { getSupabaseClient } from '@/lib/supabase/client';
 import { sendNotification } from '@/lib/notify';
 import { transitions } from '@/lib/motion';
 import { formStyles, FormStepTitle } from '@/components/forms/form-ui';
+import { MotionProvider } from '@/components/motion/MotionProvider';
+import { Button } from '@/components/ui/Button';
 
+/** Motion n'est chargé que sur les pages qui portent ce formulaire. */
 export function ProjectForm() {
+  return (
+    <MotionProvider>
+      <ProjectFormFields />
+    </MotionProvider>
+  );
+}
+
+function ProjectFormFields() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -437,8 +448,8 @@ export function ProjectForm() {
                 key="success"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={transitions.quick}
+                exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+                transition={transitions.base}
                 className={`${formStyles.success} mb-6 text-[1.0625rem] leading-[1.6] text-ink-body`}
               >
                 <span className="font-sans font-bold text-ink">
@@ -455,8 +466,8 @@ export function ProjectForm() {
                 role="alert"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={transitions.quick}
+                exit={{ opacity: 0, y: -8, transition: transitions.exit }}
+                transition={transitions.base}
                 className={formStyles.error}
               >
                 {error}
@@ -471,13 +482,13 @@ export function ProjectForm() {
             votre projet et à vous recontacter au sujet de votre demande.
           </p>
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className={formStyles.submit}
+            className="w-full shrink-0 sm:w-auto"
           >
             {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
-          </button>
+          </Button>
         </div>
       </form>
   );

@@ -1,4 +1,3 @@
-import { buttonClasses } from '@/components/ui/Button';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
@@ -25,7 +24,7 @@ export const formStyles = {
 
   /** L'enveloppe qui porte le filet, et son passage au vermillon. */
   fieldWrap:
-    'border-b border-rule py-5 transition-colors duration-200 focus-within:border-accent',
+    'border-b border-rule py-5 transition-colors focus-within:border-accent',
 
   input:
     'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none placeholder:text-ink-muted',
@@ -46,8 +45,6 @@ export const formStyles = {
   /** Confirmation : deux filets, aucun fond. */
   success: 'border-y border-rule py-7',
 
-  /** Le bouton d'envoi : le bouton plein du site, pleine largeur en mobile. */
-  submit: buttonClasses({ className: 'w-full shrink-0 sm:w-auto' }),
 
   note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-ink-muted',
 };

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SectionShell } from '@/components/SectionShell';
-import { Reveal } from '@/components/motion/Reveal';
 import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
 import { Button } from '@/components/ui/Button';
@@ -79,7 +78,7 @@ export default async function SolutionPage({
               au-dessus, porte déjà une entrée « Solutions » vers la même
               ancre. Deux liens identiques à quarante pixels l'un de l'autre
               n'aident personne. */}
-          <Reveal onMount preset="soft">
+          <div>
             <Eyebrow>{solution.categoryLabel}</Eyebrow>
 
             <h1 className="mt-5 font-heading text-title text-ink">
@@ -90,9 +89,9 @@ export default async function SolutionPage({
             <p className="mt-6 max-w-[30ch] font-serif text-[1.75rem] italic leading-[1.25] text-ink-muted">
               «&nbsp;{solution.problem}&nbsp;»
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal preset="soft" delay={0.12} className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12">
             <div className="border-t border-rule pt-8">
               <Eyebrow as="h2" tone="muted">
                 Ce qu&apos;on installe
@@ -113,12 +112,12 @@ export default async function SolutionPage({
                 ))}
               </ul>
             </div>
-          </Reveal>
+          </div>
 
           {/* Le formulaire tire ses champs spécifiques de
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
-          <Reveal preset="soft" delay={0.18} className="mt-12 sm:mt-16">
+          <div className="mt-12 sm:mt-16">
             <h2 className="font-heading text-heading text-ink">
               Dites-nous où vous en êtes
             </h2>
@@ -130,9 +129,9 @@ export default async function SolutionPage({
             <div className="mt-8 sm:mt-10">
               <SolutionRequestForm solution={solution} />
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal preset="soft" delay={0.24} className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12">
             <div className="flex flex-col gap-6 border-t border-rule pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
               <p className="max-w-[52ch] text-body text-ink-body">
                 Cette solution est un point de départ. On l&apos;adapte à votre
@@ -147,7 +146,7 @@ export default async function SolutionPage({
                 En parler avec nous
               </Button>
             </div>
-          </Reveal>
+          </div>
         </div>
       </SectionShell>
     </main>
