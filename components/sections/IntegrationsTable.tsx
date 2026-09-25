@@ -1,4 +1,6 @@
 import { SectionShell } from '@/components/SectionShell';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { connectedTools } from '@/lib/content/tools';
 
@@ -30,16 +32,13 @@ export function IntegrationsTable() {
           className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16"
         >
           <div className="lg:flex-1">
-            <span className="block font-sans text-label uppercase text-accent">
-              Intégrations
-            </span>
+            <Eyebrow>Intégrations</Eyebrow>
 
-            <h2 className="mt-5 font-heading text-title text-ink">
-              On ne remplace rien.
-              <span className="block font-serif text-[1.06em] font-normal italic tracking-[-0.02em]">
-                On relie.
-              </span>
-            </h2>
+            <SectionTitle
+              className="mt-5"
+              lead="On ne remplace rien."
+              voice="On relie."
+            />
           </div>
 
           <p className="max-w-[46ch] text-body text-ink-body lg:shrink-0 lg:basis-[34%] lg:pb-2">
@@ -48,9 +47,9 @@ export function IntegrationsTable() {
           </p>
         </Reveal>
 
-        <p className="mt-14 font-sans text-label uppercase text-ink-muted sm:mt-16">
+        <Eyebrow as="p" tone="muted" className="mt-14 sm:mt-16">
           Ce qu&apos;on relie chez vous
-        </p>
+        </Eyebrow>
 
         {/* Deux colonnes remplies par lignes, dans l'ordre du tableau. Les
             deux dernières cellules ferment leur colonne d'un filet bas ;

@@ -1,7 +1,10 @@
 import { SectionShell } from '@/components/SectionShell';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { systemOffers } from '@/lib/content/systems';
 import { BOOKING_URL } from '@/lib/content/contact';
+import { Button } from '@/components/ui/Button';
 
 /**
  * Les quatre phrases de dirigeant, et rien d'autre.
@@ -25,20 +28,15 @@ export function SystemsByProblem() {
     >
       <SectionShell className="py-16 sm:py-20 lg:py-24">
         <Reveal preset="soft" className="max-w-[24ch]">
-          {/* Sur-titre : 11px · 600 · 0.2em · majuscules · accent. */}
-          <span className="block font-sans text-label uppercase text-accent">
-            Ce que nous résolvons
-          </span>
+          <Eyebrow>Ce que nous résolvons</Eyebrow>
 
-          {/* h2 : 64px · lh 1.0 · tracking -0.035em · 800. La seconde
-              phrase bascule dans la voix, mais reste à l'encre — le
-              vermillon est déjà pris par le sur-titre. */}
-          <h2 className="mt-5 font-heading text-title text-ink">
-            Quatre symptômes.
-            <span className="block font-serif text-[1.06em] font-normal italic tracking-[-0.02em]">
-              Une seule cause.
-            </span>
-          </h2>
+          {/* La seconde phrase bascule dans la voix, mais reste à
+              l'encre — le vermillon est déjà pris par le sur-titre. */}
+          <SectionTitle
+            className="mt-5"
+            lead="Quatre symptômes."
+            voice="Une seule cause."
+          />
         </Reveal>
 
         <p className="mt-7 max-w-[62ch] text-body text-ink-body">
@@ -82,15 +80,16 @@ export function SystemsByProblem() {
             {/* La phrase juste au-dessus promet une conversation ; elle
                 renvoyait pourtant au formulaire. Ce lien tient désormais
                 la promesse et ouvre un créneau de quinze minutes. */}
-            <a
+            <Button
               href={BOOKING_URL}
+              variant="secondary"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center self-start border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink-body transition-colors duration-200 ease-out hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink sm:self-auto"
+              className="shrink-0 self-start sm:self-auto"
             >
               Réserver un appel
               <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>
-            </a>
+            </Button>
           </div>
         </Reveal>
       </SectionShell>

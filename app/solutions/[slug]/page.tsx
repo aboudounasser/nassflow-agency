@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SectionShell } from '@/components/SectionShell';
 import { Reveal } from '@/components/motion/Reveal';
 import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
+import { Button } from '@/components/ui/Button';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
  * Une page par solution, générée à la compilation depuis le catalogue.
@@ -79,9 +80,7 @@ export default async function SolutionPage({
               ancre. Deux liens identiques à quarante pixels l'un de l'autre
               n'aident personne. */}
           <Reveal onMount preset="soft">
-            <span className="block font-sans text-label uppercase text-accent">
-              {solution.categoryLabel}
-            </span>
+            <Eyebrow>{solution.categoryLabel}</Eyebrow>
 
             <h1 className="mt-5 font-heading text-title text-ink">
               {solution.title}
@@ -95,9 +94,9 @@ export default async function SolutionPage({
 
           <Reveal preset="soft" delay={0.12} className="mt-10 sm:mt-12">
             <div className="border-t border-rule pt-8">
-              <h2 className="font-sans text-label uppercase text-ink-muted">
+              <Eyebrow as="h2" tone="muted">
                 Ce qu&apos;on installe
-              </h2>
+              </Eyebrow>
 
               <p className="mt-5 max-w-[48ch] text-[1.375rem] leading-[1.4] text-ink">
                 {solution.delivers}
@@ -140,12 +139,13 @@ export default async function SolutionPage({
                 façon de travailler après en avoir parlé avec vous.
               </p>
 
-              <Link
+              <Button
                 href="/demarrer-un-projet"
-                className="inline-flex shrink-0 items-center self-start border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink-body transition-colors duration-200 ease-out hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink sm:self-auto"
+                variant="secondary"
+                className="shrink-0 self-start sm:self-auto"
               >
                 En parler avec nous
-              </Link>
+              </Button>
             </div>
           </Reveal>
         </div>

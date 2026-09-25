@@ -11,6 +11,7 @@ import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { assistantUnavailableMessage } from '@/lib/assistant/instructions';
 import { linkify } from '@/components/assistant/linkify';
 import { LeadForm } from '@/components/assistant/LeadForm';
+import { TextLink } from '@/components/ui/TextLink';
 
 /**
  * Le panneau de l'assistant, et toute sa logique.
@@ -245,7 +246,7 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
       role="dialog"
       aria-modal={isFullScreen}
       aria-label="Assistant NASSFLOW"
-      className="fixed inset-0 z-[60] flex flex-col border-ink bg-paper text-ink sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100vh-3rem))] sm:w-[400px] sm:border"
+      className="fixed inset-0 z-(--z-assistant) flex flex-col border-ink bg-paper text-ink sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100vh-3rem))] sm:w-[400px] sm:border"
     >
       {/* En-tête */}
       <div className="flex shrink-0 items-start justify-between gap-4 border-b border-rule px-5 py-4">
@@ -276,15 +277,10 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
       >
         <p className="text-small text-ink-body">
           {GREETING_BEFORE}
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-accent"
-          >
+          <TextLink href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
             {GREETING_LINK}
             <span className="sr-only"> (s’ouvre dans un nouvel onglet)</span>
-          </a>
+          </TextLink>
           {GREETING_AFTER}
         </p>
 
@@ -424,19 +420,13 @@ export default function AssistantPanel({ onClose }: { onClose: () => void }) {
         <p className="mt-3 text-[0.6875rem] leading-[1.5] text-ink-muted">
           Assistant IA. Vos messages sont traités par OpenAI ; n’y indiquez
           pas d’informations sensibles.{' '}
-          <a
-            href="/confidentialite"
-            className="underline underline-offset-2 hover:text-ink"
-          >
+          <TextLink href="/confidentialite" hover="ink">
             Confidentialité
-          </a>
+          </TextLink>
           . Écrire directement :{' '}
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="underline underline-offset-2 hover:text-ink"
-          >
+          <TextLink href={`mailto:${CONTACT_EMAIL}`} hover="ink">
             {CONTACT_EMAIL}
-          </a>
+          </TextLink>
         </p>
       </div>
     </div>

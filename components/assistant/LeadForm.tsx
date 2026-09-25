@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Button } from '@/components/ui/Button';
+import { TextLink } from '@/components/ui/TextLink';
 
 /**
  * Le mini-formulaire de rappel, inséré dans le fil de la conversation.
@@ -162,23 +164,21 @@ export function LeadForm({
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
+        size="xs"
         disabled={isSending}
-        className="mt-5 inline-flex min-h-10 w-full items-center justify-center bg-accent px-5 font-sans text-[0.8125rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-5 w-full"
       >
         {isSending ? 'Envoi en cours…' : 'Envoyer'}
-      </button>
+      </Button>
 
       <p className="mt-3 text-[0.6875rem] leading-[1.5] text-ink-muted">
         La conversation sera jointe à votre demande, pour que nous sachions
         de quoi vous avez parlé.{' '}
-        <a
-          href="/confidentialite"
-          className="underline underline-offset-2 hover:text-ink"
-        >
+        <TextLink href="/confidentialite" hover="ink">
           Confidentialité
-        </a>
+        </TextLink>
       </p>
     </form>
   );

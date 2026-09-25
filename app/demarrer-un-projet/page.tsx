@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { SectionShell } from '@/components/SectionShell';
 import { ProjectForm } from '@/components/ProjectForm';
 import { Reveal } from '@/components/motion/Reveal';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
  * Cette page était entièrement cliente : un composant client ne peut pas
@@ -43,9 +44,7 @@ export default function DemarrerUnProjetPage() {
           {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
               déjà « Accueil », et le logo mène au même endroit. */}
           <Reveal onMount preset="soft" className="mb-10 sm:mb-14 lg:mb-16">
-            <p className="font-sans text-label uppercase text-accent">
-              Démarrer un projet
-            </p>
+            <Eyebrow as="p">Démarrer un projet</Eyebrow>
 
             <h1 className="mt-5 font-heading text-title text-ink">
               Parlons de ce qui vous fait perdre du temps.

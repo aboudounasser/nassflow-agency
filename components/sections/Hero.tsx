@@ -1,6 +1,7 @@
-import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { Button } from '@/components/ui/Button';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { homepageContent } from '@/lib/content/homepage';
 
 /**
@@ -31,16 +32,14 @@ export function Hero() {
       <SectionShell className="pt-14 pb-0 sm:pt-20 lg:pt-24">
         <Stagger onMount gap={0.085}>
           <StaggerItem preset="soft">
-            {/* 88px desktop / 39px mobile · lh 0.95 · tracking -0.038em · 800.
-                La seconde phrase bascule dans la voix : Instrument Serif
-                italique vermillon, à 1.07em — le serif porte plus petit à
-                taille égale, l'écart le remet à la ligne du reste. */}
-            <h1 className="font-heading text-display text-ink">
-              {homepageContent.hero.lead}
-              <span className="mt-1 block font-serif text-[1.07em] font-normal italic tracking-[-0.02em] text-accent">
-                {homepageContent.hero.accent}
-              </span>
-            </h1>
+            {/* La seconde phrase bascule dans la voix, en vermillon. */}
+            <SectionTitle
+              as="h1"
+              size="display"
+              voiceTone="accent"
+              lead={homepageContent.hero.lead}
+              voice={homepageContent.hero.accent}
+            />
           </StaggerItem>
 
           <StaggerItem preset="soft">
@@ -54,21 +53,15 @@ export function Hero() {
             <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
               {/* Aplat vermillon, angles vifs : pas de `rounded-*`, pas
                   d'ombre. Le seul mouvement est un assombrissement. */}
-              <Link
-                href="/demarrer-un-projet"
-                className="inline-flex min-h-12 w-full items-center justify-center bg-accent px-7 font-sans text-[0.9375rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-auto"
-              >
+              <Button href="/demarrer-un-projet" className="w-full sm:w-auto">
                 Démarrer un projet
-              </Link>
+              </Button>
 
               {/* Le secondaire n'est plus un bouton : un lien souligné
                   d'un filet 1px, qui passe à l'encre au survol. */}
-              <a
-                href="#solutions"
-                className="inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink-body transition-colors duration-200 ease-out hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
-              >
+              <Button href="#solutions" variant="secondary">
                 Découvrir les solutions
-              </a>
+              </Button>
             </div>
           </StaggerItem>
         </Stagger>
@@ -82,7 +75,7 @@ export function Hero() {
           première et le passage en `sm:border-l`.
       ───────────────────────────── */}
       <div className="mt-16 border-t border-rule sm:mt-20">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-site">
           <ul className="grid grid-cols-1 sm:grid-cols-4">
             {MENTIONS.map((mention, index) => (
               <li

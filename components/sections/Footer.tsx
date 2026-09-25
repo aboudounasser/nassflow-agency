@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { homepageContent } from '@/lib/content/homepage';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { Button } from '@/components/ui/Button';
 
 /**
  * Le pied de page, réduit à ce qu'on y cherche vraiment : qui parle, où
@@ -37,7 +38,7 @@ const colonnes = [
 export function Footer() {
   return (
     <footer className="border-t border-rule bg-paper text-ink">
-      <div className="mx-auto max-w-[1280px] px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+      <div className="mx-auto max-w-site px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <Stagger
           gap={0.06}
           className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16"
@@ -121,12 +122,9 @@ export function Footer() {
 
           {/* Action et mention de copyright */}
           <StaggerItem className="lg:text-right">
-            <Link
-              href="/demarrer-un-projet"
-              className="inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink transition-colors duration-200 ease-out hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
-            >
+            <Button href="/demarrer-un-projet" variant="secondary" tone="strong">
               Démarrer un projet
-            </Link>
+            </Button>
 
             <p className="mt-6 text-[0.75rem] text-ink-muted">
               © 2026 NASSFLOW AGENCY

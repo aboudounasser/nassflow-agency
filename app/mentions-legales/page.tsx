@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Mentions légales — NASSFLOW AGENCY',
@@ -163,12 +163,9 @@ export default function MentionsLegales() {
         </div>
 
         <div className="mt-8 sm:mt-12">
-          <Link
-            href="/"
-            className="inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold text-ink-body transition-colors duration-200 ease-out hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
-          >
+          <Button href="/" variant="secondary">
             Retour à l&apos;accueil
-          </Link>
+          </Button>
         </div>
       </div>
     </main>

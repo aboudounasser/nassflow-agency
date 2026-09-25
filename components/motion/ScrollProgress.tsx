@@ -23,7 +23,7 @@ export function ScrollProgress() {
     <m.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-px origin-left bg-accent"
+      className="pointer-events-none fixed inset-x-0 top-0 z-(--z-overlay) h-px origin-left bg-accent"
     />
   );
 }

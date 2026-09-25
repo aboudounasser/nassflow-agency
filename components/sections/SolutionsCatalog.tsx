@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { SectionShell } from '@/components/SectionShell';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Reveal, Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { solutions, type Solution } from '@/lib/content/solutions';
 
@@ -90,16 +92,13 @@ export function SolutionsCatalog() {
     >
       <SectionShell className="py-16 sm:py-20 lg:py-24">
         <Reveal preset="soft" className="max-w-[24ch]">
-          <span className="block font-sans text-label uppercase text-accent">
-            Par où on commence
-          </span>
+          <Eyebrow>Par où on commence</Eyebrow>
 
-          <h2 className="mt-5 font-heading text-title text-ink">
-            Six points de départ,
-            <span className="block font-serif text-[1.06em] font-normal italic tracking-[-0.02em]">
-              pas six produits.
-            </span>
-          </h2>
+          <SectionTitle
+            className="mt-5"
+            lead="Six points de départ,"
+            voice="pas six produits."
+          />
         </Reveal>
 
         <p className="mt-7 max-w-[62ch] text-body text-ink-body">

@@ -1,3 +1,6 @@
+import { buttonClasses } from '@/components/ui/Button';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+
 /**
  * Les classes partagées par les deux formulaires du site.
  *
@@ -43,15 +46,15 @@ export const formStyles = {
   /** Confirmation : deux filets, aucun fond. */
   success: 'border-y border-rule py-7',
 
-  submit:
-    'inline-flex min-h-12 w-full shrink-0 items-center justify-center bg-accent px-7 font-sans text-[0.9375rem] font-semibold text-on-accent transition-colors duration-200 ease-out hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto',
+  /** Le bouton d'envoi : le bouton plein du site, pleine largeur en mobile. */
+  submit: buttonClasses({ className: 'w-full shrink-0 sm:w-auto' }),
 
   note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-ink-muted',
 };
 
 /**
- * L'intitulé d'une étape : le numéro en vermillon, le reste en Archivo
- * 600 majuscule interlettré.
+ * L'intitulé d'une étape : un sur-titre à l'encre, dont seul le numéro
+ * passe au vermillon.
  */
 export function FormStepTitle({
   step,
@@ -61,8 +64,8 @@ export function FormStepTitle({
   children: React.ReactNode;
 }) {
   return (
-    <p className="mb-6 font-sans text-label uppercase text-ink">
+    <Eyebrow as="p" tone="ink" className="mb-6">
       <span className="text-accent">{step}</span> — {children}
-    </p>
+    </Eyebrow>
   );
 }
