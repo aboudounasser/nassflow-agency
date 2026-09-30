@@ -5,56 +5,60 @@ import type { GenerationStore } from './tracking';
 /**
  * Les plafonds de dépense, vérifiés avant tout envoi réel.
  *
- * L'API, telle que vérifiée, ne renvoie pas le coût d'une génération. Les
- * plafonds portent donc sur le coût ESTIMÉ que l'appelant déclare, et un
- * envoi réel sans estimation est refusé. Le vrai montant se lit dans le
- * tableau de bord Higgsfield ; la table de suivi sert à le rapprocher.
+ * Quatre valeurs à ne jamais confondre :
+ * - coût ESTIMÉ (`estimated_cost_usd`) : ce que l'appelant déclare avant
+ *   l'envoi, seul chiffre sur lequel portent les plafonds ;
+ * - coût RÉEL (`actual_cost_usd`) : inconnu tant qu'aucune source ne l'a
+ *   donné — l'API, telle que vérifiée, ne le renvoie pas ;
+ * - cashback (`cashback_usd`) : jamais supposé, seulement constaté ;
+ * - solde de l'API : il n'existe pas d'endpoint connu pour le lire ; il
+ *   se consulte dans la console Higgsfield et n'est stocké nulle part ici.
  */
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export async function assertWithinBudget({
   config,
-  estimatedCredits,
+  estimatedCostUsd,
   store,
   now = new Date(),
 }: {
   config: HiggsfieldConfig;
-  estimatedCredits: number | undefined;
+  estimatedCostUsd: number | undefined;
   store: GenerationStore;
   now?: Date;
 }): Promise<void> {
   if (
-    estimatedCredits === undefined ||
-    !Number.isFinite(estimatedCredits) ||
-    estimatedCredits <= 0
+    estimatedCostUsd === undefined ||
+    !Number.isFinite(estimatedCostUsd) ||
+    estimatedCostUsd <= 0
   ) {
     throw new HiggsfieldError(
       'budget_exceeded',
-      'estimatedCredits (nombre positif) est obligatoire hors dry-run.',
+      'estimatedCostUsd (nombre positif, en dollars) est obligatoire hors dry-run.',
     );
   }
 
-  if (config.maxCreditsPerRequest === null || config.dailyCreditBudget === null) {
+  if (config.maxCostUsdPerRequest === null || config.dailyBudgetUsd === null) {
     throw new HiggsfieldError(
       'config',
-      'HIGGSFIELD_MAX_CREDITS_PER_REQUEST et HIGGSFIELD_DAILY_CREDIT_BUDGET sont obligatoires hors dry-run.',
+      'HIGGSFIELD_MAX_COST_USD_PER_REQUEST et HIGGSFIELD_DAILY_BUDGET_USD sont obligatoires hors dry-run.',
     );
   }
 
-  if (estimatedCredits > config.maxCreditsPerRequest) {
+  if (estimatedCostUsd > config.maxCostUsdPerRequest) {
     throw new HiggsfieldError(
       'budget_exceeded',
-      `Coût estimé ${estimatedCredits} au-delà du plafond par génération (${config.maxCreditsPerRequest}).`,
+      `Coût estimé ${estimatedCostUsd} $ au-delà du plafond par génération (${config.maxCostUsdPerRequest} $).`,
     );
   }
 
-  const spent = await store.sumEstimatedCreditsSince(new Date(now.getTime() - DAY_MS));
+  const spent = await store.sumEstimatedCostUsdSince(new Date(now.getTime() - DAY_MS));
 
-  if (spent + estimatedCredits > config.dailyCreditBudget) {
+  if (spent + estimatedCostUsd > config.dailyBudgetUsd) {
     throw new HiggsfieldError(
       'budget_exceeded',
-      `Budget des dernières 24 h dépassé : ${spent} déjà engagés, ${estimatedCredits} demandés, plafond ${config.dailyCreditBudget}.`,
+      `Budget estimé des dernières 24 h dépassé : ${spent} $ déjà engagés, ${estimatedCostUsd} $ demandés, plafond ${config.dailyBudgetUsd} $.`,
     );
   }
 }

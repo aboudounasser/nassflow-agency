@@ -1,12 +1,11 @@
 /**
  * Le contrat de l'API Higgsfield tel qu'il est vérifié.
  *
- * Source : le SDK officiel `@higgsfield/client` v0.2.6 (client v2, publié
- * le 2026-09-17 par Higgsfield), README et code. La documentation
- * docs.higgsfield.ai n'a pas pu être consultée au moment de l'écriture ;
- * tout ce qui n'apparaît pas dans le SDK est absent d'ici plutôt que
- * deviné. Voir la section Higgsfield du README pour la liste des points
- * non vérifiés.
+ * Source : le code du SDK officiel `@higgsfield/client` v0.2.6 (client
+ * v2, publié le 2026-09-17 par Higgsfield). Les pages docs.higgsfield.ai
+ * et open.higgsfield.ai ne sont connues que par un résumé de recherche ;
+ * voir la section Higgsfield du README pour ce qui en dépend et ce qui
+ * reste non vérifié.
  */
 
 /**
@@ -59,13 +58,22 @@ export type HiggsfieldInput = Record<string, unknown>;
 
 export interface SubmitOptions {
   /**
-   * Coût estimé en crédits, fourni par l'appelant.
+   * Coût ESTIMÉ en dollars, déclaré par l'appelant (voir `models.ts`
+   * pour les estimateurs). Obligatoire hors dry-run.
    *
-   * L'API, telle que vérifiée, ne renvoie aucun coût : c'est donc ce
-   * chiffre qui alimente les plafonds et le suivi. Obligatoire hors
-   * dry-run.
+   * L'API, telle que vérifiée, ne renvoie pas le coût d'une génération :
+   * ce chiffre sert aux plafonds, jamais de coût réel.
    */
-  estimatedCredits?: number;
+  estimatedCostUsd?: number;
+  /**
+   * Clé d'idempotence choisie par l'appelant, unique par génération
+   * voulue. Obligatoire hors dry-run.
+   *
+   * Un second `submit` avec la même clé ne crée jamais une deuxième
+   * génération : il rend la première si elle a un request_id, et lève
+   * sinon. C'est ce qui protège d'un agent qui relance après une erreur.
+   */
+  idempotencyKey?: string;
   /** Qui déclenche : nom d'agent, de workflow, de script. Pour le suivi. */
   source?: string;
   /** Contexte libre conservé avec la génération (campagne, client…). */

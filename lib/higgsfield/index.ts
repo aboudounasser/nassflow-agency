@@ -13,8 +13,11 @@ import { createSupabaseGenerationStore } from './supabase-store';
  * Usage :
  *
  *   const higgsfield = getHiggsfieldClient();
- *   const { requestId } = await higgsfield.submit(endpoint, input, {
- *     estimatedCredits: 2,
+ *   const model = HIGGSFIELD_MODELS.soulV2Standard;
+ *   const input = model.buildInput({ prompt: '…', resolution: '720p' });
+ *   const { requestId } = await higgsfield.submit(model.endpoint, input, {
+ *     estimatedCostUsd: model.estimateCost(input).estimatedCostUsd,
+ *     idempotencyKey: 'campagne-42/visuel-1',
  *     source: 'agent:contenu',
  *   });
  *   const result = await higgsfield.waitForResult(requestId);
@@ -29,14 +32,36 @@ export function getHiggsfieldClient(deps: HiggsfieldClientDeps = {}): Higgsfield
   });
 }
 
-export { createHiggsfieldClient } from './client';
-export type { HiggsfieldClient, HiggsfieldClientDeps, SubmitResult } from './client';
+export { createHiggsfieldClient, SUBMIT_TIMEOUT_MS, STATUS_TIMEOUT_MS } from './client';
+export type {
+  HiggsfieldClient,
+  HiggsfieldClientDeps,
+  ReconcileResult,
+  SubmitResult,
+} from './client';
 export { readHiggsfieldConfig, HIGGSFIELD_BASE_URL } from './config';
 export type { HiggsfieldConfig } from './config';
 export { HiggsfieldError } from './errors';
 export type { HiggsfieldErrorCode } from './errors';
 export { createMemoryGenerationStore } from './tracking';
-export type { GenerationRecord, GenerationStore, GenerationStatus } from './tracking';
+export type {
+  ActualCostSource,
+  GenerationPatch,
+  GenerationRecord,
+  GenerationStatus,
+  GenerationStore,
+} from './tracking';
+export {
+  HIGGSFIELD_MODELS,
+  seedance20TextToVideo,
+  soulV2Standard,
+} from './models';
+export type {
+  CostEstimate,
+  HiggsfieldModel,
+  Seedance20TextToVideoInput,
+  SoulV2StandardInput,
+} from './models';
 export type {
   HiggsfieldInput,
   HiggsfieldResult,

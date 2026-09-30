@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import {
   NON_BILLED_STATUSES,
+  idempotencyConflict,
   type GenerationPatch,
   type GenerationRecord,
   type GenerationStore,
@@ -17,6 +18,9 @@ import {
 
 const TABLE = 'higgsfield_generations';
 
+/** Violation de contrainte unique, côté Postgres. */
+const UNIQUE_VIOLATION = '23505';
+
 type Row = {
   id: string;
   created_at: string;
@@ -24,7 +28,11 @@ type Row = {
   status: GenerationRecord['status'];
   dry_run: boolean;
   request_id: string | null;
-  estimated_credits: number | null;
+  idempotency_key: string | null;
+  estimated_cost_usd: number | string | null;
+  actual_cost_usd: number | string | null;
+  actual_cost_source: GenerationRecord['actualCostSource'];
+  cashback_usd: number | string | null;
   source: string | null;
   metadata: Record<string, unknown>;
   input: Record<string, unknown>;
@@ -35,6 +43,11 @@ type Row = {
   completed_at: string | null;
 };
 
+/** `numeric` revient en chaîne de Supabase : on le reconvertit. */
+function toNumber(value: number | string | null): number | null {
+  return value === null ? null : Number(value);
+}
+
 function toRow(record: GenerationRecord): Row {
   return {
     id: record.id,
@@ -43,7 +56,11 @@ function toRow(record: GenerationRecord): Row {
     status: record.status,
     dry_run: record.dryRun,
     request_id: record.requestId,
-    estimated_credits: record.estimatedCredits,
+    idempotency_key: record.idempotencyKey,
+    estimated_cost_usd: record.estimatedCostUsd,
+    actual_cost_usd: record.actualCostUsd,
+    actual_cost_source: record.actualCostSource,
+    cashback_usd: record.cashbackUsd,
     source: record.source,
     metadata: record.metadata,
     input: record.input,
@@ -63,7 +80,11 @@ function fromRow(row: Row): GenerationRecord {
     status: row.status,
     dryRun: row.dry_run,
     requestId: row.request_id,
-    estimatedCredits: row.estimated_credits === null ? null : Number(row.estimated_credits),
+    idempotencyKey: row.idempotency_key,
+    estimatedCostUsd: toNumber(row.estimated_cost_usd),
+    actualCostUsd: toNumber(row.actual_cost_usd),
+    actualCostSource: row.actual_cost_source,
+    cashbackUsd: toNumber(row.cashback_usd),
     source: row.source,
     metadata: row.metadata ?? {},
     input: row.input ?? {},
@@ -83,12 +104,32 @@ const PATCH_COLUMNS: Record<keyof GenerationPatch, keyof Row> = {
   errorCode: 'error_code',
   errorMessage: 'error_message',
   completedAt: 'completed_at',
+  actualCostUsd: 'actual_cost_usd',
+  actualCostSource: 'actual_cost_source',
+  cashbackUsd: 'cashback_usd',
 };
 
 export function createSupabaseGenerationStore(supabase: SupabaseClient): GenerationStore {
+  async function findOne(column: 'id' | 'request_id' | 'idempotency_key', value: string) {
+    const { data, error } = await supabase
+      .from(TABLE)
+      .select('*')
+      .eq(column, value)
+      .maybeSingle<Row>();
+
+    if (error) throw new Error(`Supabase (${TABLE}) : ${error.message}`);
+
+    return data ? fromRow(data) : null;
+  }
+
   return {
     async create(record) {
       const { error } = await supabase.from(TABLE).insert(toRow(record));
+
+      if (error?.code === UNIQUE_VIOLATION && record.idempotencyKey !== null) {
+        throw idempotencyConflict(record.idempotencyKey);
+      }
+
       if (error) throw new Error(`Supabase (${TABLE}) : ${error.message}`);
     },
 
@@ -104,22 +145,14 @@ export function createSupabaseGenerationStore(supabase: SupabaseClient): Generat
       if (error) throw new Error(`Supabase (${TABLE}) : ${error.message}`);
     },
 
-    async findByRequestId(requestId) {
+    findById: (id) => findOne('id', id),
+    findByRequestId: (requestId) => findOne('request_id', requestId),
+    findByIdempotencyKey: (key) => findOne('idempotency_key', key),
+
+    async sumEstimatedCostUsdSince(since) {
       const { data, error } = await supabase
         .from(TABLE)
-        .select('*')
-        .eq('request_id', requestId)
-        .maybeSingle<Row>();
-
-      if (error) throw new Error(`Supabase (${TABLE}) : ${error.message}`);
-
-      return data ? fromRow(data) : null;
-    },
-
-    async sumEstimatedCreditsSince(since) {
-      const { data, error } = await supabase
-        .from(TABLE)
-        .select('estimated_credits')
+        .select('estimated_cost_usd')
         .eq('dry_run', false)
         .not('status', 'in', `(${[...NON_BILLED_STATUSES].join(',')})`)
         .gte('created_at', since.toISOString());
@@ -127,7 +160,7 @@ export function createSupabaseGenerationStore(supabase: SupabaseClient): Generat
       if (error) throw new Error(`Supabase (${TABLE}) : ${error.message}`);
 
       return (data ?? []).reduce(
-        (total, row) => total + Number(row.estimated_credits ?? 0),
+        (total, row) => total + Number(row.estimated_cost_usd ?? 0),
         0,
       );
     },
