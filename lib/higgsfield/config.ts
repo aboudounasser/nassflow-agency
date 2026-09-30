@@ -34,10 +34,13 @@ export interface HiggsfieldConfig {
    * hors dry-run, rien ne peut être soumis tant qu'on n'en a pas nommé.
    */
   allowedEndpoints: ReadonlySet<string>;
-  /** Plafond de coût estimé par génération, en crédits. */
-  maxCreditsPerRequest: number | null;
-  /** Plafond de coût estimé sur les dernières 24 heures, en crédits. */
-  dailyCreditBudget: number | null;
+  /**
+   * Plafond du coût ESTIMÉ par génération, en dollars : l'API est
+   * facturée en dollars, sur un solde distinct des crédits d'abonnement.
+   */
+  maxCostUsdPerRequest: number | null;
+  /** Plafond du coût ESTIMÉ sur les dernières 24 heures, en dollars. */
+  dailyBudgetUsd: number | null;
 }
 
 type Env = Record<string, string | undefined>;
@@ -91,13 +94,13 @@ export function readHiggsfieldConfig(env: Env = process.env): HiggsfieldConfig {
         .filter(Boolean)
         .map(normalizeEndpoint),
     ),
-    maxCreditsPerRequest: parseLimit(
-      'HIGGSFIELD_MAX_CREDITS_PER_REQUEST',
-      env.HIGGSFIELD_MAX_CREDITS_PER_REQUEST,
+    maxCostUsdPerRequest: parseLimit(
+      'HIGGSFIELD_MAX_COST_USD_PER_REQUEST',
+      env.HIGGSFIELD_MAX_COST_USD_PER_REQUEST,
     ),
-    dailyCreditBudget: parseLimit(
-      'HIGGSFIELD_DAILY_CREDIT_BUDGET',
-      env.HIGGSFIELD_DAILY_CREDIT_BUDGET,
+    dailyBudgetUsd: parseLimit(
+      'HIGGSFIELD_DAILY_BUDGET_USD',
+      env.HIGGSFIELD_DAILY_BUDGET_USD,
     ),
   };
 }

@@ -5,12 +5,15 @@
  * « que s'est-il passé » (`code`) et « puis-je réessayer » (`retryable`).
  * Le reste — statut HTTP, request_id — sert au diagnostic.
  *
- * Correspondance des statuts HTTP : celle du SDK officiel
- * `@higgsfield/client` v0.2.6 (client v2), la seule source vérifiée à ce
- * jour — 401 authentification, 403 crédits insuffisants, 400 entrée
- * refusée, 422 validation. L'API Agent du même SDK signale le manque de
- * crédits en 402 : on le traite de la même façon, faute de pouvoir
- * trancher sans la documentation.
+ * Correspondance des statuts HTTP :
+ * - 401 authentification, 403 crédits insuffisants, 422 validation : SDK
+ *   officiel `@higgsfield/client` v0.2.6 (client v2), lu dans son code ;
+ * - 402 solde insuffisant, 404 requête ou modèle introuvable, 400 aussi
+ *   renvoyé quand la limite de requêtes simultanées est atteinte : page
+ *   « Errors and retries » de docs.higgsfield.ai, connue par un résumé de
+ *   recherche et non lue mot pour mot. Le libellé exact du 400 de
+ *   concurrence n'est pas connu : il est reconnu à la présence de
+ *   « concurren » dans le détail, à confirmer à la source.
  *
  * Aucun message construit ici ne contient d'identifiant ni de secret :
  * le corps d'erreur de l'API est tronqué, et ne porte de toute façon pas
@@ -24,12 +27,23 @@ export type HiggsfieldErrorCode =
   | 'endpoint_not_allowed'
   /** Coût estimé absent, ou au-delà d'un plafond. */
   | 'budget_exceeded'
+  /**
+   * La clé d'idempotence a déjà servi et ne peut pas être reprise : la
+   * demande précédente a été refusée, ou son sort est inconnu.
+   */
+  | 'idempotency_conflict'
   /** 401 : identifiants refusés. */
   | 'auth'
-  /** 402 / 403 : crédits insuffisants. */
+  /** 402 : solde du portefeuille API insuffisant. */
+  | 'insufficient_balance'
+  /** 403 : crédits insuffisants. */
   | 'insufficient_credits'
   /** 400 : entrée refusée. */
   | 'bad_input'
+  /** 400 : limite de requêtes simultanées atteinte. */
+  | 'concurrency_limited'
+  /** 404 : requête ou modèle introuvable (ou ligne de suivi absente). */
+  | 'not_found'
   /** 422 : entrée invalide au regard du schéma du modèle. */
   | 'validation'
   /** 429 : trop de requêtes. */
@@ -128,6 +142,14 @@ export function errorFromResponse(
 
   switch (status) {
     case 400:
+      if (/concurren/i.test(detail)) {
+        return new HiggsfieldError(
+          'concurrency_limited',
+          detail || 'Limite de requêtes simultanées atteinte.',
+          { ...base, retryable: true },
+        );
+      }
+
       return new HiggsfieldError('bad_input', detail || 'Entrée refusée.', base);
     case 401:
       return new HiggsfieldError(
@@ -136,10 +158,21 @@ export function errorFromResponse(
         base,
       );
     case 402:
+      return new HiggsfieldError(
+        'insufficient_balance',
+        'Solde de l’API Higgsfield insuffisant.',
+        base,
+      );
     case 403:
       return new HiggsfieldError(
         'insufficient_credits',
         'Crédits Higgsfield insuffisants.',
+        base,
+      );
+    case 404:
+      return new HiggsfieldError(
+        'not_found',
+        detail || 'Requête ou modèle introuvable.',
         base,
       );
     case 422:

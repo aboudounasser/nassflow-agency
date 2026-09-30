@@ -25,23 +25,27 @@ describe('readHiggsfieldConfig', () => {
     assert.equal(readHiggsfieldConfig({}).allowedEndpoints.size, 0);
 
     const config = readHiggsfieldConfig({
-      HIGGSFIELD_ALLOWED_ENDPOINTS: 'v1/text2image/soul, /v1/image2video/dop/ ,,',
+      HIGGSFIELD_ALLOWED_ENDPOINTS:
+        'higgsfield-ai/soul/v2/standard, /bytedance/seedance-2.0/text-to-video/ ,,',
     });
 
-    assert.deepEqual([...config.allowedEndpoints], ['/v1/text2image/soul', '/v1/image2video/dop']);
+    assert.deepEqual(
+      [...config.allowedEndpoints],
+      ['/higgsfield-ai/soul/v2/standard', '/bytedance/seedance-2.0/text-to-video'],
+    );
   });
 
-  it('lit les plafonds, et refuse une valeur illisible', () => {
+  it('lit les plafonds en dollars, et refuse une valeur illisible', () => {
     const config = readHiggsfieldConfig({
-      HIGGSFIELD_MAX_CREDITS_PER_REQUEST: '10',
-      HIGGSFIELD_DAILY_CREDIT_BUDGET: '100',
+      HIGGSFIELD_MAX_COST_USD_PER_REQUEST: '1.5',
+      HIGGSFIELD_DAILY_BUDGET_USD: '10',
     });
 
-    assert.equal(config.maxCreditsPerRequest, 10);
-    assert.equal(config.dailyCreditBudget, 100);
-    assert.equal(readHiggsfieldConfig({}).maxCreditsPerRequest, null);
+    assert.equal(config.maxCostUsdPerRequest, 1.5);
+    assert.equal(config.dailyBudgetUsd, 10);
+    assert.equal(readHiggsfieldConfig({}).maxCostUsdPerRequest, null);
     assert.throws(
-      () => readHiggsfieldConfig({ HIGGSFIELD_DAILY_CREDIT_BUDGET: 'beaucoup' }),
+      () => readHiggsfieldConfig({ HIGGSFIELD_DAILY_BUDGET_USD: 'beaucoup' }),
       HiggsfieldError,
     );
   });
@@ -72,7 +76,7 @@ describe('parseCredentials', () => {
 
 describe('normalizeEndpoint', () => {
   it('pose un seul / en tête et aucun en fin', () => {
-    assert.equal(normalizeEndpoint('v1/text2image/soul'), '/v1/text2image/soul');
+    assert.equal(normalizeEndpoint('higgsfield-ai/soul/v2/standard'), '/higgsfield-ai/soul/v2/standard');
     assert.equal(normalizeEndpoint('//v1/x//'), '/v1/x');
   });
 });
