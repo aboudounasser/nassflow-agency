@@ -312,8 +312,112 @@ export const seedance20ImageToVideo: HiggsfieldModel<Seedance20ImageToVideoInput
   },
 };
 
+// ─── Vidéo : Seedance 2.5 image-to-video ──────────────────────────────
+
+const SEEDANCE_25_I2V_ID = 'bytedance/seedance-2.5/image-to-video';
+
+/**
+ * Champs confirmés sur la page « API reference » du modèle (open.higgsfield.ai,
+ * tableau « Request parameters ») :
+ * - `prompt` : string, facultatif, longueur minimum 1 ;
+ * - `duration` : integer, facultatif, défaut 5, de 4 à 30 ;
+ * - `image_url` : string, obligatoire.
+ *
+ * `resolution` et `generate_audio` n'ont pas été relevés dans ce tableau.
+ * Un champ inconnu peut être ignoré par l'API : la génération partirait
+ * alors avec les valeurs par défaut du modèle (peut-être 720p, plus
+ * cher). Ils sont donc envoyés, mais l'appelant doit vérifier le drapeau
+ * ci-dessous avant tout envoi réel.
+ */
+export const SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED = false;
+
+/** Prix affiché en 480p : environ 0,2056 $ par seconde. */
+export const SEEDANCE_25_I2V_PRICE_USD_PER_SECOND_480P = 0.2056;
+
+/**
+ * Taux retenu pour l'estimation : le prix affiché arrondi avec une marge,
+ * soit 1,10 $ pour 5 s. Le prix n'est connu qu'en 480p : seule cette
+ * résolution est acceptée.
+ */
+const SEEDANCE_25_I2V_ESTIMATE_USD_PER_SECOND = 0.22;
+
+export const SEEDANCE_25_MIN_DURATION_S = 4;
+export const SEEDANCE_25_MAX_DURATION_S = 30;
+
+export interface Seedance25ImageToVideoInput extends Record<string, unknown> {
+  /** URL https publique de l'image de départ. */
+  image_url: string;
+  prompt: string;
+  /** Secondes : multiplie le coût. */
+  duration: number;
+  resolution: '480p';
+  generate_audio: boolean;
+}
+
+const SEEDANCE_25_I2V_KEYS = ['image_url', 'prompt', 'duration', 'resolution', 'generate_audio'] as const;
+
+export const seedance25ImageToVideo: HiggsfieldModel<Seedance25ImageToVideoInput> = {
+  id: SEEDANCE_25_I2V_ID,
+  endpoint: normalizeEndpoint(SEEDANCE_25_I2V_ID),
+  output: 'video',
+
+  buildInput(input) {
+    rejectUnknownKeys(SEEDANCE_25_I2V_ID, input, SEEDANCE_25_I2V_KEYS);
+
+    let imageUrl: URL | null = null;
+    try {
+      imageUrl = typeof input.image_url === 'string' ? new URL(input.image_url) : null;
+    } catch {
+      imageUrl = null;
+    }
+    if (!imageUrl || imageUrl.protocol !== 'https:') {
+      fail(SEEDANCE_25_I2V_ID, 'image_url doit être une URL https.');
+    }
+
+    const duration = input.duration ?? 5;
+    if (
+      typeof duration !== 'number' ||
+      !Number.isInteger(duration) ||
+      duration < SEEDANCE_25_MIN_DURATION_S ||
+      duration > SEEDANCE_25_MAX_DURATION_S
+    ) {
+      fail(
+        SEEDANCE_25_I2V_ID,
+        `duration doit être un entier de ${SEEDANCE_25_MIN_DURATION_S} à ${SEEDANCE_25_MAX_DURATION_S} secondes.`,
+      );
+    }
+
+    const resolution = input.resolution ?? '480p';
+    if (resolution !== '480p') {
+      fail(SEEDANCE_25_I2V_ID, 'resolution : seul 480p est accepté, le seul dont le prix est connu.');
+    }
+
+    const generateAudio = input.generate_audio ?? false;
+    if (typeof generateAudio !== 'boolean') {
+      fail(SEEDANCE_25_I2V_ID, 'generate_audio doit être un booléen.');
+    }
+
+    return {
+      image_url: imageUrl.toString(),
+      prompt: requirePrompt(SEEDANCE_25_I2V_ID, input.prompt),
+      duration,
+      resolution,
+      generate_audio: generateAudio,
+    };
+  },
+
+  estimateCost(input) {
+    return {
+      estimatedCostUsd: usd(SEEDANCE_25_I2V_ESTIMATE_USD_PER_SECOND * input.duration),
+      lowerBound: false,
+      basis: `${input.duration} s × ${SEEDANCE_25_I2V_ESTIMATE_USD_PER_SECOND} $/s (prix affiché ${SEEDANCE_25_I2V_PRICE_USD_PER_SECOND_480P} $/s en 480p, avec marge)`,
+    };
+  },
+};
+
 export const HIGGSFIELD_MODELS = {
   soulV2Standard,
   seedance20TextToVideo,
   seedance20ImageToVideo,
+  seedance25ImageToVideo,
 } as const;

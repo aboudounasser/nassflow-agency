@@ -5,7 +5,9 @@ import {
   HIGGSFIELD_MODELS,
   SEEDANCE_I2V_PROMPT_FIELD,
   SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED,
+  SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED,
   seedance20ImageToVideo,
+  seedance25ImageToVideo,
   seedance20TextToVideo,
   soulV2Standard,
 } from './models';
@@ -162,5 +164,46 @@ describe('Seedance 2.0 image-to-video', () => {
     );
     assert.equal(estimate.estimatedCostUsd, 0.4925);
     assert.equal(estimate.lowerBound, true);
+  });
+});
+
+describe('Seedance 2.5 image-to-video', () => {
+  const IMG = 'https://cdn.example/reference.png';
+
+  it('envoie prompt, image_url et des valeurs explicites', () => {
+    assert.equal(seedance25ImageToVideo.endpoint, '/bytedance/seedance-2.5/image-to-video');
+    assert.deepEqual(seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, generate_audio: true }), {
+      image_url: IMG,
+      prompt: 'x',
+      duration: 5,
+      resolution: '480p',
+      generate_audio: true,
+    });
+  });
+
+  it('respecte les bornes confirmées de duration (4 à 30)', () => {
+    badInput(() => seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, duration: 3 }), /duration/);
+    badInput(() => seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, duration: 31 }), /duration/);
+    assert.equal(seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, duration: 30 }).duration, 30);
+  });
+
+  it('refuse une résolution au prix inconnu, une image non https, un champ inconnu', () => {
+    badInput(() => seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, resolution: '720p' as '480p' }), /480p/);
+    badInput(() => seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: 'http://cdn.example/a.png' }), /image_url/);
+    badInput(() => seedance25ImageToVideo.buildInput({ prompt: '', image_url: IMG }), /prompt/);
+    badInput(
+      () => seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, aspect_ratio: '9:16' } as never),
+      /inconnu\(s\) aspect_ratio/,
+    );
+  });
+
+  it('estime 1,10 $ pour 5 s en 480p', () => {
+    const estimate = seedance25ImageToVideo.estimateCost(seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG }));
+    assert.equal(estimate.estimatedCostUsd, 1.1);
+    assert.equal(estimate.lowerBound, false);
+  });
+
+  it('signale que resolution et generate_audio restent à confirmer', () => {
+    assert.equal(SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED, false);
   });
 });

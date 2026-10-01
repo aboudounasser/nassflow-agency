@@ -55,7 +55,9 @@ export {
   HIGGSFIELD_MODELS,
   SEEDANCE_I2V_PROMPT_FIELD,
   SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED,
+  SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED,
   seedance20ImageToVideo,
+  seedance25ImageToVideo,
   seedance20TextToVideo,
   soulV2Standard,
 } from './models';
@@ -63,6 +65,7 @@ export type {
   CostEstimate,
   HiggsfieldModel,
   Seedance20ImageToVideoInput,
+  Seedance25ImageToVideoInput,
   Seedance20TextToVideoInput,
   SoulV2StandardInput,
 } from './models';
