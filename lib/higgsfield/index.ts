@@ -53,12 +53,16 @@ export type {
 } from './tracking';
 export {
   HIGGSFIELD_MODELS,
+  SEEDANCE_I2V_PROMPT_FIELD,
+  SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED,
+  seedance20ImageToVideo,
   seedance20TextToVideo,
   soulV2Standard,
 } from './models';
 export type {
   CostEstimate,
   HiggsfieldModel,
+  Seedance20ImageToVideoInput,
   Seedance20TextToVideoInput,
   SoulV2StandardInput,
 } from './models';

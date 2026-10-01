@@ -223,7 +223,97 @@ export const seedance20TextToVideo: HiggsfieldModel<Seedance20TextToVideoInput> 
   },
 };
 
+// ─── Vidéo : Seedance 2.0 image-to-video ──────────────────────────────
+
+const SEEDANCE_I2V_ID = 'bytedance/seedance-2.0/image-to-video';
+
+/**
+ * Champs confirmés par l'exemple officiel de la page du modèle :
+ * `image_url`, `duration`, `resolution`, `generate_audio`.
+ *
+ * Le champ de la description de la scène n'y figure pas. Il est envoyé
+ * sous ce nom, qui est celui du text-to-video, tant que la page du
+ * modèle ne l'a pas confirmé : un nom faux serait refusé (422, rien de
+ * facturé) ou, pire, ignoré, et la vidéo serait générée — et payée —
+ * sans description. D'où le drapeau ci-dessous, que l'appelant doit
+ * vérifier avant tout envoi réel.
+ *
+ * Aucun champ de format n'est envoyé : l'image de départ porte déjà le
+ * 9:16 (à confirmer avec le schéma).
+ */
+export const SEEDANCE_I2V_PROMPT_FIELD = 'prompt';
+export const SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED = false;
+
+export interface Seedance20ImageToVideoInput extends Record<string, unknown> {
+  /** URL https publique de l'image de départ. */
+  image_url: string;
+  prompt: string;
+  /** Secondes : multiplie le coût. */
+  duration: number;
+  resolution: string;
+  generate_audio: boolean;
+}
+
+const SEEDANCE_I2V_KEYS = ['image_url', 'prompt', 'duration', 'resolution', 'generate_audio'] as const;
+
+export const seedance20ImageToVideo: HiggsfieldModel<Seedance20ImageToVideoInput> = {
+  id: SEEDANCE_I2V_ID,
+  endpoint: normalizeEndpoint(SEEDANCE_I2V_ID),
+  output: 'video',
+
+  buildInput(input) {
+    rejectUnknownKeys(SEEDANCE_I2V_ID, input, SEEDANCE_I2V_KEYS);
+
+    let imageUrl: URL | null = null;
+    try {
+      imageUrl = typeof input.image_url === 'string' ? new URL(input.image_url) : null;
+    } catch {
+      imageUrl = null;
+    }
+    if (!imageUrl || imageUrl.protocol !== 'https:') {
+      fail(SEEDANCE_I2V_ID, 'image_url doit être une URL https.');
+    }
+
+    // Mêmes bornes et valeurs par défaut explicites que le text-to-video,
+    // avec des messages d'erreur qui nomment le bon modèle.
+    let common: Seedance20TextToVideoInput;
+    try {
+      common = seedance20TextToVideo.buildInput({
+        prompt: input.prompt as string,
+        duration: input.duration,
+        resolution: input.resolution,
+        generate_audio: input.generate_audio,
+      });
+    } catch (error) {
+      if (error instanceof HiggsfieldError) {
+        fail(SEEDANCE_I2V_ID, error.message.replace(`${SEEDANCE_ID} : `, ''));
+      }
+      throw error;
+    }
+    const { prompt, duration, resolution, generate_audio } = common;
+
+    return {
+      image_url: imageUrl.toString(),
+      [SEEDANCE_I2V_PROMPT_FIELD]: prompt,
+      duration,
+      resolution,
+      generate_audio,
+    } as Seedance20ImageToVideoInput;
+  },
+
+  estimateCost(input) {
+    // Tarif de l'image-to-video non connu : même plancher que le
+    // text-to-video, à remplacer par le prix lu dans la console.
+    return {
+      estimatedCostUsd: usd(SEEDANCE_2_0_MIN_PRICE_USD_PER_SECOND * input.duration),
+      lowerBound: true,
+      basis: `${input.duration} s × ${SEEDANCE_2_0_MIN_PRICE_USD_PER_SECOND} $/s minimum (image-to-video, ${input.resolution}) — plancher, prix non vérifié`,
+    };
+  },
+};
+
 export const HIGGSFIELD_MODELS = {
   soulV2Standard,
   seedance20TextToVideo,
+  seedance20ImageToVideo,
 } as const;

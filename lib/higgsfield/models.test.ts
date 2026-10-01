@@ -1,7 +1,14 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { HiggsfieldError } from './errors';
-import { HIGGSFIELD_MODELS, seedance20TextToVideo, soulV2Standard } from './models';
+import {
+  HIGGSFIELD_MODELS,
+  SEEDANCE_I2V_PROMPT_FIELD,
+  SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED,
+  seedance20ImageToVideo,
+  seedance20TextToVideo,
+  soulV2Standard,
+} from './models';
 
 function badInput(fn: () => unknown, pattern: RegExp) {
   assert.throws(fn, (error: unknown) => {
@@ -111,5 +118,49 @@ describe('Seedance 2.0 text-to-video', () => {
     assert.equal(estimate.estimatedCostUsd, 0.985);
     assert.equal(estimate.lowerBound, true);
     assert.match(estimate.basis, /plancher/);
+  });
+});
+
+describe('Seedance 2.0 image-to-video', () => {
+  const IMG = 'https://cdn.example/reference.png';
+
+  it('envoie image_url et les champs confirmés, toujours explicites', () => {
+    assert.equal(seedance20ImageToVideo.endpoint, '/bytedance/seedance-2.0/image-to-video');
+    assert.deepEqual(seedance20ImageToVideo.buildInput({ prompt: ' Il repose le téléphone ', image_url: IMG }), {
+      image_url: IMG,
+      prompt: 'Il repose le téléphone',
+      duration: 5,
+      resolution: '480p',
+      generate_audio: false,
+    });
+  });
+
+  it('signale que le champ de description n’est pas encore confirmé', () => {
+    assert.equal(SEEDANCE_I2V_PROMPT_FIELD, 'prompt');
+    assert.equal(SEEDANCE_I2V_PROMPT_FIELD_CONFIRMED, false);
+  });
+
+  it('refuse une image non https, un format ou un paramètre inconnu', () => {
+    badInput(() => seedance20ImageToVideo.buildInput({ prompt: 'x', image_url: 'http://cdn.example/a.png' }), /image_url/);
+    badInput(() => seedance20ImageToVideo.buildInput({ prompt: 'x', image_url: 'pas une url' }), /image_url/);
+    badInput(
+      () => seedance20ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, aspect_ratio: '9:16' } as never),
+      /inconnu\(s\) aspect_ratio/,
+    );
+  });
+
+  it('nomme le bon modèle dans les erreurs communes', () => {
+    badInput(
+      () => seedance20ImageToVideo.buildInput({ prompt: 'x', image_url: IMG, duration: 20 }),
+      /^bytedance\/seedance-2\.0\/image-to-video : duration/,
+    );
+  });
+
+  it('estime un plancher, à la seconde', () => {
+    const estimate = seedance20ImageToVideo.estimateCost(
+      seedance20ImageToVideo.buildInput({ prompt: 'x', image_url: IMG }),
+    );
+    assert.equal(estimate.estimatedCostUsd, 0.4925);
+    assert.equal(estimate.lowerBound, true);
   });
 });
