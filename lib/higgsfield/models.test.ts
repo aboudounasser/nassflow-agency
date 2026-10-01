@@ -203,7 +203,8 @@ describe('Seedance 2.5 image-to-video', () => {
     assert.equal(estimate.lowerBound, false);
   });
 
-  it('signale que resolution et generate_audio restent à confirmer', () => {
-    assert.equal(SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED, false);
+  it('a resolution et generate_audio confirmés, sans envoyer bitrate_mode', () => {
+    assert.equal(SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED, true);
+    assert.ok(!('bitrate_mode' in seedance25ImageToVideo.buildInput({ prompt: 'x', image_url: IMG })));
   });
 });

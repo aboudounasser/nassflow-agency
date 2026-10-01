@@ -323,15 +323,17 @@ const SEEDANCE_25_I2V_ID = 'bytedance/seedance-2.5/image-to-video';
  * - `duration` : integer, facultatif, défaut 5, de 4 à 30 ;
  * - `image_url` : string, obligatoire.
  *
- * `resolution` et `generate_audio` n'ont pas été relevés dans ce tableau.
- * Un champ inconnu peut être ignoré par l'API : la génération partirait
- * alors avec les valeurs par défaut du modèle (peut-être 720p, plus
- * cher). Ils sont donc envoyés, mais l'appelant doit vérifier le drapeau
- * ci-dessous avant tout envoi réel.
+ * `resolution` et `generate_audio` sont confirmés par l'exemple officiel
+ * de requête (onglet API) et par le bloc « Price » du Playground, qui
+ * cite 480p, 720p et 1080p. `bitrate_mode` existe aussi : il n'est pas
+ * envoyé, la valeur par défaut est conservée.
  */
-export const SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED = false;
+export const SEEDANCE_25_I2V_RESOLUTION_AUDIO_CONFIRMED = true;
 
-/** Prix affiché en 480p : environ 0,2056 $ par seconde. */
+/**
+ * Prix affiché (bloc « Price » du Playground) : environ 0,2056 $ par
+ * seconde en 480p (0,4622 $ en 720p, 1,1372 $ en 1080p).
+ */
 export const SEEDANCE_25_I2V_PRICE_USD_PER_SECOND_480P = 0.2056;
 
 /**
