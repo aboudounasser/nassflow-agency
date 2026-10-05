@@ -44,8 +44,72 @@ le projet Vercel en production. Aucune valeur n'est versionnée.
 | `HIGGSFIELD_ALLOWED_ENDPOINTS` | Identifiants de modèle autorisés, séparés par des virgules (vide : aucun) |
 | `HIGGSFIELD_MAX_COST_USD_PER_REQUEST` | Plafond du coût estimé par génération, en dollars, obligatoire hors dry-run |
 | `HIGGSFIELD_DAILY_BUDGET_USD` | Plafond du coût estimé sur 24 h glissantes, en dollars, obligatoire hors dry-run |
+| `CRM_USER` | Identifiant du CRM interne (`/crm`), `nassflow` par défaut |
+| `CRM_PASSWORD` | Mot de passe du CRM ; absent, `/crm` répond 404 en production |
 
 Les schémas des tables sont dans `supabase/`.
+
+## CRM de prospection (`/crm`)
+
+Un tableau Kanban interne pour vendre nos agents IA et automatisations.
+Six colonnes : **Nouveaux prospects, Contactés, Intéressés, Qualifiés,
+Conclus** et **Non pertinent**.
+
+Mise en route : exécuter `supabase/crm_prospects.sql` dans Supabase,
+définir `CRM_PASSWORD` (et `CRM_USER` si besoin), ouvrir `/crm`. Sans
+Supabase, en local, le tableau tourne en mémoire avec des fiches
+d'exemple fictives, perdues au redémarrage.
+
+**Accès.** Authentification HTTP Basic, vérifiée par `proxy.ts`, par
+la page et par chaque Server Action (`lib/crm/auth.ts`). Sans
+`CRM_PASSWORD`, `/crm` répond 404 en production. La page n'est ni dans
+le sitemap ni indexée.
+
+**Fiches.** Ajout à la main, import CSV (séparateur et colonnes
+reconnus automatiquement, en français ou en anglais) ou import des
+demandes du site (`chat_leads`, `solution_requests`, sans doublon).
+Chaque carte affiche l'entreprise, le responsable et ses coordonnées,
+le score, la phrase qui le justifie et un premier message à envoyer
+(copie ou ouverture dans la messagerie).
+
+**Score sur 10** (`lib/crm/scoring.ts`), calculé sans réseau ni IA,
+donc toujours explicable : 1 point de base, plus trois critères notés
+sur 3 :
+
+1. Joignable : e-mail pro valide (2), e-mail grand public (1),
+   téléphone valide (+1). Adresses jetables, d'exemple et numéros
+   factices refusés.
+2. Une entreprise : un nom (ou un nom déduit du domaine e-mail), forme
+   juridique, site, domaine propre, secteur, effectif, décideur.
+3. Besoin d'un agent IA autonome : tâches que nos agents prennent en
+   charge (service client, demandes entrantes, rendez-vous, devis,
+   e-mails, ressaisie), douleur exprimée, demande venue du site, taille
+   et secteur ; « pas de budget », « déjà équipé » font baisser la note.
+
+Plafonds : injoignable → 3 au plus, particulier → 4 au plus. **Sous 5,
+la fiche part d'office en « Non pertinent »** et ne peut pas en sortir
+à la main ; complétée et repassée à 5, elle revient en « Nouveaux
+prospects ». Le score n'est pas stocké comme une vérité : il se
+recalcule au chargement, donc une règle modifiée s'applique à toute la
+base.
+
+**Actions recommandées** (`lib/crm/cadence.ts`). Chaque colonne a sa
+séquence (premier message ; relance, appel, LinkedIn, dernier
+message ; appel de découverte ; proposition, relance, appel de
+décision ; lancement, point de satisfaction…), puis une action
+d'entretien qui se répète. Les dates suivent ce qu'on fait :
+
+- **Fait** : l'action suivante est datée à partir du jour où on l'a
+  faite (le premier message fait passe la fiche en « Contactés ») ;
+- **Ignorer** : l'action suivante arrive plus tôt, puisque le prospect
+  n'a rien reçu ; le premier message, lui, revient le lendemain ;
+- **Reporter** : la même action, 1, 3, 7 ou 30 jours plus tard ;
+- **rien fait** : l'action passe en retard et tout le plan qui suit
+  glisse avec aujourd'hui, jusqu'à ce qu'on agisse.
+
+Déplacer une carte (glisser-déposer, ou « Déplacer vers ») relance la
+séquence de sa nouvelle colonne. Les dates sont des jours, à l'heure de
+Paris.
 
 ## Higgsfield
 
@@ -168,5 +232,7 @@ Restent **non vérifiés, donc non implémentés** :
   SectionTitle, TextLink)
 - `components/sections/` : les sections de page
 - `lib/content/` : tous les textes du site, avec leurs règles d'écriture
+- `lib/crm/` : le CRM, en fonctions pures testées (score, cadence,
+  import) ; `app/crm/` : la page, ses Server Actions et le tableau
 - `assets/fonts/` : les polices en TTF des images de partage et de
   l'icône (voir son README)
