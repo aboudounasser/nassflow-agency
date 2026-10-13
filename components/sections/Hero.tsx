@@ -19,13 +19,43 @@ import { heroContent } from '@/lib/content/hero';
  *
  * Le bandeau des quatre mentions (« Plus de demandes »…) a disparu :
  * quatre promesses sans preuve, que la démonstration remplace.
+ *
+ * Derrière, trois halos flous (vermillon, ambre, indigo profond) dérivent
+ * lentement : CSS seul, `transform` et `opacity` uniquement, un cycle de
+ * 24 s ou plus (`drift`, lib/motion.ts). Ils sont immobiles sans JS et
+ * avec « réduire les animations ». Leurs opacités sont réglées pour que
+ * le titre garde son contraste sur la zone la plus claire.
  */
+function HeroHalos() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+    >
+      <span
+        data-halo="1"
+        className="halo top-[-20%] right-[-15%] size-[70vmax] [--halo:var(--halo-accent)]"
+      />
+      <span
+        data-halo="2"
+        className="halo bottom-[-35%] left-[-20%] size-[60vmax] [--halo:var(--halo-amber)]"
+      />
+      <span
+        data-halo="3"
+        className="halo top-[-30%] left-[10%] size-[55vmax] [--halo:var(--halo-indigo)]"
+      />
+    </div>
+  );
+}
+
 export function Hero() {
   const { eyebrow, title, intro, ctas, ctaNote } = heroContent;
 
   return (
-    <div className="bg-paper text-ink">
-      <SectionShell className="pt-14 pb-16 sm:pt-20 sm:pb-20 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:pt-24 lg:pb-24">
+    <div className="relative isolate bg-paper text-ink">
+      <HeroHalos />
+
+      <SectionShell className="pt-14 pb-section sm:pt-20 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:pt-24">
         <div className="lg:col-span-5">
           <Eyebrow as="p" className="mb-6">
             {eyebrow}
@@ -41,7 +71,7 @@ export function Hero() {
             className="text-balance lg:text-display-split"
           />
 
-          <p className="mt-8 max-w-[58ch] text-body text-ink-body sm:text-lead">
+          <p className="mt-8 max-w-measure text-body text-ink-body sm:text-lead">
             {intro}
           </p>
 
