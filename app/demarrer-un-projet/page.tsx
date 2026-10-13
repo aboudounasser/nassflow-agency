@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function DemarrerUnProjetPage() {
   return (
     <main id="contenu" className="flex-1">
-      <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+      <SectionShell className="pt-14 pb-section sm:pt-16 lg:pt-20">
         <div className="mx-auto max-w-[900px] px-1 sm:px-0">
           {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
               déjà « Accueil », et le logo mène au même endroit. */}
@@ -49,7 +49,7 @@ export default function DemarrerUnProjetPage() {
               Parlons de ce qui vous fait perdre du temps.
             </h1>
 
-            <p className="mt-6 max-w-[58ch] text-body text-ink-body">
+            <p className="mt-6 max-w-measure text-body text-ink-body">
               Une question rapide ou un besoin déjà cadré, c’est le même
               formulaire. Répondez à ce qui vous concerne, laissez le reste.
             </p>
