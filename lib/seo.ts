@@ -11,13 +11,13 @@ export const SITE_URL = 'https://www.nassflow.com';
 
 export const seo = {
   metadataBase: SITE_URL,
-  title: 'NASSFLOW AGENCY | Automatisation et IA pour les PME',
+  title: 'NASSFLOW AGENCY | Automatisation commerciale pour les PME B2B',
   description:
-    'NASSFLOW AGENCY relie les outils des PME et automatise leurs tâches répétitives : assistants IA, agents et intégrations.',
+    'Automatisations et agents IA pour les PME B2B : demandes entrantes traitées, prospects qualifiés et suivi commercial fiabilisé, en reliant vos outils existants.',
   openGraph: {
-    title: 'NASSFLOW AGENCY — Automatisation et IA pour les PME',
+    title: 'NASSFLOW AGENCY — Automatisation commerciale pour les PME B2B',
     description:
-      'Nous relions vos logiciels entre eux et automatisons ce qui vous fait perdre du temps : assistants IA, agents et intégrations.',
+      'Nous concevons des automatisations et des agents IA qui traitent vos demandes entrantes, qualifient vos prospects et fiabilisent votre suivi commercial.',
     type: 'website',
   },
 } as const;

@@ -1,12 +1,13 @@
 import { SectionShell } from '@/components/SectionShell';
 import { Button } from '@/components/ui/Button';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { HeroFlow } from '@/components/hero/HeroFlow';
 import { heroContent } from '@/lib/content/hero';
 
 /**
- * Le Hero : le titre en deux voix, ce qu'on fait en une phrase, et les
- * deux portes d'entrée. Ses textes viennent de lib/content/hero.ts.
+ * Le Hero : la cible en sur-titre, le titre en deux voix, ce qu'on fait
+ * en une phrase, et les deux portes d'entrée. Ses textes viennent de lib/content/hero.ts.
  *
  * À droite en desktop (titre ≈ 5/12, flux ≈ 7/12), sous les CTA en
  * mobile : la démonstration, où une demande réelle traverse le flux
@@ -20,12 +21,16 @@ import { heroContent } from '@/lib/content/hero';
  * quatre promesses sans preuve, que la démonstration remplace.
  */
 export function Hero() {
-  const { title, intro, ctas } = heroContent;
+  const { eyebrow, title, intro, ctas, ctaNote } = heroContent;
 
   return (
     <div className="bg-paper text-ink">
       <SectionShell className="pt-14 pb-16 sm:pt-20 sm:pb-20 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:pt-24 lg:pb-24">
         <div className="lg:col-span-5">
+          <Eyebrow as="p" className="mb-6">
+            {eyebrow}
+          </Eyebrow>
+
           {/* La seconde phrase bascule dans la voix, en vermillon. */}
           <SectionTitle
             as="h1"
@@ -49,6 +54,8 @@ export function Hero() {
               {ctas.secondary.label}
             </Button>
           </div>
+
+          <p className="mt-6 max-w-[48ch] text-small text-ink-muted">{ctaNote}</p>
         </div>
 
         <div className="mt-16 sm:mt-20 lg:col-span-7 lg:mt-0 lg:pl-8">

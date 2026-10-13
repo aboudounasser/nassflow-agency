@@ -61,16 +61,31 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Le titre, dans ses deux voix. */}
+        {/* La cible, puis le titre dans ses deux voix. */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
               display: 'flex',
               height: 1,
               backgroundColor: ogColors.rule,
-              marginBottom: 44,
+              marginBottom: 40,
             }}
           />
+
+          {/* Le sur-titre du Hero : la cible. */}
+          <div
+            style={{
+              marginBottom: 20,
+              fontSize: 17,
+              fontWeight: 700,
+              letterSpacing: '0.24em',
+              textTransform: 'uppercase',
+              color: ogColors.accent,
+              lineHeight: 1,
+            }}
+          >
+            {heroContent.eyebrow}
+          </div>
 
           <div
             style={{

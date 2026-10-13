@@ -54,11 +54,20 @@ ${homepageContent.layout.description}
 
 Le titre de l'accueil : « ${heroContent.title.lead} ${heroContent.title.voice} »
 
+## Pour qui
+
+${heroContent.eyebrow}. La cible : les dirigeants de PME B2B qui ont une
+équipe commerciale et perdent des opportunités à cause de processus
+manuels mal organisés.
+
 ## Ce que fait l'agence
 
-Elle relie entre eux les logiciels que l'entreprise utilise déjà, et
-automatise les tâches répétitives. Elle ne vend pas un outil de plus :
-elle branche ceux qui sont en place. L'IA intervient là où elle sert.
+${heroContent.intro}
+
+Elle ne vend pas un outil de plus : elle relie ceux qui sont en place.
+L'IA intervient là où elle sert.
+
+Premier contact : ${heroContent.ctaNote}
 
 ## Les six solutions
 

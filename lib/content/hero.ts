@@ -3,7 +3,11 @@ import type { ConnectedToolName } from '@/lib/content/tools';
 /**
  * Le Hero de l'accueil : la seule source de ses textes. L'image de
  * partage (app/opengraph-image.tsx) et la base de connaissances de
- * l'assistant reprennent le titre d'ici, mot pour mot.
+ * l'assistant reprennent d'ici le sur-titre, le titre et le paragraphe,
+ * mot pour mot.
+ *
+ * La cible : les dirigeants de PME B2B qui ont une équipe commerciale et
+ * perdent des opportunités à cause de processus manuels mal organisés.
  *
  * Règles d'écriture de la démonstration :
  * - les scénarios sont des EXEMPLES : l'expéditeur est fictif, et rien ne
@@ -37,18 +41,25 @@ export type HeroScenario = {
 };
 
 export const heroContent = {
+  /** Le sur-titre : la cible, en une ligne. */
+  eyebrow: 'Automatisation IA pour les PME B2B',
+
   title: {
-    lead: 'Vos outils méritent mieux que de travailler chacun dans leur coin.',
-    voice: 'On les fait travailler ensemble.',
+    lead: 'Vos opportunités ne devraient pas se perdre entre deux outils.',
+    voice: 'On fait travailler vos outils ensemble.',
   },
 
   intro:
-    'Nous relions vos logiciels entre eux et automatisons ce qui vous fait perdre du temps. L’IA intervient là où elle sert vraiment.',
+    'NASSFLOW conçoit des automatisations et des agents IA qui traitent vos demandes entrantes, qualifient vos prospects et fiabilisent votre suivi commercial, en reliant les outils que vous utilisez déjà.',
 
   ctas: {
-    primary: { label: 'Démarrer un projet', href: '/demarrer-un-projet' },
-    secondary: { label: 'Découvrir les solutions', href: '#solutions' },
+    primary: { label: 'Demander un diagnostic', href: '/demarrer-un-projet' },
+    // L'ancre de la démonstration, juste à côté (components/hero/HeroFlow.tsx).
+    secondary: { label: 'Voir une démonstration', href: '#demonstration' },
   },
+
+  /** Sous les CTA : ce qu'engage le premier échange. */
+  ctaNote: 'Premier échange de 15 minutes pour comprendre votre processus. Sans engagement.',
 
   /** Le libellé au-dessus de la démonstration. */
   demoLabel: 'Exemple de traitement',
