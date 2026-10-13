@@ -9,7 +9,7 @@ import { motionTokens } from '@/lib/motion';
  *   saisie du message → Signal → extraction, un élément après l'autre
  *   → Signal → trois actions en cascade → Signal → résultat → pause.
  *
- * Pour 9 à 12 s par scénario avec les textes actuels. La saisie n'est
+ * Pour 10 à 13 s par scénario avec les textes actuels. La saisie n'est
  * pas minutée : `typeEnd` est une estimation, la démonstration attend la
  * fin réelle du Typewriter avant d'enchaîner.
  */

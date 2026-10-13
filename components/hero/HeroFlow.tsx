@@ -30,7 +30,7 @@ import {
  * FINAL du scénario affiché, lisible d'un bloc. Les onglets restent
  * utilisables (changement instantané).
  *
- * Avec le mouvement : chaque scénario se joue (9 à 12 s), puis le
+ * Avec le mouvement : chaque scénario se joue (10 à 13 s), puis le
  * suivant. Un clic sur un onglet lance ce scénario et suspend la
  * rotation. Le bouton Pause arrête tout ; la démonstration s'arrête
  * aussi hors du viewport et quand l'onglet du navigateur est caché.
