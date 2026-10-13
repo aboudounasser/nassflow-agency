@@ -11,19 +11,19 @@ export const metadata: Metadata = {
 export default function MentionsLegales() {
   return (
     <main id="contenu" className="flex-1">
-      <div className="mx-auto max-w-[68ch] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-[65ch] px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
         <div className="mb-10 sm:mb-12">
           <h1 className="font-sans text-[clamp(2rem,7vw,3rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-ink">
             Mentions légales
           </h1>
 
-          <p className="mt-4 max-w-[680px] text-body text-ink-body">
+          <p className="mt-4 max-w-[65ch] text-body text-ink-body">
             Informations légales et réglementaires relatives au site NASSFLOW
             AGENCY.
           </p>
         </div>
 
-        <div className="text-body text-ink-body">
+        <div className="max-w-measure text-body text-ink-body">
           <section className="border-t border-rule py-9">
             <h2 className="mb-5 font-heading text-[1.5rem] font-bold leading-[1.2] tracking-[-0.025em] text-ink">
               Éditeur du site

@@ -52,7 +52,7 @@ export default function MobileMenu({
                 >
                   <Link
                     href={link.href}
-                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                    className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     onClick={onNavigate}
                   >
                     {link.label}

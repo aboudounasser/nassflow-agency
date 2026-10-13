@@ -38,7 +38,7 @@ function Demo({
   return (
     <div className="border-t border-rule py-8">
       <p className="font-heading text-body font-bold text-ink">{title}</p>
-      <p className="mt-1 max-w-[62ch] text-small text-ink-muted">{note}</p>
+      <p className="mt-1 max-w-measure text-small text-ink-muted">{note}</p>
       <div className="mt-6">{children}</div>
     </div>
   );
@@ -56,7 +56,7 @@ function Primitive({
   return (
     <section className="mt-16">
       <Eyebrow>{name}</Eyebrow>
-      <p className="mt-3 max-w-[62ch] text-body text-ink-body">{lead}</p>
+      <p className="mt-3 max-w-measure text-body text-ink-body">{lead}</p>
       <div className="mt-8">{children}</div>
     </section>
   );
@@ -106,7 +106,7 @@ export function MotionDemo() {
           Primitives de mouvement
         </h1>
 
-        <p className="mt-6 max-w-[62ch] text-body text-ink-body">
+        <p className="mt-6 max-w-measure text-body text-ink-body">
           Le vermillon en mouvement signifie toujours « la machine
           travaille ». Chaque primitive s&apos;arrête hors du viewport et
           quand l&apos;onglet passe en arrière-plan.

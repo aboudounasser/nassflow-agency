@@ -3,9 +3,9 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 /**
  * Les classes partagées par les deux formulaires du site.
  *
- * C'est ici que la direction éditoriale se voit le plus : un champ n'a
- * ni cadre, ni fond, ni arrondi — seulement un filet 1px sous la ligne
- * de saisie, qui passe au vermillon quand le champ prend le focus. Le
+ * Un champ n'a ni cadre ni fond — seulement un filet 1px sous la ligne
+ * de saisie, en `control` (4,09:1 sur le fond : le contour d'un champ
+ * doit tenir 3:1), qui passe au vermillon quand le champ prend le focus. Le
  * filet est posé sur l'enveloppe en `focus-within`, donc il apparaît
  * aussi bien à la souris qu'à la tabulation : c'est lui, et non un halo,
  * qui sert d'état de focus visible au clavier.
@@ -24,7 +24,7 @@ export const formStyles = {
 
   /** L'enveloppe qui porte le filet, et son passage au vermillon. */
   fieldWrap:
-    'border-b border-rule py-5 transition-colors focus-within:border-accent',
+    'border-b border-control py-5 transition-colors focus-within:border-accent',
 
   input:
     'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none placeholder:text-ink-muted',
@@ -36,7 +36,7 @@ export const formStyles = {
     'min-h-11 w-full bg-transparent py-1 text-base text-ink outline-none',
 
   /** Les listes déroulantes natives ne suivent pas le fond de la page. */
-  option: 'bg-paper text-ink',
+  option: 'bg-surface text-ink',
 
   /** Message d'erreur : du vermillon, pas un encadré. */
   error:
@@ -46,7 +46,7 @@ export const formStyles = {
   success: 'border-y border-rule py-7',
 
 
-  note: 'max-w-[62ch] text-[0.8125rem] leading-6 text-ink-muted',
+  note: 'max-w-measure text-[0.8125rem] leading-6 text-ink-muted',
 };
 
 /**

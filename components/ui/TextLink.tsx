@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react';
  * vers le vermillon dans un message, vers l'encre dans une note en gris
  * (`hover="ink"`). Au survol et au focus, le soulignement se redessine
  * de gauche à droite (`link-underline`, app/globals.css). Au clavier, le
- * même contour à l'encre que le reste du site.
+ * même anneau vermillon que le reste du site.
  *
  * Toujours un `<a>` : ces liens vivent dans l'assistant, qui ouvre des
  * pages externes ou des pages légales qu'il n'y a pas lieu de
@@ -28,7 +28,7 @@ export function TextLink({
   return (
     <a
       className={[
-        'link-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
+        'link-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
         hovers[hover],
         className,
       ]

@@ -16,10 +16,11 @@ const loadMobileMenu = () => import('@/components/MobileMenu');
 const MobileMenu = dynamic(loadMobileMenu, { ssr: false });
 
 /**
- * L'en-tête, en direction éditoriale : papier, un filet dessous, aucun
- * arrondi et aucun flou. La densification au défilement ne joue plus que
- * sur la hauteur — l'ancienne version changeait aussi l'opacité du fond et
- * posait une ombre, deux effets que la direction supprime.
+ * L'en-tête, en verre dépoli : fond sombre semi-transparent flouté
+ * (`glass`, app/globals.css), un filet dessous à 8 %, collé en haut. Sans
+ * `backdrop-filter`, le fond redevient opaque : le texte reste lisible
+ * au-dessus de n'importe quelle section. La densification au défilement
+ * ne joue que sur la hauteur.
  *
  * Le comportement du menu mobile n'est pas touché : état, fermeture au
  * clavier, blocage du défilement derrière le panneau et fermeture au clic
@@ -85,7 +86,7 @@ export function Navigation() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-(--z-header) border-b border-rule bg-paper text-ink">
+    <header className="glass sticky top-0 z-(--z-header) border-b border-rule text-ink">
       <div
         className={[
           'mx-auto flex max-w-site items-center justify-between px-4 transition-[height] duration-(--motion-duration-base) sm:px-6 lg:px-8',
@@ -125,7 +126,7 @@ export function Navigation() {
             <Link
               key={link.label}
               href={link.href}
-              className="font-sans text-[0.875rem] font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              className="font-sans text-[0.875rem] font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {link.label}
             </Link>
@@ -152,7 +153,7 @@ export function Navigation() {
             setMenuLoaded(true);
             setMenuOpen(!menuOpen);
           }}
-          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center border border-rule text-ink transition-colors hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:hidden"
+          className="relative z-(--z-overlay) inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-button border border-control text-ink transition-colors hover:border-ink hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:hidden"
         >
           <span className="sr-only">
             {menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}

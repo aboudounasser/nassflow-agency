@@ -2,6 +2,7 @@ import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { connectedTools } from '@/lib/content/tools';
+import { Rise } from '@/components/motion/Rise';
 import { Trace } from '@/components/motion/Trace';
 
 /**
@@ -26,10 +27,10 @@ export function IntegrationsTable() {
     >
       <Trace />
 
-      <SectionShell className="py-16 sm:py-20 lg:py-24">
+      <SectionShell className="py-section">
         {/* Sur desktop le paragraphe se pose à droite du titre, aligné sur
             sa dernière ligne ; en mobile il repasse dessous. */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+        <Rise className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
             <Eyebrow>Intégrations</Eyebrow>
 
@@ -44,7 +45,7 @@ export function IntegrationsTable() {
             Vos logiciels actuels restent en place. On les fait communiquer
             entre eux, et on ajoute seulement ce qui manque.
           </p>
-        </div>
+        </Rise>
 
         <Eyebrow as="p" tone="muted" className="mt-14 sm:mt-16">
           Ce qu&apos;on relie chez vous
@@ -56,7 +57,7 @@ export function IntegrationsTable() {
             porte. */}
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:gap-x-20">
           {connectedTools.map((tool, index) => (
-            <div key={tool.name}>
+            <Rise key={tool.name} order={index}>
               <div
                 className={[
                   'flex items-baseline justify-between gap-4 border-t border-rule py-4',
@@ -72,19 +73,19 @@ export function IntegrationsTable() {
                   {tool.role}
                 </span>
               </div>
-            </div>
+            </Rise>
           ))}
         </div>
 
-        <div className="mt-12 sm:mt-14">
-          <p className="max-w-[62ch] text-lead text-ink-body">
+        <Rise className="mt-12 sm:mt-14">
+          <p className="max-w-measure text-lead text-ink-body">
             Votre logiciel métier n&apos;est pas dans la liste ? S&apos;il
             expose une API, il se branche — et la plupart en exposent une.{' '}
             <span className="font-serif italic text-ink">
               Dites-nous lequel, on vous répond franchement.
             </span>
           </p>
-        </div>
+        </Rise>
       </SectionShell>
     </section>
   );

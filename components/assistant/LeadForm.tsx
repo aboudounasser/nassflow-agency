@@ -78,7 +78,7 @@ export function LeadForm({
   const label =
     'mb-1.5 block font-sans text-micro uppercase tracking-tag text-ink-muted';
   const field =
-    'border-b border-rule pb-1 transition-colors focus-within:border-accent';
+    'border-b border-control pb-1 transition-colors focus-within:border-accent';
   const input =
     'min-h-10 w-full bg-transparent text-[0.9375rem] text-ink outline-none placeholder:text-ink-muted';
 
@@ -86,7 +86,7 @@ export function LeadForm({
     <form
       onSubmit={handleSubmit}
       aria-label="Être recontacté"
-      className="mt-6 border border-rule p-4"
+      className="mt-6 rounded-card border border-rule bg-paper p-4"
     >
       <p className="font-sans text-micro uppercase text-ink-muted">
         Être recontacté
