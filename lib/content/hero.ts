@@ -3,7 +3,11 @@ import type { ConnectedToolName } from '@/lib/content/tools';
 /**
  * Le Hero de l'accueil : la seule source de ses textes. L'image de
  * partage (app/opengraph-image.tsx) et la base de connaissances de
- * l'assistant reprennent le titre d'ici, mot pour mot.
+ * l'assistant reprennent d'ici le sur-titre, le titre et le paragraphe,
+ * mot pour mot.
+ *
+ * La cible : les dirigeants de PME B2B qui ont une équipe commerciale et
+ * perdent des opportunités à cause de processus manuels mal organisés.
  *
  * Règles d'écriture de la démonstration :
  * - les scénarios sont des EXEMPLES : l'expéditeur est fictif, et rien ne
@@ -12,7 +16,13 @@ import type { ConnectedToolName } from '@/lib/content/tools';
  * - chaque action nomme l'outil où elle a lieu, et cet outil existe dans
  *   `connectedTools` (lib/content/tools.ts) : le type l'impose ;
  * - le résultat dit ce qui est fait, pas ce que ça rapporte. Quand
- *   l'humain garde la main, le résultat le dit.
+ *   l'humain garde la main, le résultat le dit ;
+ * - les entreprises (« Exemple SARL », « Exemple SAS ») et les montants
+ *   ne sont jamais réels : un montant reste « non communiqué ».
+ *
+ * Les trois scénarios couvrent le cycle commercial : une demande qui
+ * entre, un devis qui attend, et une demande hors cible que l'agent
+ * écarte — trier fait partie du travail.
  */
 
 export type HeroScenario = {
@@ -37,18 +47,25 @@ export type HeroScenario = {
 };
 
 export const heroContent = {
+  /** Le sur-titre : la cible, en une ligne. */
+  eyebrow: 'Automatisation IA pour les PME B2B',
+
   title: {
-    lead: 'Vos outils méritent mieux que de travailler chacun dans leur coin.',
-    voice: 'On les fait travailler ensemble.',
+    lead: 'Vos commerciaux vendent.',
+    voice: 'Nos agents IA s’occupent du reste.',
   },
 
   intro:
-    'Nous relions vos logiciels entre eux et automatisons ce qui vous fait perdre du temps. L’IA intervient là où elle sert vraiment.',
+    'NASSFLOW conçoit des automatisations et des agents IA qui traitent vos demandes entrantes, qualifient vos prospects et fiabilisent votre suivi commercial, en reliant les outils que vous utilisez déjà.',
 
   ctas: {
-    primary: { label: 'Démarrer un projet', href: '/demarrer-un-projet' },
-    secondary: { label: 'Découvrir les solutions', href: '#solutions' },
+    primary: { label: 'Demander un diagnostic', href: '/demarrer-un-projet' },
+    // L'ancre de la démonstration, juste à côté (components/hero/HeroFlow.tsx).
+    secondary: { label: 'Voir une démonstration', href: '#demonstration' },
   },
+
+  /** Sous les CTA : ce qu'engage le premier échange. */
+  ctaNote: 'Premier échange de 15 minutes pour comprendre votre processus. Sans engagement.',
 
   /** Le libellé au-dessus de la démonstration. */
   demoLabel: 'Exemple de traitement',
@@ -63,73 +80,71 @@ export const heroContent = {
 
   scenarios: [
     {
-      id: 'boutique',
-      tab: 'Boutique en ligne',
+      id: 'demande',
+      tab: 'Demande entrante',
       message: {
-        from: 'Léa, cliente',
-        channel: 'WhatsApp',
-        text: 'Bonjour, ce sérum convient-il aux peaux sensibles ? Et vous livrez en Belgique ?',
+        from: 'Julie M., Exemple SARL',
+        channel: 'Formulaire du site',
+        text: 'Bonjour, nous sommes une PME de 40 personnes, nous cherchons à automatiser nos devis. Pouvez-vous nous rappeler cette semaine ?',
       },
       extracted: [
-        { label: 'Produit', value: 'Sérum' },
-        { label: 'Question', value: 'Peaux sensibles' },
-        { label: 'Livraison', value: 'Belgique' },
+        { label: 'Taille', value: '40 personnes' },
+        { label: 'Besoin', value: 'Automatiser les devis' },
+        { label: 'Urgence', value: 'Cette semaine' },
       ],
       actions: [
-        { label: 'Fiche produit consultée', tool: 'Shopify' },
-        { label: 'Zones de livraison vérifiées', tool: 'Shopify' },
-        { label: 'Réponse rédigée', tool: 'WhatsApp' },
+        { label: 'Fiche créée dans le CRM', tool: 'HubSpot' },
+        { label: 'Prospect qualifié selon vos critères', tool: 'HubSpot' },
+        { label: 'Créneaux proposés', tool: 'Calendly' },
       ],
       result: {
-        title: 'Réponse envoyée',
-        detail:
-          '« Bonjour Léa, oui : ce sérum est formulé pour les peaux sensibles, et nous livrons en Belgique. »',
+        title: 'Rendez-vous proposé',
+        detail: 'Le commercial est prévenu sur Slack, avec la fiche du prospect.',
       },
     },
     {
-      id: 'artisan',
-      tab: 'Artisan',
+      id: 'relance',
+      tab: 'Relance',
       message: {
-        from: 'M. Durand, particulier',
+        from: 'Déclencheur',
+        channel: 'HubSpot',
+        text: 'Devis envoyé il y a 7 jours, aucune réponse.',
+      },
+      extracted: [
+        { label: 'Prospect', value: 'Exemple SAS' },
+        { label: 'Montant', value: 'Non communiqué' },
+        { label: 'Dernier échange', value: 'Envoi du devis' },
+      ],
+      actions: [
+        { label: 'Historique récupéré', tool: 'HubSpot' },
+        { label: 'Relance personnalisée rédigée, en brouillon', tool: 'Gmail' },
+        { label: 'Tâche créée pour le commercial', tool: 'HubSpot' },
+      ],
+      result: {
+        title: 'Relance prête — à valider',
+        detail: 'Rien ne part sans validation : le commercial relit, corrige si besoin, envoie.',
+      },
+    },
+    {
+      id: 'hors-cible',
+      tab: 'Hors cible',
+      message: {
+        from: 'Thomas, étudiant',
         channel: 'Gmail',
-        text: 'Bonjour, je voudrais un devis pour poser 40 m² de parquet, c’est possible avant le 15 ?',
+        text: 'Bonjour, je suis étudiant et je cherche un stage.',
       },
       extracted: [
-        { label: 'Prestation', value: 'Pose de parquet' },
-        { label: 'Surface', value: '40 m²' },
-        { label: 'Échéance', value: 'Avant le 15' },
+        { label: 'Objet', value: 'Recherche de stage' },
+        { label: 'Nature', value: 'Demande non commerciale' },
       ],
       actions: [
-        { label: 'Tarifs appliqués', tool: 'Google Sheets' },
-        { label: 'Agenda vérifié', tool: 'Calendly' },
-        { label: 'Devis pré-rempli en brouillon', tool: 'Gmail' },
+        { label: 'Demande classée', tool: 'Gmail' },
+        { label: 'Réponse type préparée, en brouillon', tool: 'Gmail' },
+        { label: 'Aucune fiche créée dans le CRM', tool: 'HubSpot' },
       ],
       result: {
-        title: 'Devis prêt — à valider',
-        detail: 'Rien ne part sans vous : vous relisez, vous corrigez si besoin, vous envoyez.',
-      },
-    },
-    {
-      id: 'service',
-      tab: 'Service',
-      message: {
-        from: 'Samir, client',
-        channel: 'Outlook',
-        text: 'Mon colis n’est pas arrivé et j’ai une réclamation, je veux parler à quelqu’un.',
-      },
-      extracted: [
-        { label: 'Motif', value: 'Réclamation, colis non reçu' },
-        { label: 'Demande', value: 'Parler à quelqu’un' },
-      ],
-      actions: [
-        { label: 'Commande retrouvée', tool: 'Shopify' },
-        { label: 'Historique du client joint', tool: 'HubSpot' },
-        { label: 'Équipe prévenue', tool: 'Slack' },
-      ],
-      result: {
-        title: 'Transmis à l’équipe, avec le contexte',
-        detail:
-          'L’agent passe la main : la personne qui reprend a la commande et l’historique sous les yeux.',
+        title: 'Écartée du pipeline, avec la raison notée',
+        detail: 'Un humain peut revenir dessus à tout moment.',
       },
     },
   ] satisfies HeroScenario[],

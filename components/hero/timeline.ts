@@ -9,7 +9,7 @@ import { motionTokens } from '@/lib/motion';
  *   saisie du message → Signal → extraction, un élément après l'autre
  *   → Signal → trois actions en cascade → Signal → résultat → pause.
  *
- * Pour 9 à 12 s par scénario avec les textes actuels. La saisie n'est
+ * Pour 10 à 13 s par scénario avec les textes actuels. La saisie n'est
  * pas minutée : `typeEnd` est une estimation, la démonstration attend la
  * fin réelle du Typewriter avant d'enchaîner.
  */
@@ -31,6 +31,13 @@ const ACTION_ACTIVE = duration.slow + duration.base;
 
 /** Temps de lecture du résultat avant le scénario suivant. */
 const RESULT_HOLD = duration.trace * 3;
+
+/**
+ * Au démarrage, l'état final du premier scénario (le HTML serveur) reste
+ * affiché ce temps-là avant que la démonstration enchaîne sur le
+ * suivant. Un temps de lecture, pas une performance.
+ */
+export const FIRST_HOLD = 4000;
 
 export type Phase = 'hidden' | 'idle' | 'active' | 'done';
 
