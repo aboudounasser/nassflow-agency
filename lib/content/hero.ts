@@ -51,8 +51,8 @@ export const heroContent = {
   eyebrow: 'Automatisation IA pour les PME B2B',
 
   title: {
-    lead: 'Vos opportunités ne devraient pas se perdre entre deux outils.',
-    voice: 'On fait travailler vos outils ensemble.',
+    lead: 'Vos commerciaux vendent.',
+    voice: 'Nos agents IA s’occupent du reste.',
   },
 
   intro:
