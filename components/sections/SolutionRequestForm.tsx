@@ -186,7 +186,7 @@ function SolutionRequestFormFields({ solution }: { solution: Solution }) {
           Demande envoyée.
         </p>
 
-        <p className="mt-4 max-w-[62ch] text-body text-ink-body">
+        <p className="mt-4 max-w-measure text-body text-ink-body">
           Merci. Nous avons bien reçu vos réponses pour «&nbsp;
           {solution.title}&nbsp;». Nous revenons vers vous pour en parler et
           voir comment l&apos;adapter à votre façon de travailler.
@@ -288,7 +288,7 @@ function SolutionRequestFormFields({ solution }: { solution: Solution }) {
       <div className="py-7 sm:py-8">
         <FormStepTitle step="02">Votre situation</FormStepTitle>
 
-        <p className="mb-7 max-w-[62ch] text-body text-ink-body">
+        <p className="mb-7 max-w-measure text-body text-ink-body">
           Ces questions sont celles qu&apos;on vous poserait de toute façon.
           Y répondre maintenant nous évite de vous les reposer.
         </p>

@@ -315,7 +315,7 @@ function Scenario({
           <p className="font-heading text-body font-bold text-ink">
             {scenario.result.title}
           </p>
-          <p className="mt-1 text-small text-ink-body">{scenario.result.detail}</p>
+          <p className="mt-1 max-w-measure text-small text-ink-body">{scenario.result.detail}</p>
         </div>
       </Station>
     </ol>
@@ -494,7 +494,7 @@ export function HeroFlow() {
           type="button"
           onClick={() => setPaused((value) => !value)}
           className={[
-            'inline-flex min-h-11 items-center border-b border-ink font-mono text-label font-normal uppercase text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink',
+            'inline-flex min-h-11 items-center border-b border-ink font-mono text-label font-normal uppercase text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent',
             enabled ? '' : 'invisible',
           ].join(' ')}
         >
@@ -528,7 +528,7 @@ export function HeroFlow() {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(index)}
               className={[
-                '-mb-px min-h-11 border-b py-2 font-sans text-small font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
+                '-mb-px min-h-11 border-b py-2 font-sans text-small font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
                 selected
                   ? 'border-ink text-ink'
                   : 'border-transparent text-ink-muted hover:text-ink',

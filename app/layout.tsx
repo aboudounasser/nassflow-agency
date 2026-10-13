@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { seo } from "@/lib/seo";
@@ -42,6 +42,13 @@ const plexMono = IBM_Plex_Mono({
   weight: "400",
   display: "swap",
 });
+
+// Le site n'a qu'une palette, sombre : la barre du navigateur et les
+// contrôles natifs (barres de défilement, listes déroulantes) la suivent.
+export const viewport: Viewport = {
+  themeColor: seo.themeColor,
+  colorScheme: 'dark',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(seo.metadataBase),
@@ -110,7 +117,7 @@ export default function RootLayout({
             autres routes n'avaient donc ni navigation ni mentions
             légales, et la phrase qui décrit l'activité n'était servie
             que sur l'accueil. Ils encadrent désormais toutes les
-            pages, et le fond papier est porté ici plutôt que répété
+            pages, et le fond de page est porté ici plutôt que répété
             sur chaque <main>. */}
         <div className="flex min-h-screen flex-col bg-paper text-ink">
           <Navigation />

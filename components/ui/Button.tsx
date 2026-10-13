@@ -4,30 +4,39 @@ import type { ComponentProps, ReactNode } from 'react';
 /**
  * Les deux boutons du site.
  *
- * - `primary` : l'aplat vermillon, angles vifs, sans ombre. Le seul
- *   mouvement est un assombrissement au survol.
+ * - `primary` : l'aplat vermillon, angles arrondis (`rounded-button`),
+ *   texte SOMBRE (`on-accent` : le blanc échoue sur ce vermillon). Au
+ *   survol il s'éclaircit, monte d'1 px et prend un léger halo ; à
+ *   l'appui il s'enfonce.
  * - `secondary` : pas un bouton mais un lien souligné d'un filet 1px,
  *   qui passe à l'encre au survol (`tone="strong"` : part de l'encre et
- *   passe au vermillon, comme dans le pied de page).
+ *   passe au vermillon, comme dans le pied de page). Il monte aussi
+ *   d'1 px au survol.
+ *
+ * Le survol n'existe que sur les appareils qui le permettent : Tailwind 4
+ * enveloppe `hover:` dans `@media (hover: hover)`. Au clavier, un anneau
+ * vermillon (6,39:1 sur le fond).
  *
  * Avec `href`, le composant rend un lien : `next/link` pour une route du
  * site, `<a>` pour une ancre (`#…`), un `mailto:` ou une URL externe.
  * Sans `href`, il rend un `<button>`.
  *
- * Au survol et au focus, le bouton plein fonce (`accent-hover`) et une
+ * Au survol et au focus, le bouton plein s'éclaircit (`accent-hover`) et une
  * flèche avance de 3 px dans sa marge droite. Elle n'existe qu'à ce
  * moment-là : au repos, le bouton garde exactement sa taille et son
  * dessin. `arrow={false}` la retire (la bulle de l'assistant, qui ouvre
  * un panneau et ne mène nulle part).
  *
  * Désactivé, le bouton plein perd son vermillon plutôt que de pâlir :
- * fond `rule`, texte `ink-body` (7,76:1). L'ancienne opacité à 60 %
- * laissait le texte à 2,4:1.
+ * fond `rule`, texte `ink-body` (11,27:1). Une opacité réduite aurait
+ * fait tomber le texte sous le seuil.
  */
 
 type Variant = 'primary' | 'secondary';
 
-/** Tailles du bouton plein : 48px, 44px (en-tête, bulle), 40px (assistant). */
+/** Tailles du bouton plein : 48px, puis 44px (en-tête, bulle, assistant) :
+ * jamais moins de 44px, la taille d'une cible tactile. `xs` ne diffère
+ * de `sm` que par le corps du texte. */
 type Size = 'md' | 'sm' | 'xs';
 
 type Tone = 'default' | 'strong';
@@ -39,19 +48,25 @@ type StyleProps = {
   className?: string;
 };
 
-const focus = 'focus-visible:outline-2 focus-visible:outline-ink';
+const focus = 'focus-visible:outline-2 focus-visible:outline-accent';
+
+/** Survol : montée d'1 px ; appui : le bouton s'enfonce. */
+const lift =
+  'transition-[background-color,color,transform,box-shadow] hover:-translate-y-px active:translate-y-px';
 
 const styles = {
   primary: {
-    base: `inline-flex items-center justify-center bg-accent font-sans font-semibold text-on-accent transition-colors hover:bg-accent-hover ${focus} focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:bg-rule disabled:text-ink-body disabled:hover:bg-rule`,
+    base: `inline-flex items-center justify-center rounded-button bg-accent font-sans font-semibold text-on-accent ${lift} hover:bg-accent-hover hover:shadow-glow ${focus} focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:bg-rule disabled:text-ink-body disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-rule`,
     size: {
       md: 'min-h-12 px-7 text-[0.9375rem]',
       sm: 'min-h-11 px-5 text-[0.875rem]',
-      xs: 'min-h-10 px-5 text-[0.8125rem]',
+      xs: 'min-h-11 px-5 text-[0.8125rem]',
     },
   },
   secondary: {
-    base: `inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold transition-colors ${focus} focus-visible:outline-offset-4`,
+    // Le lien fait 28px de haut : un pseudo-élément étend sa zone
+    // tactile à 48px, sans éloigner le filet du texte.
+    base: `relative inline-flex items-center border-b border-ink pb-1 font-sans text-[0.9375rem] font-semibold after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] ${lift} ${focus} focus-visible:outline-offset-4`,
     tone: {
       default: 'text-ink-body hover:text-ink',
       strong: 'text-ink hover:text-accent',

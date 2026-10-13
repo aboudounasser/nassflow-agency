@@ -31,6 +31,8 @@ export const motionTokens = {
     slow: 560,
     /** Un filet qui se trace. */
     trace: 900,
+    /** Un cycle des halos du Hero : assez lent pour ne pas se remarquer. */
+    drift: 24000,
   },
   /** Courbes. */
   easing: {
@@ -43,6 +45,8 @@ export const motionTokens = {
   },
   /** Décalage entre deux éléments d'une cascade, en millisecondes. */
   stagger: 60,
+  /** Distance de l'apparition d'un bloc (glissement vers le haut), en px. */
+  rise: 20,
 } as const;
 
 type Bezier = readonly [number, number, number, number];
@@ -60,6 +64,7 @@ export const motionCssVariables = `:root{${[
     ([name, value]) => `--motion-ease-${name}:${cssEasing(value)}`,
   ),
   `--motion-stagger:${motionTokens.stagger}ms`,
+  `--motion-rise:${motionTokens.rise}px`,
 ].join(';')}}`;
 
 /* ─────────────────────────────────────────────

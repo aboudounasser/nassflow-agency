@@ -11,6 +11,11 @@ export const SITE_URL = 'https://www.nassflow.com';
 
 export const seo = {
   metadataBase: SITE_URL,
+  // La couleur de la barre du navigateur mobile : le fond de page
+  // (`--paper`, app/globals.css). Une balise <meta> ne lit pas une
+  // variable CSS : c'est la seule couleur du site écrite hors du CSS,
+  // avec celles des images générées (lib/og.ts).
+  themeColor: '#0a0a0b',
   title: 'NASSFLOW AGENCY | Automatisation commerciale pour les PME B2B',
   description:
     'Automatisations et agents IA pour les PME B2B : demandes entrantes traitées, prospects qualifiés et suivi commercial fiabilisé, en reliant vos outils existants.',

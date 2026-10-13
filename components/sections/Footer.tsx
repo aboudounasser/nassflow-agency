@@ -78,7 +78,7 @@ export function Footer() {
                     <Link
                       key={lien.label}
                       href={lien.href}
-                      className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                      className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                     >
                       {lien.label}
                     </Link>
@@ -101,7 +101,7 @@ export function Footer() {
               <nav className="mt-5 flex flex-col items-start gap-3">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                  className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                 >
                   {CONTACT_EMAIL}
                 </a>
@@ -110,7 +110,7 @@ export function Footer() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+                  className="font-sans text-[0.9375rem] text-ink-body transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                 >
                   Réserver un appel
                   <span className="sr-only"> (s&apos;ouvre dans un nouvel onglet)</span>

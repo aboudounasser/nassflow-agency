@@ -1,28 +1,45 @@
 @import 'tailwindcss';
 
 /* ═════════════════════════════════════════════
-   DIRECTION ÉDITORIALE — papier, encre, vermillon
+   DIRECTION — sombre et premium
    ═════════════════════════════════════════════
 
-   Le site quitte le thème sombre « bleu nuit » pour une direction de
-   presse suisse : une page en papier, un texte à l'encre, un seul
-   accent.
+   Le site passe du papier à l'écran : un fond presque noir, des
+   surfaces à peine plus claires, un texte presque blanc et un seul
+   accent, le vermillon, éclairci pour tenir sur le noir.
 
-   - Le fond est un papier (`--paper`), pas un écran. Le texte est de
-     l'encre (`--ink`), déclinée en deux valeurs plus claires pour les
-     paragraphes et les légendes.
-   - Un seul accent, le vermillon (`--accent`). Il ne sert qu'à trois
-     choses : les CTA pleins, les numéros d'index et les sur-titres.
-     Tout le reste est noir sur papier. Un deuxième accent le viderait
-     de son sens.
-   - Les séparations se font au FILET de 1px (`--rule`), jamais à la
-     lueur : ni halo, ni dégradé, ni box-shadow, ni backdrop-blur.
-   - `border-radius: 0` partout, boutons compris. Les angles sont vifs.
+   Les noms des tokens restent ceux de la direction précédente, pour que
+   chaque composant bascule sans être réécrit :
+   - `paper`     le fond de page                    #0A0A0B
+   - `surface`   les cartes, panneaux, menus        #121214
+   - `ink`       le texte principal                 #EDEDEF
+   - `ink-body`  les paragraphes                    #D4D4D8
+   - `ink-muted` les légendes, libellés             #A1A1AA
+   - `rule`      les filets décoratifs, blanc à 8 %
+   - `rule-strong` le filet d'une carte survolée, blanc à 16 %
+   - `control`   le contour d'un élément interactif (champ, bouton
+                 à bordure) : ≥ 3:1 sur le fond et sur une surface
+   - `accent`    #FF5A3D, `accent-hover` #FF7A61, et `on-accent` (le
+                 texte SOMBRE posé sur l'accent : le blanc y échoue)
 
-   Il n'y a qu'une seule palette, ni mode clair ni mode sombre. Dans le
-   JSX, les couleurs s'écrivent avec les utilitaires générés
-   (`bg-paper`, `text-ink`, `border-rule`, `bg-accent`…), jamais en
-   `bg-[var(--…)]`.
+   Ratios (WCAG 2.x), sur `paper` / sur `surface` :
+     ink 16,93 / 16,00 · ink-body 13,39 / 12,66 · ink-muted 7,72 / 7,30
+     accent 6,39 / 6,04 · accent-hover 7,74 / 7,31 · control 4,09 / 3,87
+     on-accent sur accent 6,39 · sur accent-hover 7,74 (le blanc : 3,10)
+   L'ancien vermillon #C9321C (3,73:1 sur ce fond) n'est plus utilisé.
+
+   - Les séparations restent au filet de 1px. Les ombres sont permises
+     mais discrètes (`shadow-card`, `shadow-glow`) ; le verre dépoli est
+     réservé à l'en-tête (`glass`), les halos au Hero (`hero-halos`).
+   - Rayons : `rounded-card` (12px), `rounded-button` (10px),
+     `rounded-pill` pour les petits badges.
+
+   Une seule palette, sombre (`color-scheme: dark`). Dans le JSX, les
+   couleurs s'écrivent avec les utilitaires générés (`bg-paper`,
+   `text-ink`, `border-rule`, `bg-accent`…), jamais en hex ni en
+   `bg-[var(--…)]`. Aucune couleur n'est écrite hors de ce fichier, à
+   deux exceptions qui ne peuvent pas lire une variable CSS : la balise
+   theme-color (lib/seo.ts) et les images générées (lib/og.ts).
 
    ─────────────────────────────────────────────
    POLICES
@@ -73,18 +90,38 @@
    ═════════════════════════════════════════════ */
 
 :root {
-  /* Direction éditoriale */
-  --paper: #f2f0eb;
-  --ink: #141414;
-  --ink-body: #3a3833;
-  --ink-muted: #6b6862;
-  --rule: #d6d2c8;
-  /* Texte --on-accent sur --accent : 4,66:1 (AA, sans marge). */
-  --accent: #c9321c;
-  /* Même teinte que l'accent, assombrie pour garder un écart de
-     contraste de 1,30 ; texte --on-accent sur --accent-hover : 6,08:1. */
-  --accent-hover: #a92a18;
-  --on-accent: #f2f0eb;
+  color-scheme: dark;
+
+  /* Direction sombre — ratios dans l'en-tête de ce fichier. */
+  --paper: #0a0a0b;
+  --surface: #121214;
+  --ink: #ededef;
+  --ink-body: #d4d4d8;
+  --ink-muted: #a1a1aa;
+  --rule: rgb(255 255 255 / 0.08);
+  --rule-strong: rgb(255 255 255 / 0.16);
+  --control: #71717a;
+  --accent: #ff5a3d;
+  /* Plus clair que l'accent : sur le noir, le survol s'éclaire. */
+  --accent-hover: #ff7a61;
+  --on-accent: #0a0a0b;
+
+  /* L'en-tête en verre : le fond à 78 %, flouté. */
+  --glass: rgb(10 10 11 / 0.78);
+
+  /* Les halos du Hero : vermillon, ambre, indigo profond. Opacités
+     basses : le titre doit rester lisible sur la zone la plus claire. */
+  --halo-accent: rgb(255 90 61 / 0.2);
+  --halo-amber: rgb(245 158 11 / 0.12);
+  --halo-indigo: rgb(67 56 202 / 0.24);
+
+  /* Ombres : discrètes, jamais une lueur blanche. */
+  --shadow-card-value: 0 12px 32px -16px rgb(0 0 0 / 0.8),
+    0 2px 6px -2px rgb(0 0 0 / 0.5);
+  --shadow-glow-value: 0 6px 24px -6px rgb(255 90 61 / 0.55);
+
+  /* L'air entre les sections : 80px en mobile, 128px en desktop. */
+  --section-y: clamp(5rem, 9vw, 8rem);
 
   /* Hauteurs de l'en-tête, normale et resserrée au défilement. Le
      `scroll-padding-top` ci-dessous en dépend : une ancre ne doit pas
@@ -102,13 +139,26 @@
 
 @theme inline {
   --color-paper: var(--paper);
+  --color-surface: var(--surface);
   --color-ink: var(--ink);
   --color-ink-body: var(--ink-body);
   --color-ink-muted: var(--ink-muted);
   --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-control: var(--control);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-on-accent: var(--on-accent);
+
+  --radius-card: 12px;
+  --radius-button: 10px;
+  --radius-pill: 9999px;
+
+  --shadow-card: var(--shadow-card-value);
+  --shadow-glow: var(--shadow-glow-value);
+
+  /* `py-section` : l'espacement vertical d'une section. */
+  --spacing-section: var(--section-y);
 
   --font-sans: var(--font-archivo);
   --font-heading: var(--font-archivo);
@@ -176,6 +226,13 @@
 
   /* `max-w-site` : la largeur de la grille, partout la même. */
   --container-site: 1280px;
+
+  /* `max-w-measure` : la largeur de lecture d'un paragraphe, 65
+     caractères au plus. `ch` est la largeur du « 0 », plus large que la
+     lettre moyenne d'Archivo : 62ch donnaient jusqu'à 85 caractères par
+     ligne. 44ch en donnent 65 au plus (mesuré de 390 à 1440px, sur
+     toutes les pages). */
+  --container-measure: 44ch;
 
   /* `h-header`, `lg:h-header-lg`… */
   --spacing-header: var(--header-h);
@@ -284,10 +341,84 @@
     animation-play-state: running;
   }
 
+  /* Rise : un bloc apparaît en fondu en glissant vers le haut, à son
+     entrée dans le viewport (durée `slow`, courbe standard). Dans une
+     liste, `--rise-order` décale chaque élément de 60 ms. */
+  html[data-motion='on'] [data-rise] {
+    transition:
+      opacity var(--motion-duration-slow) var(--motion-ease-standard),
+      transform var(--motion-duration-slow) var(--motion-ease-standard);
+    transition-delay: calc(var(--rise-order, 0) * var(--motion-stagger));
+  }
+
+  html[data-motion='on'] [data-rise]:not([data-in-view]) {
+    opacity: 0;
+    transform: translateY(var(--motion-rise));
+  }
+
+  /* Halos du Hero : ils dérivent seulement en jeu. Sans JS ou avec
+     « réduire les animations », ils restent immobiles. */
+  html[data-motion='on'] [data-halo] {
+    animation: halo-drift var(--motion-duration-drift) ease-in-out infinite
+      alternate;
+  }
+
+  html[data-motion='on'] [data-halo='2'] {
+    animation-name: halo-drift-2;
+    animation-duration: calc(var(--motion-duration-drift) * 1.3);
+  }
+
+  html[data-motion='on'] [data-halo='3'] {
+    animation-name: halo-drift-3;
+    animation-duration: calc(var(--motion-duration-drift) * 1.6);
+  }
+
   /* Typewriter : curseur plein pendant la saisie, clignotant au repos. */
   html[data-motion='on'] [data-cursor='idle'] {
     animation: blink calc(var(--motion-duration-slow) * 2) steps(1, end)
       infinite;
+  }
+}
+
+/* L'en-tête en verre dépoli. Sans `backdrop-filter`, le fond redevient
+   opaque : le texte ne doit jamais se lire sur un contenu non flouté. */
+@utility glass {
+  background-color: var(--paper);
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    background-color: var(--glass);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+}
+
+/* Un halo : un disque flou, en dégradé radial (moins coûteux à peindre
+   qu'un filtre `blur`). Sa couleur vient de `--halo`. Seuls `transform`
+   et `opacity` s'animent. */
+@utility halo {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, var(--halo), transparent);
+  will-change: transform, opacity;
+}
+
+@keyframes halo-drift {
+  to {
+    transform: translate3d(12%, 8%, 0) scale(1.12);
+    opacity: 0.75;
+  }
+}
+
+@keyframes halo-drift-2 {
+  to {
+    transform: translate3d(-14%, 10%, 0) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes halo-drift-3 {
+  to {
+    transform: translate3d(8%, -12%, 0) scale(1.15);
   }
 }
 
