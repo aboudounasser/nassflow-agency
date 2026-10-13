@@ -5,6 +5,7 @@ import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
 import { Button } from '@/components/ui/Button';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Rise } from '@/components/motion/Rise';
 
 /**
  * Une page par solution, générée à la compilation depuis le catalogue.
@@ -72,7 +73,7 @@ export default async function SolutionPage({
 
   return (
     <main id="contenu" className="flex-1">
-      <SectionShell className="pt-14 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+      <SectionShell className="pt-14 pb-section sm:pt-16 lg:pt-20">
         <div className="mx-auto max-w-[820px] px-1 sm:px-0">
           {/* Pas de lien « Retour aux solutions » ici : la navigation, juste
               au-dessus, porte déjà une entrée « Solutions » vers la même
@@ -117,23 +118,23 @@ export default async function SolutionPage({
           {/* Le formulaire tire ses champs spécifiques de
               `solution.questions` et poste sur /api/solution-requests,
               qui écrit en service_role : la table refuse anon. */}
-          <div className="mt-12 sm:mt-16">
+          <Rise className="mt-12 sm:mt-16">
             <h2 className="font-heading text-heading text-ink">
               Dites-nous où vous en êtes
             </h2>
 
-            <p className="mt-4 max-w-[52ch] text-body text-ink-body">
+            <p className="mt-4 max-w-measure text-body text-ink-body">
               On part de votre situation, pas d&apos;un modèle tout fait.
             </p>
 
             <div className="mt-8 sm:mt-10">
               <SolutionRequestForm solution={solution} />
             </div>
-          </div>
+          </Rise>
 
-          <div className="mt-10 sm:mt-12">
+          <Rise className="mt-10 sm:mt-12">
             <div className="flex flex-col gap-6 border-t border-rule pt-9 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:pt-10">
-              <p className="max-w-[52ch] text-body text-ink-body">
+              <p className="max-w-measure text-body text-ink-body">
                 Cette solution est un point de départ. On l&apos;adapte à votre
                 façon de travailler après en avoir parlé avec vous.
               </p>
@@ -146,7 +147,7 @@ export default async function SolutionPage({
                 En parler avec nous
               </Button>
             </div>
-          </div>
+          </Rise>
         </div>
       </SectionShell>
     </main>

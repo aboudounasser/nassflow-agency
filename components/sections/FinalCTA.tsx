@@ -2,6 +2,7 @@ import { SectionShell } from '@/components/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Button } from '@/components/ui/Button';
+import { Rise } from '@/components/motion/Rise';
 import { Trace } from '@/components/motion/Trace';
 
 /**
@@ -15,8 +16,8 @@ export function FinalCTA() {
     <section className="bg-paper text-ink">
       <Trace />
 
-      <SectionShell className="py-16 sm:py-20 lg:py-24">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+      <SectionShell className="py-section">
+        <Rise className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:flex-1">
             <Eyebrow>Prochaines étapes</Eyebrow>
 
@@ -33,7 +34,7 @@ export function FinalCTA() {
               Démarrer un projet
             </Button>
           </div>
-        </div>
+        </Rise>
       </SectionShell>
     </section>
   );
