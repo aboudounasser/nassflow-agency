@@ -38,7 +38,7 @@ export function Hero() {
             voiceTone="accent"
             lead={title.lead}
             voice={title.voice}
-            className="lg:text-display-split"
+            className="text-balance lg:text-display-split"
           />
 
           <p className="mt-8 max-w-[58ch] text-body text-ink-body sm:text-lead">
