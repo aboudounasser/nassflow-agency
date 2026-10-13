@@ -15,6 +15,7 @@ import { heroContent, type HeroScenario } from '@/lib/content/hero';
 import { usePlaying } from '@/lib/in-view';
 import {
   buildTimeline,
+  FIRST_HOLD,
   phaseAt,
   SIGNAL_DURATION,
   TYPE_SPEED,
@@ -30,8 +31,11 @@ import {
  * FINAL du scénario affiché, lisible d'un bloc. Les onglets restent
  * utilisables (changement instantané).
  *
- * Avec le mouvement : chaque scénario se joue (10 à 13 s), puis le
- * suivant. Un clic sur un onglet lance ce scénario et suspend la
+ * Avec le mouvement : l'état final du premier scénario reste affiché
+ * quelques secondes (FIRST_HOLD), puis la démonstration enchaîne sur le
+ * deuxième, le troisième et revient au premier ; chacun se joue
+ * (10 à 13 s). D'un scénario à l'autre, les panneaux se croisent en
+ * fondu : rien ne disparaît d'un coup sous les yeux. Un clic sur un onglet lance ce scénario et suspend la
  * rotation. Le bouton Pause arrête tout ; la démonstration s'arrête
  * aussi hors du viewport et quand l'onglet du navigateur est caché.
  *
@@ -357,11 +361,17 @@ export function HeroFlow() {
   const live = enabled && started;
   const running = live && playing && !paused;
 
+  // Après le démarrage, le premier scénario n'est pas rejoué : son état
+  // final reste affiché (FIRST_HOLD), puis la rotation passe au suivant.
+  const [holding, setHolding] = useState(true);
+  const holdLeft = useRef(FIRST_HOLD);
+
   const timeline = timelines[active];
 
-  // Sans mouvement (serveur, JS coupé, « réduire les animations »), ou
-  // avant le démarrage : l'état final.
-  const time = live ? t : timeline.end;
+  // Sans mouvement (serveur, JS coupé, « réduire les animations »), avant
+  // le démarrage ou pendant le premier temps de lecture : l'état final.
+  const playingScenario = live && !holding;
+  const time = playingScenario ? t : timeline.end;
 
   const run = `${active}-${cycle}`;
 
@@ -372,10 +382,27 @@ export function HeroFlow() {
     setCycle((value) => value + 1);
   }, []);
 
+  // Le premier temps de lecture. Il se suspend comme le reste (pause,
+  // hors du viewport, onglet caché) et reprend là où il en était.
+  useEffect(() => {
+    if (!running || !holding) return;
+
+    const began = performance.now();
+    const timer = window.setTimeout(() => {
+      setHolding(false);
+      start(1 % scenarios.length);
+    }, holdLeft.current);
+
+    return () => {
+      window.clearTimeout(timer);
+      holdLeft.current = Math.max(0, holdLeft.current - (performance.now() - began));
+    };
+  }, [running, holding, start]);
+
   // Le métronome : on ne réaffiche qu'aux instants où quelque chose
   // change. Saisie et Signal avancent d'eux-mêmes entre deux instants.
   useEffect(() => {
-    if (!running) return;
+    if (!running || holding) return;
 
     // Pendant la saisie, rien n'est minuté : on attend la fin réelle du
     // Typewriter (onTyped), qui ne tient pas un rythme d'horloge exact.
@@ -407,7 +434,7 @@ export function HeroFlow() {
       window.clearTimeout(timer);
       position.current = Math.min(next, from + performance.now() - began);
     };
-  }, [running, t, timeline, active, auto, start]);
+  }, [running, holding, t, timeline, active, auto, start]);
 
   const onTyped = useCallback(() => {
     setT((current) => {
@@ -422,6 +449,7 @@ export function HeroFlow() {
   function select(index: number) {
     setAuto(false);
     setStarted(true);
+    setHolding(false);
     start(index);
 
     // Sans mouvement, le scénario choisi est aussitôt complet : on
@@ -529,13 +557,19 @@ export function HeroFlow() {
               role="tabpanel"
               id={`hero-panel-${scenario.id}`}
               aria-labelledby={`hero-tab-${scenario.id}`}
-              className={['col-start-1 row-start-1', selected ? '' : 'invisible'].join(' ')}
+              // Le fondu croisé entre deux scénarios : celui qui part
+              // s'efface pendant que l'autre apparaît. `visibility` suit
+              // l'opacité, le panneau caché sort de l'arbre d'accessibilité.
+              className={[
+                'col-start-1 row-start-1 transition-[opacity,visibility] duration-(--motion-duration-base)',
+                selected ? 'opacity-100' : 'invisible opacity-0',
+              ].join(' ')}
             >
               <Scenario
                 scenario={scenario}
                 timeline={timelines[index]}
                 t={selected ? time : timelines[index].end}
-                animate={selected && live}
+                animate={selected && playingScenario}
                 paused={!running}
                 run={run}
                 onTyped={onTyped}

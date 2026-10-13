@@ -32,6 +32,13 @@ const ACTION_ACTIVE = duration.slow + duration.base;
 /** Temps de lecture du résultat avant le scénario suivant. */
 const RESULT_HOLD = duration.trace * 3;
 
+/**
+ * Au démarrage, l'état final du premier scénario (le HTML serveur) reste
+ * affiché ce temps-là avant que la démonstration enchaîne sur le
+ * suivant. Un temps de lecture, pas une performance.
+ */
+export const FIRST_HOLD = 4000;
+
 export type Phase = 'hidden' | 'idle' | 'active' | 'done';
 
 export type Timeline = {
