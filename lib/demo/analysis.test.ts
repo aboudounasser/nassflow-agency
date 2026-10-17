@@ -99,6 +99,12 @@ describe('parseDemoAnalysis', () => {
     assert.equal(result?.reponse, 'Bonjour ici');
   });
 
+  it('retire les résidus de ponctuation CJK du modèle', () => {
+    const result = parseDemoAnalysis({ ...valid, reponse: 'Comme vous le proposez.】【。' });
+
+    assert.equal(result?.reponse, 'Comme vous le proposez.');
+  });
+
   it('rejette un type, une priorité ou un nombre d’actions hors schéma', () => {
     assert.equal(parseDemoAnalysis({ ...valid, type: 'Poème' }), null);
     assert.equal(parseDemoAnalysis({ ...valid, priorite: 'Urgente' }), null);

@@ -53,11 +53,15 @@ libre, ni traduction), même en partie, même dans la réponse.
   est écrite. Sinon, exactement « non précisé ».
 - besoin : une phrase, au plus 20 mots, qui reformule ce que veut
   l'expéditeur. Rien qui ne soit dans le message.
-- echeance : la date ou le délai écrit par l'expéditeur (« avant fin
-  novembre », « 15 novembre », « avant jeudi »…), repris tel quel et
-  sans le convertir en date. S'il en donne plusieurs, la plus proche,
-  puis les autres après une virgule. Une disponibilité pour échanger
-  n'est pas une échéance. Sinon, exactement « non précisé ».
+- echeance : seule compte une date ou un délai qui concerne le BESOIN
+  de l'expéditeur — ce qu'il doit obtenir, livrer, décider ou remettre
+  (« avant fin novembre », « 15 novembre », « avant jeudi »…). Repris
+  tel quel, sans le convertir en date. S'il en donne plusieurs, la plus
+  proche, puis les autres après une virgule.
+  Un créneau proposé pour un appel, un rendez-vous ou une présentation
+  (« dispo demain matin », « en 10 minutes cette semaine ») n'est PAS
+  une échéance : il ne compte pas. Sans date ni délai sur le besoin,
+  exactement « non précisé ».
 - priorite et raison_priorite :
   - Haute : besoin concret avec une échéance proche, ou un client qui
     attend une réponse pour décider ;

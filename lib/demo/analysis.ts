@@ -179,10 +179,16 @@ export function buildDemoRequest(text: string, channel: DemoChannel = DEFAULT_CH
 const isText = (value: unknown): value is string =>
   typeof value === 'string' && value.trim().length > 0;
 
-/** Espaces normalisés, balises retirées : la fiche est du texte brut. */
+/**
+ * Espaces normalisés, balises retirées : la fiche est du texte brut.
+ * Les signes de ponctuation CJK et pleine chasse (« 】【。 ») sont des
+ * résidus du modèle, observés en fin de réponse : aucun texte français
+ * n'en contient.
+ */
 function plain(value: string) {
   return value
     .replace(/<[^>]*>/g, '')
+    .replace(/[\u3000-\u303F\uFF00-\uFFEF]+/g, '')
     .replace(/[ \t]+/g, ' ')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
