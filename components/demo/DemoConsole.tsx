@@ -14,6 +14,7 @@ import { Rise } from '@/components/motion/Rise';
 import { formStyles } from '@/components/forms/form-ui';
 import { demoContent } from '@/lib/content/demo';
 import type { DemoAnalysis } from '@/lib/demo/analysis';
+import { channelLabels, DEMO_CHANNELS, type DemoChannel } from '@/lib/demo/channels';
 import { useMotionEnabled } from '@/lib/in-view';
 import { motionTokens } from '@/lib/motion';
 import { DemoSteps } from './DemoSteps';
@@ -29,16 +30,31 @@ import { DemoSteps } from './DemoSteps';
  * performance : avec « réduire les animations », tout s'affiche dès que
  * la réponse arrive.
  *
+ * Le canal (WhatsApp, e-mail, formulaire) se choisit au-dessus du champ,
+ * par des boutons radio natifs : les flèches les parcourent sans code.
+ * Choisir un exemple sélectionne aussi son canal.
+ *
  * Sans JS (et jusqu'à l'hydratation), le champ est désactivé et dit que
  * la démonstration nécessite JavaScript : la section reste lisible.
  *
  * Accessibilité : une région aria-live annonce le début du traitement,
- * puis le résumé de la fiche ; à la fin, le focus passe sur le titre du
+ * puis le résumé de la fiche, canal compris ; à la fin, le focus passe sur le titre du
  * résultat pour qu'un utilisateur au clavier le lise dans l'ordre.
  */
 
-const { anchor, field, notice, examples, examplesLabel, submit, submitting, followUp, errors } =
-  demoContent;
+const {
+  anchor,
+  field,
+  notice,
+  examples,
+  examplesLabel,
+  channelLegend,
+  defaultChannel,
+  submit,
+  submitting,
+  followUp,
+  errors,
+} = demoContent;
 
 type Phase = 'idle' | 'running' | 'done' | 'error';
 
@@ -60,9 +76,12 @@ export function DemoConsole({ header }: { header: ReactNode }) {
   const motion = useMotionEnabled();
 
   const [text, setText] = useState('');
+  const [channel, setChannel] = useState<DemoChannel>(defaultChannel);
   const [phase, setPhase] = useState<Phase>('idle');
   const [stage, setStage] = useState(-1);
-  const [submitted, setSubmitted] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState<{ text: string; channel: DemoChannel } | null>(
+    null,
+  );
   const [analysis, setAnalysis] = useState<DemoAnalysis | null>(null);
   const [actionsShown, setActionsShown] = useState(0);
   const [error, setError] = useState<{ message: string; cta: boolean } | null>(null);
@@ -127,10 +146,11 @@ export function DemoConsole({ header }: { header: ReactNode }) {
     field_.current?.focus();
   }
 
-  function choose(example: string) {
+  function choose(example: { text: string; channel: DemoChannel }) {
     if (phase === 'running') return;
 
-    setText(example);
+    setText(example.text);
+    setChannel(example.channel);
     setHint('');
   }
 
@@ -154,11 +174,11 @@ export function DemoConsole({ header }: { header: ReactNode }) {
     setError(null);
     setAnalysis(null);
     setActionsShown(0);
-    setSubmitted(value);
+    setSubmitted({ text: value, channel });
     setPhase('running');
     setStage(0);
     setRun(id);
-    setAnnounce('Traitement de la demande en cours.');
+    setAnnounce(`Traitement de la demande reçue par ${channelLabels[channel]} en cours.`);
 
     // En mobile, le traitement est sous le champ : on l'amène à l'écran.
     const title = resultTitle.current;
@@ -170,7 +190,7 @@ export function DemoConsole({ header }: { header: ReactNode }) {
     const request = fetch('/api/chat/demo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: value }),
+      body: JSON.stringify({ text: value, channel }),
     })
       .then(async (response) => ({
         status: response.status,
@@ -223,7 +243,11 @@ export function DemoConsole({ header }: { header: ReactNode }) {
     setStage(4);
     setPhase('done');
     setAnnounce(
-      `Analyse terminée. Type : ${result.type}. Priorité : ${result.priorite}. ${result.actions.length} actions simulées et un brouillon de réponse.`,
+      `Analyse terminée. Canal : ${channelLabels[result.canal]}. Type : ${result.type}. Priorité : ${result.priorite}. ${result.actions.length} actions simulées et ${
+        result.canal === 'whatsapp'
+          ? 'une réponse immédiate de l’assistant, simulée'
+          : 'un brouillon de réponse à valider'
+      }.`,
     );
 
     // Après le rendu du résultat.
@@ -238,7 +262,9 @@ export function DemoConsole({ header }: { header: ReactNode }) {
   return (
     <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
       {/* Le titre de la section, le champ et les exemples */}
-      <div className="lg:col-span-5">
+      {/* `min-w-0` : sans lui, un mot trop long élargit la colonne au-delà
+          de l'écran au lieu de passer à la ligne. */}
+      <div className="min-w-0 lg:col-span-5">
       {header}
 
       <form onSubmit={onSubmit} noValidate className="mt-12">
@@ -257,17 +283,44 @@ export function DemoConsole({ header }: { header: ReactNode }) {
                 type="button"
                 disabled={!hydrated}
                 aria-disabled={running || undefined}
-                onClick={() => choose(example.text)}
+                onClick={() => choose(example)}
                 className="inline-flex min-h-11 items-center gap-2 rounded-pill border border-control px-4 text-[0.8125rem] font-semibold text-ink-body transition-[color,border-color,transform] hover:-translate-y-px hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 <span className="font-mono text-micro font-normal uppercase text-ink-muted">
-                  Exemple
+                  {channelLabels[example.channel]}
                 </span>
                 {example.label}
               </button>
             ))}
           </div>
         </div>
+
+        {/* Le canal : des radios natives, que les flèches parcourent. */}
+        <fieldset className="mt-8 min-w-0">
+          <legend className={formStyles.label}>{channelLegend}</legend>
+
+          <div className="flex flex-wrap gap-2">
+            {DEMO_CHANNELS.map((value) => (
+              <label
+                key={value}
+                className="inline-flex min-h-11 cursor-pointer items-center rounded-pill border border-control px-4 text-[0.8125rem] font-semibold text-ink-body transition-[color,border-color,background-color] hover:border-ink hover:text-ink has-checked:border-ink has-checked:bg-ink has-checked:text-paper has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent has-disabled:cursor-not-allowed"
+              >
+                <input
+                  type="radio"
+                  name="canal"
+                  value={value}
+                  checked={channel === value}
+                  onChange={() => {
+                    if (!running) setChannel(value);
+                  }}
+                  disabled={!hydrated}
+                  className="sr-only"
+                />
+                {channelLabels[value]}
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <div className={['mt-8', formStyles.fieldWrap].join(' ')}>
           <label htmlFor={`${anchor}-champ`} className={formStyles.label}>
@@ -319,7 +372,7 @@ export function DemoConsole({ header }: { header: ReactNode }) {
       </div>
 
       {/* Le traitement */}
-      <div className="mt-16 lg:col-span-7 lg:mt-0 lg:pl-8">
+      <div className="mt-16 min-w-0 lg:col-span-7 lg:mt-0 lg:pl-8">
         <h3
           ref={resultTitle}
           tabIndex={-1}

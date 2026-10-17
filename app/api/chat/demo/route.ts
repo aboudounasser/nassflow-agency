@@ -1,12 +1,9 @@
-import {
-  buildDemoRequest,
-  readDemoResponse,
-  validateDemoText,
-} from '@/lib/demo/analysis';
+import { buildDemoRequest, readDemoBody, readDemoResponse } from '@/lib/demo/analysis';
 
 /**
  * La démonstration interactive de l'accueil (components/demo/) : un
- * texte de prospect entre, une fiche structurée sort.
+ * texte de prospect et son canal (WhatsApp, e-mail, formulaire) entrent,
+ * une fiche structurée sort.
  *
  * La route vit sous /api/chat exprès : la règle de pare-feu Vercel qui
  * limite l'assistant (10 requêtes par minute et par IP) la couvre aussi.
@@ -50,18 +47,14 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Requête illisible.' }, { status: 400 });
   }
 
-  const text =
-    typeof body === 'object' && body !== null
-      ? (body as Record<string, unknown>).text
-      : undefined;
+  const input = readDemoBody(body);
+  const raw = (body as { text?: unknown } | null)?.text;
+  const length = typeof raw === 'string' ? raw.trim().length : 0;
 
-  const invalid = validateDemoText(text);
-  const length = typeof text === 'string' ? text.trim().length : 0;
-
-  if (invalid) {
+  if ('error' in input) {
     log(400, length, started);
 
-    return Response.json({ error: invalid }, { status: 400 });
+    return Response.json({ error: input.error }, { status: 400 });
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
@@ -80,7 +73,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify(buildDemoRequest(text as string)),
+      body: JSON.stringify(buildDemoRequest(input.text, input.channel)),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
@@ -98,7 +91,7 @@ export async function POST(request: Request) {
       return Response.json({ error: 'unavailable' }, { status: 502 });
     }
 
-    const analysis = readDemoResponse(await upstream.json());
+    const analysis = readDemoResponse(await upstream.json(), input.channel);
 
     if (!analysis) {
       console.error('Démonstration : réponse du modèle non conforme au schéma.');
