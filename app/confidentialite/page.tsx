@@ -149,6 +149,20 @@ export default function PolitiqueConfidentialite() {
             </p>
 
             <p className="mt-3">
+              La{' '}
+              <span className="font-semibold text-ink">
+                démonstration en direct
+              </span>{' '}
+              de l&apos;accueil fonctionne de la même façon : le texte
+              que vous y saisissez est transmis à OpenAI pour générer
+              l&apos;analyse, et à rien d&apos;autre. NASSFLOW ne le
+              conserve pas — il n&apos;est écrit dans aucune base, ni
+              envoyé par e-mail — et nous demandons à OpenAI de ne pas le
+              conserver non plus ; il ne sert pas à entraîner un modèle.
+              N&apos;y indiquez pas de données personnelles réelles.
+            </p>
+
+            <p className="mt-3">
               N&apos;indiquez pas d&apos;informations sensibles dans
               l&apos;assistant. Pour transmettre quoi que ce soit de
               confidentiel, écrivez-nous ou réservez un appel : ces
@@ -320,7 +334,7 @@ export default function PolitiqueConfidentialite() {
 
           <div className="border-t border-rule pt-8 sm:mt-12">
             <p className="text-[0.875rem] leading-6 text-ink-muted">
-              Dernière mise à jour : 21 septembre 2026
+              Dernière mise à jour : 17 octobre 2026
             </p>
           </div>
         </div>

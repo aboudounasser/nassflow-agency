@@ -481,8 +481,7 @@ export function HeroFlow() {
   }
 
   return (
-    // L'ancre du CTA « Voir une démonstration » (lib/content/hero.ts).
-    <div ref={root} id="demonstration">
+    <div ref={root}>
       <div className="flex items-center justify-between gap-4">
         <p className="font-mono text-label font-normal uppercase text-ink-muted">
           {demoLabel}

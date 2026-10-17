@@ -30,6 +30,8 @@ export function SectionTitle({
   voiceTone = 'ink',
   lead,
   voice,
+  id,
+  tabIndex,
   className,
 }: {
   as?: 'h1' | 'h2';
@@ -37,10 +39,15 @@ export function SectionTitle({
   voiceTone?: 'ink' | 'accent';
   lead: ReactNode;
   voice: ReactNode;
+  id?: string;
+  /** `-1` pour un titre qui reçoit le focus (cible d'une ancre). */
+  tabIndex?: number;
   className?: string;
 }) {
   return (
     <Tag
+      id={id}
+      tabIndex={tabIndex}
       className={['font-heading text-ink', sizes[size].heading, className]
         .filter(Boolean)
         .join(' ')}
