@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { SectionShell } from '@/components/SectionShell';
 import { ProjectForm } from '@/components/ProjectForm';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { defaultOgAlt, ogImages } from '@/lib/og';
 
 /**
  * Cette page était entièrement cliente : un composant client ne peut pas
@@ -22,9 +23,9 @@ export const metadata: Metadata = {
 
     // Redéfinir `openGraph` remplace l'objet hérité du layout au lieu de
     // le compléter : sans cette ligne, la page perd l'image de partage
-    // par défaut que le layout tenait de `app/opengraph-image.tsx`, et
-    // repart nue sur WhatsApp. `metadataBase` la rend absolue.
-    images: ['/opengraph-image'],
+    // par défaut (app/og/route.tsx), et repart nue sur WhatsApp.
+    // `metadataBase` la rend absolue, `ogImages` la versionne.
+    images: ogImages('/og', defaultOgAlt),
   },
 
   twitter: {
@@ -32,6 +33,8 @@ export const metadata: Metadata = {
     title: 'Démarrer un projet — NASSFLOW AGENCY',
     description:
       'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
+    // Même piège que pour `openGraph` : redéfini, `twitter` perd l'image.
+    images: ogImages('/og', defaultOgAlt),
   },
 };
 
