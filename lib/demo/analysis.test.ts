@@ -3,7 +3,9 @@ import { describe, it } from 'node:test';
 import {
   buildDemoRequest,
   capWords,
+  instantReply,
   parseDemoAnalysis,
+  readDemoBody,
   readDemoResponse,
   validateDemoText,
 } from './analysis';
@@ -13,10 +15,11 @@ const valid = {
   entreprise: 'non précisé',
   contact: 'non précisé',
   besoin: 'Automatiser le suivi des devis.',
+  echeance: 'non précisé',
   priorite: 'Haute',
   raison_priorite: 'Rappel demandé cette semaine.',
   actions: ['Fiche créée dans le CRM', 'Simulé : Alerte envoyée au commercial sur Slack'],
-  brouillon: 'Bonjour, merci pour votre message.',
+  reponse: 'Bonjour, merci pour votre message.',
 };
 
 const response = (text: string, status = 'completed') => ({
@@ -41,7 +44,35 @@ describe('validateDemoText', () => {
   });
 });
 
+describe('readDemoBody', () => {
+  it('accepte les trois canaux, et le formulaire par défaut', () => {
+    for (const channel of ['whatsapp', 'email', 'formulaire']) {
+      assert.deepEqual(readDemoBody({ text: ' Bonjour, un devis ? ', channel }), {
+        text: 'Bonjour, un devis ?',
+        channel,
+      });
+    }
+
+    assert.deepEqual(readDemoBody({ text: 'Bonjour, un devis ?' }), {
+      text: 'Bonjour, un devis ?',
+      channel: 'formulaire',
+    });
+  });
+
+  it('refuse un canal hors de la liste', () => {
+    for (const channel of ['sms', 'WhatsApp', '', 1, null, ['email']]) {
+      assert.ok('error' in readDemoBody({ text: 'Bonjour, un devis ?', channel }), String(channel));
+    }
+  });
+});
+
 describe('buildDemoRequest', () => {
+  it('pose le canal hors du cadre du message', () => {
+    const content = buildDemoRequest('Bonjour, un devis ?', 'whatsapp').input[0].content;
+
+    assert.ok(content.startsWith('Canal : WhatsApp\n'));
+  });
+
   it('ne conserve rien chez OpenAI et impose le schéma strict', () => {
     const body = buildDemoRequest('Bonjour, un devis ?');
 
@@ -63,9 +94,15 @@ describe('parseDemoAnalysis', () => {
   });
 
   it('retire tout balisage', () => {
-    const result = parseDemoAnalysis({ ...valid, brouillon: '<b>Bonjour</b> <a href="x">ici</a>' });
+    const result = parseDemoAnalysis({ ...valid, reponse: '<b>Bonjour</b> <a href="x">ici</a>' });
 
-    assert.equal(result?.brouillon, 'Bonjour ici');
+    assert.equal(result?.reponse, 'Bonjour ici');
+  });
+
+  it('retire les résidus de ponctuation CJK du modèle', () => {
+    const result = parseDemoAnalysis({ ...valid, reponse: 'Comme vous le proposez.】【。' });
+
+    assert.equal(result?.reponse, 'Comme vous le proposez.');
   });
 
   it('rejette un type, une priorité ou un nombre d’actions hors schéma', () => {
@@ -74,8 +111,29 @@ describe('parseDemoAnalysis', () => {
     assert.equal(parseDemoAnalysis({ ...valid, actions: ['Une seule'] }), null);
     assert.equal(parseDemoAnalysis({ ...valid, actions: ['a', 'b', 'c', 'd', 'e'] }), null);
     assert.equal(parseDemoAnalysis({ ...valid, besoin: '' }), null);
+    assert.equal(parseDemoAnalysis({ ...valid, echeance: undefined }), null);
     assert.equal(parseDemoAnalysis({ ...valid, extra: 'non' }), null);
     assert.equal(parseDemoAnalysis([valid]), null);
+  });
+});
+
+describe('parseDemoAnalysis, canal WhatsApp', () => {
+  it('reprend le canal et nettoie la réponse immédiate', () => {
+    const result = parseDemoAnalysis(
+      { ...valid, reponse: 'Bonjour Karim 👋, bien reçu.\n\nBien cordialement,\nL’équipe' },
+      'whatsapp',
+    );
+
+    assert.equal(result?.canal, 'whatsapp');
+    assert.equal(result?.reponse, 'Bonjour Karim, bien reçu.');
+  });
+});
+
+describe('instantReply', () => {
+  it('ne dépasse jamais 40 mots', () => {
+    const long = Array.from({ length: 60 }, (_, i) => `mot${i}`).join(' ');
+
+    assert.ok(instantReply(long).split(/\s+/).length <= 40);
   });
 });
 
