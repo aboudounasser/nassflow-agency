@@ -2,7 +2,7 @@ import type { ConnectedToolName } from '@/lib/content/tools';
 
 /**
  * Le Hero de l'accueil : la seule source de ses textes. L'image de
- * partage (app/opengraph-image.tsx) et la base de connaissances de
+ * partage (app/og/route.tsx) et la base de connaissances de
  * l'assistant reprennent d'ici le sur-titre, le titre et le paragraphe,
  * mot pour mot.
  *

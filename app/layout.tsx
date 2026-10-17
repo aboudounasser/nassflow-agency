@@ -9,6 +9,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { buttonClasses } from '@/components/ui/Button';
 import { motionBootScript } from '@/lib/motion-boot';
 import { motionCssVariables } from '@/lib/motion';
+import { defaultOgAlt, ogImages } from '@/lib/og';
 
 // Archivo porte toute la structure : titres, UI, et les micro-labels que
 // le monospace assurait avant. D'où les graisses jusqu'à 800.
@@ -58,6 +59,10 @@ export const metadata: Metadata = {
     title: seo.openGraph.title,
     description: seo.openGraph.description,
     type: seo.openGraph.type,
+    // L'image par défaut (app/og/route.tsx), avec un numéro de version
+    // (lib/og.ts) : sans lui, LinkedIn ou WhatsApp resservent l'ancienne
+    // image qu'ils gardent en cache sous la même URL.
+    images: ogImages('/og', defaultOgAlt),
   },
 
   // Posé ici, donc hérité par toutes les routes : c'est ce qui fait
@@ -68,6 +73,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: seo.openGraph.title,
     description: seo.openGraph.description,
+    images: ogImages('/og', defaultOgAlt),
   },
 
   // Pas de `alternates` ici : posée sur le layout racine, la balise

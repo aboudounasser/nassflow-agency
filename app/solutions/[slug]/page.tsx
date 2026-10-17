@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { SectionShell } from '@/components/SectionShell';
 import { SolutionRequestForm } from '@/components/sections/SolutionRequestForm';
 import { solutions } from '@/lib/content/solutions';
+import { homepageContent } from '@/lib/content/homepage';
+import { ogImages } from '@/lib/og';
 import { Button } from '@/components/ui/Button';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Rise } from '@/components/motion/Rise';
@@ -35,6 +37,12 @@ export async function generateMetadata({
 
   if (!solution) return {};
 
+  // La carte de la fiche (app/og/[slug]/route.tsx), versionnée.
+  const images = ogImages(
+    `/og/${solution.slug}`,
+    `${homepageContent.navigation.brand} — ${solution.title}`,
+  );
+
   return {
     title: `${solution.title} | NASSFLOW AGENCY`,
     // `delivers` décrit ce qu'on installe : c'est déjà une description,
@@ -44,19 +52,21 @@ export async function generateMetadata({
 
     // Sans ces deux blocs, les six fiches héritaient du openGraph du
     // layout : partagées sur WhatsApp ou LinkedIn, elles annonçaient
-    // toutes le titre de l'accueil. L'image, elle, vient du fichier
-    // `opengraph-image.tsx` voisin, que Next rattache tout seul.
+    // toutes le titre de l'accueil. Chacun déclare aussi son image : un
+    // objet redéfini ne garde rien de celui du layout.
     openGraph: {
       title: `${solution.title} — NASSFLOW AGENCY`,
       description: solution.delivers,
       url: `/solutions/${solution.slug}`,
       type: 'website',
+      images,
     },
 
     twitter: {
       card: 'summary_large_image',
       title: `${solution.title} — NASSFLOW AGENCY`,
       description: solution.delivers,
+      images,
     },
   };
 }

@@ -5,9 +5,11 @@ import { ogColors } from '@/lib/og';
 
 /**
  * L'icône du site, commune à `app/icon.tsx` (onglet) et
- * `app/apple-icon.tsx` (écran d'accueil iOS) : un carré de papier, un
- * « N » en Archivo 800 à l'encre, et un petit carré vermillon en bas à
- * droite — le seul accent, comme sur les pages.
+ * `app/apple-icon.tsx` (écran d'accueil iOS) et au favicon
+ * (`scripts/generate-favicon.tsx`) : le fond sombre du site, un « N » en
+ * Archivo 800 presque blanc, et un petit carré vermillon en bas à droite
+ * — le seul accent, comme sur les pages. Le N reste en blanc (16,9:1 sur
+ * le fond) : à 16 px, c'est le contraste qui le rend lisible.
  *
  * Toutes les cotes sont proportionnelles au côté, pour que les deux
  * tailles restent la même image. Le « N » est légèrement remonté et
