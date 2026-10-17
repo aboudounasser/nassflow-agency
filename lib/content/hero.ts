@@ -60,7 +60,7 @@ export const heroContent = {
 
   ctas: {
     primary: { label: 'Demander un diagnostic', href: '/demarrer-un-projet' },
-    // L'ancre de la démonstration, juste à côté (components/hero/HeroFlow.tsx).
+    // La démonstration interactive, juste sous le Hero (components/sections/Demo.tsx).
     secondary: { label: 'Voir une démonstration', href: '#demonstration' },
   },
 
