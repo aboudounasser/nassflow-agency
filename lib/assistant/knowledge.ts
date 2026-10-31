@@ -2,6 +2,8 @@ import { solutions } from '@/lib/content/solutions';
 import { builtWith, connectedTools } from '@/lib/content/tools';
 import { homepageContent } from '@/lib/content/homepage';
 import { heroContent } from '@/lib/content/hero';
+import { problemsContent } from '@/lib/content/problems';
+import { methodContent } from '@/lib/content/method';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
 
 /**
@@ -37,6 +39,21 @@ function listeSolutions(): string {
     .join('\n\n');
 }
 
+function listeProblemes(): string {
+  return problemsContent.items
+    .map((item) => `- ${item.title} : ${item.description}`)
+    .join('\n');
+}
+
+function listeEtapes(): string {
+  return methodContent.steps
+    .map(
+      (step, index) =>
+        `${index + 1}. ${step.title} — ${step.summary} (${step.points.join(' ; ')})`,
+    )
+    .join('\n');
+}
+
 function listeOutils(outils: readonly { name: string; role: string }[]): string {
   return outils.map((outil) => `${outil.name} (${outil.role})`).join(', ');
 }
@@ -59,6 +76,12 @@ Le titre de l'accueil : « ${heroContent.title.lead} ${heroContent.title.voice} 
 ${heroContent.eyebrow}. La cible : les dirigeants de PME B2B qui ont une
 équipe commerciale et perdent des opportunités à cause de processus
 manuels mal organisés.
+
+## Ce qui leur coûte des ventes
+
+« ${problemsContent.title.lead} ${problemsContent.title.voice} »
+
+${listeProblemes()}
 
 ## Ce que fait l'agence
 
@@ -85,6 +108,13 @@ pas un refus — s'il expose une API, il se relie, et la plupart en
 exposent une. Mais ça se vérifie au cas par cas, jamais d'avance.
 
 ## Comment on travaille
+
+« ${methodContent.title.lead} ${methodContent.title.voice} »
+
+${listeEtapes()}
+
+Pour commencer : ${methodContent.cta.label.toLowerCase()}, via
+https://www.nassflow.com${methodContent.cta.href}.
 
 Chaque solution est un point de départ qu'on adapte, pas un produit
 figé. Avant de chiffrer quoi que ce soit, on pose les questions

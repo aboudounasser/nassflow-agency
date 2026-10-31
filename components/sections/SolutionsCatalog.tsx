@@ -7,8 +7,9 @@ import { Rise } from '@/components/motion/Rise';
 import { Trace } from '@/components/motion/Trace';
 
 /**
- * Le catalogue, juste après les quatre symptômes : la section #systems
- * fait dire « c'est moi », celle-ci répond « voilà par où on commence ».
+ * Le catalogue, après les problèmes (#problemes) et la méthode
+ * (#methode) : les premiers font dire « c'est moi », celui-ci répond
+ * « voilà par où on commence ».
  *
  * Six cartes, en deux familles : un numéro, la catégorie en badge, un
  * titre, une citation. On ne vend pas six choses, on propose six points
