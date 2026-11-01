@@ -46,7 +46,7 @@ export default function DemarrerUnProjetPage() {
           {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
               déjà « Accueil », et le logo mène au même endroit. */}
           <div className="mb-10 sm:mb-14 lg:mb-16">
-            <Eyebrow as="p">Démarrer un projet</Eyebrow>
+            <Eyebrow as="p">Demander un diagnostic</Eyebrow>
 
             <h1 className="mt-5 font-heading text-title text-ink">
               Parlons de ce qui vous fait perdre du temps.

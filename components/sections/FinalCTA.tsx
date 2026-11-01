@@ -31,7 +31,7 @@ export function FinalCTA() {
 
           <div className="w-full lg:w-auto lg:shrink-0 lg:pb-3">
             <Button href="/demarrer-un-projet" className="w-full lg:w-auto">
-              Démarrer un projet
+              Demander un diagnostic
             </Button>
           </div>
         </Rise>
