@@ -3,14 +3,14 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 /**
  * Client Supabase à privilèges, réservé au serveur.
  *
- * Séparé de `lib/supabase/client.ts` à dessein : ce module lit
- * `SUPABASE_SERVICE_ROLE_KEY`, une clé qui contourne RLS et qui ne doit
+ * Le seul client Supabase du site : aucune page n'écrit plus depuis le
+ * navigateur. Ce module lit `SUPABASE_SERVICE_ROLE_KEY`, une clé qui contourne RLS et qui ne doit
  * donc jamais partir dans un bundle client. La variable n'a volontairement
  * pas le préfixe `NEXT_PUBLIC_`, ce qui empêche Next de l'inliner ; ce
  * fichier ne doit être importé que depuis une route ou un composant
  * serveur, jamais depuis un fichier marqué `'use client'`.
  *
- * Instancié à la première utilisation, comme le client public : une
+ * Instancié à la première utilisation : une
  * variable absente doit échouer à l'appel, pas à l'import, sans quoi la
  * collecte des routes pendant `next build` tomberait avec elle.
  */

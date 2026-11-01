@@ -1,7 +1,6 @@
-import { Eyebrow } from '@/components/ui/Eyebrow';
-
 /**
- * Les classes partagées par les deux formulaires du site.
+ * Les classes partagées par les formulaires du site (diagnostic,
+ * démonstration).
  *
  * Un champ n'a ni cadre ni fond — seulement un filet 1px sous la ligne
  * de saisie, en `control` (4,09:1 sur le fond : le contour d'un champ
@@ -10,8 +9,8 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
  * aussi bien à la souris qu'à la tabulation : c'est lui, et non un halo,
  * qui sert d'état de focus visible au clavier.
  *
- * Les deux formulaires partagent ces constantes plutôt que de recopier
- * les mêmes chaînes : ils doivent rester indiscernables l'un de l'autre.
+ * Ils partagent ces constantes plutôt que de recopier les mêmes
+ * chaînes : ils doivent rester indiscernables l'un de l'autre.
  */
 
 export const formStyles = {
@@ -48,21 +47,3 @@ export const formStyles = {
 
   note: 'max-w-measure text-[0.8125rem] leading-6 text-ink-muted',
 };
-
-/**
- * L'intitulé d'une étape : un sur-titre à l'encre, dont seul le numéro
- * passe au vermillon.
- */
-export function FormStepTitle({
-  step,
-  children,
-}: {
-  step: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Eyebrow as="p" tone="ink" className="mb-6">
-      <span className="text-accent">{step}</span> — {children}
-    </Eyebrow>
-  );
-}

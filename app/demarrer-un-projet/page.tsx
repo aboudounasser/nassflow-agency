@@ -1,24 +1,29 @@
 import type { Metadata } from 'next';
 import { SectionShell } from '@/components/SectionShell';
-import { ProjectForm } from '@/components/ProjectForm';
+import { DiagnosticForm } from '@/components/DiagnosticForm';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { diagnosticContent } from '@/lib/content/diagnostic';
 import { defaultOgAlt, ogImages } from '@/lib/og';
 
 /**
- * Cette page était entièrement cliente : un composant client ne peut pas
- * exporter `metadata`, et la page de conversion héritait donc du titre de
- * l'accueil. Le formulaire est désormais isolé dans `ProjectForm`, la page
- * redevient un composant serveur et porte ses propres balises.
+ * Le formulaire de diagnostic. L'URL reste /demarrer-un-projet : tous les
+ * boutons « Demander un diagnostic » du site, et les liens déjà partagés,
+ * y mènent.
+ *
+ * La page est un composant serveur (elle porte ses balises) ; seul le
+ * formulaire est client (components/DiagnosticForm.tsx). Textes :
+ * lib/content/diagnostic.ts.
  */
+
+const { page } = diagnosticContent;
+
 export const metadata: Metadata = {
-  title: 'Démarrer un projet | NASSFLOW AGENCY',
-  description:
-    'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
+  title: page.title,
+  description: page.description,
   alternates: { canonical: '/demarrer-un-projet' },
   openGraph: {
-    title: 'Démarrer un projet — NASSFLOW AGENCY',
-    description:
-      'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
+    title: page.shareTitle,
+    description: page.description,
     type: 'website',
 
     // Redéfinir `openGraph` remplace l'objet hérité du layout au lieu de
@@ -30,9 +35,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Démarrer un projet — NASSFLOW AGENCY',
-    description:
-      'Décrivez ce qui vous fait perdre du temps. Nous étudions votre situation et revenons vers vous avec la solution adaptée.',
+    title: page.shareTitle,
+    description: page.description,
     // Même piège que pour `openGraph` : redéfini, `twitter` perd l'image.
     images: ogImages('/og', defaultOgAlt),
   },
@@ -43,24 +47,15 @@ export default function DemarrerUnProjetPage() {
     <main id="contenu" className="flex-1">
       <SectionShell className="pt-14 pb-section sm:pt-16 lg:pt-20">
         <div className="mx-auto max-w-[900px] px-1 sm:px-0">
-          {/* Pas de lien « Retour à l'accueil » ici : la navigation porte
-              déjà « Accueil », et le logo mène au même endroit. */}
-          <div className="mb-10 sm:mb-14 lg:mb-16">
-            <Eyebrow as="p">Demander un diagnostic</Eyebrow>
+          <div className="mb-10 sm:mb-12">
+            <Eyebrow as="p">{page.eyebrow}</Eyebrow>
 
-            <h1 className="mt-5 font-heading text-title text-ink">
-              Parlons de ce qui vous fait perdre du temps.
-            </h1>
+            <h1 className="mt-5 font-heading text-title text-ink">{page.h1}</h1>
 
-            <p className="mt-6 max-w-measure text-body text-ink-body">
-              Une question rapide ou un besoin déjà cadré, c’est le même
-              formulaire. Répondez à ce qui vous concerne, laissez le reste.
-            </p>
+            <p className="mt-6 max-w-measure text-body text-ink-body">{page.intro}</p>
           </div>
 
-          <div>
-            <ProjectForm />
-          </div>
+          <DiagnosticForm />
         </div>
       </SectionShell>
     </main>

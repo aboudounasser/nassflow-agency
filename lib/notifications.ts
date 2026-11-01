@@ -4,8 +4,8 @@ import { Resend } from 'resend';
  * L'envoi des notifications que l'agence reçoit quand un formulaire est
  * soumis, et le seul endroit où Resend est appelé.
  *
- Deux chemins l'empruntent : le formulaire /demarrer-un-projet via
- * /api/send-notification, et la demande de rappel de l'assistant
+ * Deux chemins l'empruntent : le formulaire de diagnostic
+ * (/api/diagnostic), et la demande de rappel de l'assistant
  * (/api/chat/lead). Un seul exemplaire de l'échappement et de la gestion
  * de la clé absente : une correction les atteint tous les deux.
  */

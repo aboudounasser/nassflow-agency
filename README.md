@@ -32,9 +32,8 @@ le projet Vercel en production. Aucune valeur n'est versionnée.
 
 | Variable | Usage |
 |---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase, côté navigateur (`lib/supabase/client.ts`) |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase, côté navigateur |
-| `SUPABASE_URL` | Supabase, côté serveur (`lib/supabase/admin.ts`) |
+| `NEXT_PUBLIC_SUPABASE_URL` | L'URL du projet Supabase, lue par le serveur en priorité (`lib/supabase/admin.ts`) |
+| `SUPABASE_URL` | Repli si la précédente est absente |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase, côté serveur : écrit dans les tables fermées à `anon` |
 | `RESEND_API_KEY` | Envoi des notifications (`lib/notifications.ts`) |
 | `RESEND_FROM` | Expéditeur des notifications |

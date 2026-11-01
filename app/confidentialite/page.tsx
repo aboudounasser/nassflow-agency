@@ -63,21 +63,27 @@ export default function PolitiqueConfidentialite() {
             </p>
 
             <p className="mt-5 font-semibold text-ink">
-              Formulaire « Démarrer un projet »
+              Formulaire de diagnostic
             </p>
 
             <p className="mt-2">
-              Prénom, nom, entreprise, adresse e-mail professionnelle,
-              numéro de téléphone, site web, nature de la solution
-              recherchée, besoin principal, outils utilisés actuellement,
-              budget envisagé, délai souhaité, message libre, et la manière
-              dont vous avez connu NASSFLOW.
+              Nom de l&apos;entreprise, secteur d&apos;activité, taille de
+              l&apos;entreprise, problème principal et précisions libres,
+              outils utilisés, volume de demandes commerciales reçues par
+              mois, résultat attendu en priorité, prénom, nom, adresse
+              e-mail professionnelle et numéro de téléphone. Nous
+              enregistrons aussi la date et l&apos;heure auxquelles vous
+              avez coché la case de consentement.
             </p>
 
             <p className="mt-5">
               Les demandes déposées auparavant depuis les anciennes fiches
               solution du site, aujourd&apos;hui retirées, restent conservées
-              dans les conditions décrites ci-dessous.
+              dans les conditions décrites ci-dessous. Il en va de même des
+              demandes envoyées avec la version précédente du formulaire,
+              qui pouvaient aussi comporter un site web, un budget, un délai
+              souhaité, un message libre et la manière dont vous avez connu
+              NASSFLOW.
             </p>
 
             <p className="mt-5">
@@ -211,6 +217,15 @@ export default function PolitiqueConfidentialite() {
               engagez l&apos;échange en nous écrivant, et les données servent
               à y répondre.
             </p>
+
+            <p className="mt-3">
+              Pour le formulaire de diagnostic, il repose aussi sur votre
+              consentement (article 6.1.a du RGPD), que vous donnez en
+              cochant la case prévue avant l&apos;envoi : vos informations
+              ne servent qu&apos;à vous recontacter au sujet de votre
+              demande. Vous pouvez retirer ce consentement à tout moment par
+              simple demande écrite.
+            </p>
           </section>
 
           <section className="border-t border-rule py-9">
@@ -244,12 +259,12 @@ export default function PolitiqueConfidentialite() {
             <p className="mt-3">
               <span className="font-semibold text-ink">Resend</span>{' '}
               (États-Unis) achemine l&apos;e-mail qui nous prévient
-              qu&apos;une demande vient d&apos;arriver. Cet e-mail ne
-              concerne que le formulaire « Démarrer un projet », et il en
-              reprend l&apos;intégralité des champs : identité, entreprise,
-              adresse e-mail, téléphone, site web, solution recherchée,
-              besoin, outils, budget, délai, message et provenance. Votre
-              adresse e-mail y sert aussi d&apos;adresse de réponse.
+              qu&apos;une demande vient d&apos;arriver. Pour le formulaire
+              de diagnostic, cet e-mail reprend l&apos;intégralité des
+              champs : entreprise, secteur, taille, problème et précisions,
+              outils, volume, priorité, identité, adresse e-mail, téléphone
+              et date du consentement. Votre adresse e-mail y sert aussi
+              d&apos;adresse de réponse.
             </p>
 
             <p className="mt-3">
@@ -320,7 +335,7 @@ export default function PolitiqueConfidentialite() {
 
           <div className="border-t border-rule pt-8 sm:mt-12">
             <p className="text-[0.875rem] leading-6 text-ink-muted">
-              Dernière mise à jour : 17 octobre 2026
+              Dernière mise à jour : 1er novembre 2026
             </p>
           </div>
         </div>
