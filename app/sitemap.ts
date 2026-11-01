@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import { solutions } from '@/lib/content/solutions';
 import { SITE_URL } from '@/lib/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -18,14 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    // Dérivées du catalogue, jamais listées à la main : ajouter une
-    // solution doit suffire à la rendre indexable.
-    ...solutions.map((solution) => ({
-      url: `${baseUrl}/solutions/${solution.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    })),
     {
       url: `${baseUrl}/mentions-legales`,
       lastModified: new Date(),

@@ -4,11 +4,10 @@ import { Resend } from 'resend';
  * L'envoi des notifications que l'agence reçoit quand un formulaire est
  * soumis, et le seul endroit où Resend est appelé.
  *
- * Les deux formulaires du site empruntent ce chemin : /demarrer-un-projet
- * via /api/send-notification, et les fiches solution directement depuis
- * /api/solution-requests. Ils partageaient déjà l'échappement et la
- * gestion de la clé absente — à deux exemplaires, ce qui garantissait
- * qu'une correction n'en atteindrait qu'un.
+ Deux chemins l'empruntent : le formulaire /demarrer-un-projet via
+ * /api/send-notification, et la demande de rappel de l'assistant
+ * (/api/chat/lead). Un seul exemplaire de l'échappement et de la gestion
+ * de la clé absente : une correction les atteint tous les deux.
  */
 
 /** Le seul destinataire : c'est une alerte interne, pas un envoi en masse. */

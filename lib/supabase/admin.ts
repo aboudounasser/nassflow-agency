@@ -30,7 +30,7 @@ export function getSupabaseAdminClient(): SupabaseClient | null {
   // Supabase de la place de marché Vercel injecte sa propre
   // `SUPABASE_URL`, qui pointe vers une autre base. Quand elle primait,
   // le navigateur écrivait dans la bonne base et le serveur dans la
-  // mauvaise — d'où des 500 sur /api/solution-requests. Une variable
+  // mauvaise — d'où des 500 côté serveur. Une variable
   // posée par un tiers ne doit jamais supplanter l'URL du projet, sous
   // peine que le client et le serveur ne parlent plus à la même base.
   const url =

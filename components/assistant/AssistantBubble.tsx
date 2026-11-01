@@ -10,8 +10,8 @@ import { Button } from '@/components/ui/Button';
  * Tout ce qui fait l'assistant — le fil, le streaming, la saisie, le
  * filtrage des liens — vit dans `AssistantPanel`, importé
  * dynamiquement. Ce fichier est présent sur toutes les pages ; le
- * panneau n'est téléchargé qu'au premier clic. Un visiteur qui lit une
- * fiche solution sans jamais ouvrir l'assistant ne paie que ce bouton.
+ * panneau n'est téléchargé qu'au premier clic. Un visiteur qui lit la
+ * page sans jamais ouvrir l'assistant ne paie que ce bouton.
  *
  * `ssr: false` parce qu'il n'y a rien à prérendre : le panneau n'existe
  * qu'après un geste, et son contenu est vide au départ.

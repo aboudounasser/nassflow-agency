@@ -2,7 +2,8 @@
  * Les outils, en deux listes.
  *
  * - `connectedTools` : ceux que le client utilise déjà et qu'on vient
- *   relier. Affichés dans le tableau des intégrations de l'accueil.
+ *   relier. Cités dans la ligne « Branché sur vos outils » de la méthode
+ *   (lib/content/method.ts), dans cet ordre.
  * - `builtWith` : les plateformes sur lesquelles on construit. Pas
  *   affichées sur le site, mais transmises à l'assistant, qui s'en sert
  *   pour répondre (`lib/assistant/knowledge.ts`).
@@ -32,10 +33,10 @@ export const connectedTools = [
   { name: 'Google Sheets', role: 'Tableurs' },
   { name: 'Slack', role: 'Équipe' },
   { name: 'Notion', role: 'Documentation' },
+  { name: 'HubSpot', role: 'CRM' },
+  { name: 'Calendly', role: 'Rendez-vous' },
   { name: 'Stripe', role: 'Paiements' },
   { name: 'Shopify', role: 'Boutique en ligne' },
-  { name: 'Calendly', role: 'Rendez-vous' },
-  { name: 'HubSpot', role: 'CRM' },
 ] as const satisfies readonly Tool[];
 
 export type ConnectedToolName = (typeof connectedTools)[number]['name'];

@@ -7,8 +7,8 @@ import { Trace } from '@/components/motion/Trace';
 
 /**
  * La clôture. Le titre ne demande plus si le lecteur est « prêt » — il
- * dit ce qu'on fait, dans les mots déjà employés sur les fiches solution :
- * on part de la situation du client, pas d'un modèle tout fait.
+ * dit ce qu'on fait, et renvoie vers le formulaire /demarrer-un-projet : on part de la
+ * situation du client, pas d'un modèle tout fait.
  */
 
 export function FinalCTA() {

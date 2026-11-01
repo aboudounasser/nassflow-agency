@@ -3,10 +3,8 @@ import { homepageContent } from '@/lib/content/homepage';
 import { ogColors, ogDomain } from '@/lib/og';
 
 /**
- * Le gabarit des images de partage (1200 × 630), commun à l'accueil
- * (app/og/route.tsx) et aux fiches solution (app/og/[slug]/route.tsx) :
- * la direction sombre du
- * site, et les trois halos du Hero en version fixe.
+ * Le gabarit de l'image de partage (1200 × 630, app/og/route.tsx) :
+ * la direction sombre du site, et les trois halos du Hero en version fixe.
  *
  * Pensé pour l'aperçu le plus petit, WhatsApp (≈ 300 px de large, un
  * quart de la taille réelle) : un titre très gros, deux voix seulement,

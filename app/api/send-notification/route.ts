@@ -9,8 +9,7 @@ import {
  *
  * La route reste appelée depuis le navigateur, après que ProjectForm a
  * écrit dans `project_requests` : c'est le seul formulaire du site qui
- * insère lui-même, et la notification suit le même chemin. Les fiches
- * solution, elles, notifient depuis leur propre route serveur.
+ * insère lui-même, et la notification suit le même chemin.
  *
  * La branche « contact » est partie avec le formulaire qu'elle servait :
  * `ContactForm` n'existe plus, et plus rien n'appelait le type 'contact'.

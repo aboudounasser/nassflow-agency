@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/sections/Hero';
 import { Demo } from '@/components/sections/Demo';
-import { IntegrationsTable } from '@/components/sections/IntegrationsTable';
 import { Problems } from '@/components/sections/Problems';
 import { Method } from '@/components/sections/Method';
-import { SolutionsCatalog } from '@/components/sections/SolutionsCatalog';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export const metadata: Metadata = {
@@ -18,8 +16,6 @@ export default function Home() {
       <Demo />
       <Problems />
       <Method />
-      <SolutionsCatalog />
-      <IntegrationsTable />
       <FinalCTA />
     </main>
   );
