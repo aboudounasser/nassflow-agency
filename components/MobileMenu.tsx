@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, type MouseEvent } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, m } from 'motion/react';
 import { MotionProvider } from '@/components/motion/MotionProvider';
@@ -15,6 +16,12 @@ import { motionTokens, seconds, transitions } from '@/lib/motion';
  *
  * Monté au premier appui sur le bouton, il reste ensuite monté : c'est
  * `open` qui décide de l'ouverture, pour que la fermeture s'anime aussi.
+ *
+ * Ancres de l'accueil : le panneau est dans le flux, sous l'en-tête
+ * collant. Laisser le lien défiler tout de suite visait la section menu
+ * ouvert ; le repli du panneau remontait ensuite la page de sa hauteur,
+ * et le titre visé finissait sous l'en-tête. Depuis l'accueil, on ferme
+ * donc d'abord, et on ne défile qu'une fois le panneau replié.
  */
 export default function MobileMenu({
   open,
@@ -23,9 +30,30 @@ export default function MobileMenu({
   open: boolean;
   onNavigate: () => void;
 }) {
+  const pendingHash = useRef<string | null>(null);
+
+  function handleClick(event: MouseEvent<HTMLAnchorElement>, href: string) {
+    if (href.startsWith('/#') && window.location.pathname === '/') {
+      event.preventDefault();
+      pendingHash.current = href.slice(1);
+    }
+
+    onNavigate();
+  }
+
+  function scrollToPending() {
+    const hash = pendingHash.current;
+    pendingHash.current = null;
+    if (!hash) return;
+
+    window.history.pushState(null, '', hash);
+    // `scrollIntoView` respecte le `scroll-padding-top` de l'en-tête.
+    document.getElementById(hash.slice(1))?.scrollIntoView();
+  }
+
   return (
     <MotionProvider>
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={scrollToPending}>
         {open && (
           <m.div
             id="mobile-navigation"
@@ -53,7 +81,7 @@ export default function MobileMenu({
                   <Link
                     href={link.href}
                     className="flex min-h-12 items-center border-b border-rule font-sans text-base font-medium text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                    onClick={onNavigate}
+                    onClick={(event) => handleClick(event, link.href)}
                   >
                     {link.label}
                   </Link>

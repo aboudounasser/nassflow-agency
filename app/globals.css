@@ -330,6 +330,10 @@
     transform: scaleX(0);
   }
 
+  html[data-motion='on'] [data-trace='y']:not([data-in-view]) {
+    transform: scaleY(0);
+  }
+
   /* Status : seul l'état « en cours » pulse, et seulement en jeu. */
   html[data-motion='on'] [data-status='active'] [data-status-dot] {
     animation: working var(--motion-duration-slow)

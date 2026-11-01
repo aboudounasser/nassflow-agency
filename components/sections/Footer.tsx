@@ -21,7 +21,8 @@ const colonnes = [
     titre: 'Le site',
     liens: [
       { label: 'Accueil', href: '/' },
-      { label: 'Problèmes', href: '/#systems' },
+      { label: 'Problèmes', href: '/#problemes' },
+      { label: 'Méthode', href: '/#methode' },
       { label: 'Solutions', href: '/#solutions' },
       { label: 'Intégrations', href: '/#outils' },
     ],
