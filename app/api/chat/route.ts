@@ -23,7 +23,7 @@ import { createMarkerFilter } from '@/lib/assistant/marker';
  *
  * `gpt-5.6-luna` est le palier rapide et économique de la famille
  * GPT-5.6 (0,20 $ / MTok en entrée, 1,20 $ en sortie). Répondre à des
- * questions sur six solutions, à partir d'un contexte fourni, ne
+ * questions sur l'agence, à partir d'un contexte fourni, ne
  * demande pas un modèle de raisonnement : ce qui compte ici est le
  * temps de première réponse et le coût par visiteur.
  */

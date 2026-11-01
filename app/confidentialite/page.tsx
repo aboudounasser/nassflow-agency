@@ -55,9 +55,9 @@ export default function PolitiqueConfidentialite() {
             </h2>
 
             <p>
-              Deux formulaires collectent des données sur ce site. Chacun
-              indique quels champs sont facultatifs ; vous n&apos;êtes
-              jamais tenu de renseigner les autres. L&apos;assistant IA,
+              Un formulaire collecte des données sur ce site. Il indique
+              quels champs sont facultatifs ; vous n&apos;êtes jamais tenu
+              de renseigner les autres. L&apos;assistant IA,
               qui peut lui aussi transmettre une demande si vous le lui
               demandez, fait l&apos;objet de la section suivante.
             </p>
@@ -74,22 +74,10 @@ export default function PolitiqueConfidentialite() {
               dont vous avez connu NASSFLOW.
             </p>
 
-            <p className="mt-5 font-semibold text-ink">
-              Formulaires des fiches solution
-            </p>
-
-            <p className="mt-2">
-              Entreprise, nom du contact, adresse e-mail, numéro de
-              téléphone et secteur d&apos;activité, auxquels s&apos;ajoutent
-              vos réponses aux questions propres à la solution demandée.
-              Ces questions portent sur votre organisation actuelle — par
-              exemple le volume de demandes reçues, les canaux par lesquels
-              vos clients vous écrivent, l&apos;agenda ou la messagerie que
-              vous utilisez, les outils en place ou ce qui fait varier vos
-              prix. Elles changent d&apos;une solution à l&apos;autre, et la
-              page que vous remplissez les affiche toutes avant envoi. Le
-              chemin de cette page est enregistré avec votre demande, afin
-              de savoir à quelle solution elle se rapporte.
+            <p className="mt-5">
+              Les demandes déposées auparavant depuis les anciennes fiches
+              solution du site, aujourd&apos;hui retirées, restent conservées
+              dans les conditions décrites ci-dessous.
             </p>
 
             <p className="mt-5">
@@ -249,7 +237,7 @@ export default function PolitiqueConfidentialite() {
 
             <p className="mt-3">
               <span className="font-semibold text-ink">Supabase</span>{' '}
-              stocke les données des deux formulaires, au sein de l&apos;Union
+              stocke les données du formulaire, au sein de l&apos;Union
               européenne (région West EU – Irlande, eu-west-1).
             </p>
 
@@ -261,9 +249,7 @@ export default function PolitiqueConfidentialite() {
               reprend l&apos;intégralité des champs : identité, entreprise,
               adresse e-mail, téléphone, site web, solution recherchée,
               besoin, outils, budget, délai, message et provenance. Votre
-              adresse e-mail y sert aussi d&apos;adresse de réponse. Les
-              demandes déposées depuis une fiche solution ne passent pas
-              par Resend.
+              adresse e-mail y sert aussi d&apos;adresse de réponse.
             </p>
 
             <p className="mt-3">

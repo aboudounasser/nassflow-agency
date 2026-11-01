@@ -10,6 +10,9 @@ import { problemsContent } from '@/lib/content/problems';
  * dirigeant de PME B2B reconnaît son équipe commerciale. Elle remplace
  * l'ancienne section « Quatre symptômes. » (#systems).
  *
+ * Sous le problème, une ligne « Ce que fait l'agent » : la réponse, en
+ * une phrase.
+ *
  * Les cartes reprennent le survol du catalogue (montée de 4 px, filet
  * éclairci, ombre douce) ; elles ne mènent nulle part, elles ne sont donc
  * pas des liens. Numéro discret 01 à 04, masqué aux lecteurs d'écran :
@@ -18,7 +21,7 @@ import { problemsContent } from '@/lib/content/problems';
  * Textes : lib/content/problems.ts.
  */
 export function Problems() {
-  const { anchor, eyebrow, title, items } = problemsContent;
+  const { anchor, eyebrow, title, agentLabel, items } = problemsContent;
 
   return (
     <section
@@ -57,8 +60,17 @@ export function Problems() {
                   {item.title}
                 </h3>
 
-                <p className="mt-4 max-w-measure text-body text-ink-body">
+                <p className="mt-4 max-w-measure flex-1 text-body text-ink-body">
                   {item.description}
+                </p>
+
+                {/* Ce que fait l'agent : poussé en bas de la carte, pour
+                    que les quatre lignes s'alignent d'une carte à l'autre. */}
+                <p className="mt-6 max-w-measure border-t border-rule pt-5 text-[0.9375rem] leading-[1.5] text-ink-body">
+                  <span className="mb-1.5 block font-sans text-label uppercase tracking-tag text-accent">
+                    {agentLabel}
+                  </span>
+                  {item.agent}
                 </p>
               </div>
             </Rise>

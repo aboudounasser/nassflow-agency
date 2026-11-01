@@ -1,4 +1,3 @@
-import { solutions } from '@/lib/content/solutions';
 import { builtWith, connectedTools } from '@/lib/content/tools';
 import { homepageContent } from '@/lib/content/homepage';
 import { heroContent } from '@/lib/content/hero';
@@ -10,8 +9,8 @@ import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
  * Ce que l'assistant sait de NASSFLOW, dérivé du contenu du site.
  *
  * Rien n'est recopié ici : tout est lu dans `lib/content`. C'est la
- * condition pour que l'assistant ne mente pas — une fiche solution
- * réécrite, une intégration ajoutée, et il le sait au déploiement
+ * condition pour que l'assistant ne mente pas — une carte réécrite,
+ * une intégration ajoutée, et il le sait au déploiement
  * suivant, sans que personne ait à se souvenir de ce fichier.
  *
  * Le texte produit est du Markdown simple : c'est ce que les modèles
@@ -19,29 +18,12 @@ import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
  * comprendre une réponse étrange.
  */
 
-function listeSolutions(): string {
-  return solutions
-    .map((solution) => {
-      const questions = solution.questions
-        .map((question) => question.label)
-        .join(' / ');
-
-      return [
-        `### ${solution.title}`,
-        `- Catégorie : ${solution.categoryLabel}`,
-        `- Page : https://www.nassflow.com/solutions/${solution.slug}`,
-        `- La situation du client : « ${solution.problem} »`,
-        `- Ce qu'on installe : ${solution.delivers}`,
-        `- Ce que ça comprend : ${solution.includes.join(' ; ')}`,
-        `- Ce qu'on demande avant de chiffrer : ${questions}`,
-      ].join('\n');
-    })
-    .join('\n\n');
-}
-
 function listeProblemes(): string {
   return problemsContent.items
-    .map((item) => `- ${item.title} : ${item.description}`)
+    .map(
+      (item) =>
+        `- ${item.title} : ${item.description}\n  ${problemsContent.agentLabel} : ${item.agent}`,
+    )
     .join('\n');
 }
 
@@ -92,13 +74,10 @@ L'IA intervient là où elle sert.
 
 Premier contact : ${heroContent.ctaNote}
 
-## Les six solutions
-
-${listeSolutions()}
-
 ## Les outils qu'on relie
 
 Les outils que NASSFLOW relie habituellement : ${listeOutils(connectedTools)}.
+Sur le site : « ${methodContent.tools.note} »
 
 Plateformes sur lesquelles on construit : ${listeOutils(builtWith)}.
 
@@ -116,15 +95,22 @@ ${listeEtapes()}
 Pour commencer : ${methodContent.cta.label.toLowerCase()}, via
 https://www.nassflow.com${methodContent.cta.href}.
 
-Chaque solution est un point de départ qu'on adapte, pas un produit
-figé. Avant de chiffrer quoi que ce soit, on pose les questions
-listées plus haut pour la solution concernée : le prix et le délai
-dépendent des réponses.
+${methodContent.collaboration.title} :
+${methodContent.collaboration.items.map((item) => `- ${item.title} : ${item.text}`).join('\n')}
+
+Chaque projet part de la situation du client, pas d'un produit figé.
+Le prix et le délai dépendent du diagnostic : on ne les donne jamais
+d'avance.
+
+Le site n'a que quatre pages : l'accueil, le formulaire
+/demarrer-un-projet, la politique de confidentialité et les mentions
+légales. Il n'existe pas de page par solution : ne renvoie jamais vers
+une autre adresse du site que celles listées dans « Prendre contact ».
 
 ## Prendre contact
 
 - Réserver un appel de 15 minutes : ${BOOKING_URL}
 - Écrire : ${CONTACT_EMAIL}
-- Formulaire détaillé : https://www.nassflow.com/demarrer-un-projet
-- Chaque fiche solution a son propre formulaire, plus court.
+- Demander un diagnostic (formulaire) : https://www.nassflow.com/demarrer-un-projet
+- Voir la démonstration en direct : https://www.nassflow.com/#demonstration
 `.trim();

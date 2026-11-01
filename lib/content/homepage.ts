@@ -7,22 +7,18 @@ export const homepageContent = {
     // Les ancres sont préfixées par « / » : depuis /demarrer-un-projet,
     // un simple « #problemes » pointerait sur la page courante, où la
     // section n'existe pas.
+    // Dans l'ordre du brief : le problème d'abord, puis la preuve, puis
+    // la méthode. Les ancres viennent des fichiers de contenu des
+    // sections (problems.ts, demo.ts, method.ts).
     links: [
-      { label: 'Accueil', href: '/' },
-
-      // Les ancres suivent les sections : lib/content/problems.ts et
-      // lib/content/method.ts (#systems a disparu avec SystemsByProblem).
       { label: 'Problèmes', href: '/#problemes' },
 
+      { label: 'Démonstration', href: '/#demonstration' },
+
       { label: 'Méthode', href: '/#methode' },
-
-      { label: 'Intégrations', href: '/#outils' },
-
-      { label: 'Solutions', href: '/#solutions' },
-
     ],
 
-    cta: 'Démarrer un projet',
+    cta: 'Demander un diagnostic',
   },
 
   // Le titre de l'accueil vit dans lib/content/hero.ts, avec le reste du

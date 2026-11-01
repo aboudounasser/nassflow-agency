@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { homepageContent } from '@/lib/content/homepage';
 import { BOOKING_URL, CONTACT_EMAIL } from '@/lib/content/contact';
-import { Button } from '@/components/ui/Button';
 import { Trace } from '@/components/motion/Trace';
 
 /**
@@ -19,19 +18,14 @@ import { Trace } from '@/components/motion/Trace';
 const colonnes = [
   {
     titre: 'Le site',
-    liens: [
-      { label: 'Accueil', href: '/' },
-      { label: 'Problèmes', href: '/#problemes' },
-      { label: 'Méthode', href: '/#methode' },
-      { label: 'Solutions', href: '/#solutions' },
-      { label: 'Intégrations', href: '/#outils' },
-    ],
+    // Les mêmes liens que le menu, lus à la même source.
+    liens: homepageContent.navigation.links,
   },
   {
     titre: 'Légal',
     liens: [
-      { label: 'Mentions légales', href: '/mentions-legales' },
       { label: 'Politique de confidentialité', href: '/confidentialite' },
+      { label: 'Mentions légales', href: '/mentions-legales' },
     ],
   },
 ];
@@ -120,13 +114,11 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Action et mention de copyright */}
+          {/* Mention de copyright. Le bouton d'action est parti : le
+              menu et l'appel final portent déjà « Demander un
+              diagnostic ». */}
           <div className="lg:text-right">
-            <Button href="/demarrer-un-projet" variant="secondary" tone="strong">
-              Démarrer un projet
-            </Button>
-
-            <p className="mt-6 text-[0.75rem] text-ink-muted">
+            <p className="text-[0.75rem] text-ink-muted">
               © 2026 NASSFLOW AGENCY
             </p>
           </div>

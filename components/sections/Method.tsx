@@ -16,10 +16,15 @@ import { methodContent } from '@/lib/content/method';
  * segment en mobile, où chaque étape entre à son tour. Sans JS ou avec
  * « réduire les animations », le filet est déjà tracé.
  *
+ * Sous la frise, un bloc compact « Comment nous travaillons ensemble »
+ * (trois colonnes, aucun prix) et la ligne des outils qu'on branche :
+ * elle remplace l'ancienne section Intégrations.
+ *
  * Textes : lib/content/method.ts.
  */
 export function Method() {
-  const { anchor, eyebrow, title, steps, cta } = methodContent;
+  const { anchor, eyebrow, title, steps, collaboration, tools, cta } =
+    methodContent;
 
   return (
     <section
@@ -102,7 +107,35 @@ export function Method() {
           ))}
         </ol>
 
-        <Rise className="mt-14 sm:mt-16">
+        {/* Comment nous travaillons ensemble : trois colonnes compactes,
+            sans prix. */}
+        <Rise className="mt-16 rounded-card border border-rule bg-surface p-6 sm:mt-20 sm:p-8">
+          <h3 className="font-sans text-label uppercase tracking-tag text-ink-muted">
+            {collaboration.title}
+          </h3>
+
+          <ul className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            {collaboration.items.map((item) => (
+              <li key={item.title}>
+                <h4 className="font-heading text-[1.25rem] leading-[1.2] font-bold text-ink">
+                  {item.title}
+                </h4>
+                <p className="mt-2 text-[0.9375rem] leading-[1.55] text-ink-body">
+                  {item.text}
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          {/* Les outils cités sont ceux qu'on sait brancher ; la note ne
+              promet rien de plus. */}
+          <p className="mt-8 border-t border-rule pt-5 text-[0.875rem] leading-[1.55] text-ink-muted">
+            <span className="text-ink-body">{tools.label} :</span>{' '}
+            {tools.names.join(', ')}. {tools.note}
+          </p>
+        </Rise>
+
+        <Rise className="mt-10 sm:mt-12">
           <Button href={cta.href}>{cta.label}</Button>
         </Rise>
       </SectionShell>

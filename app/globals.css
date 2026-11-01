@@ -185,8 +185,8 @@
   --text-subtitle--letter-spacing: -0.028em;
   --text-subtitle--font-weight: 700;
 
-  /* Titre secondaire d'une page (le formulaire d'une fiche solution) :
-     il ne doit pas concurrencer le h1, qui est en text-title. */
+  /* Titre secondaire d'une page : il ne doit pas concurrencer le h1,
+     qui est en text-title. */
   --text-heading: clamp(1.75rem, 5vw, 2.5rem);
   --text-heading--line-height: 1.05;
   --text-heading--letter-spacing: -0.035em;

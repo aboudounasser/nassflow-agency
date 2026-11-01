@@ -7,8 +7,8 @@ import { Trace } from '@/components/motion/Trace';
 
 /**
  * La clôture. Le titre ne demande plus si le lecteur est « prêt » — il
- * dit ce qu'on fait, dans les mots déjà employés sur les fiches solution :
- * on part de la situation du client, pas d'un modèle tout fait.
+ * dit ce qu'on fait, et renvoie vers le formulaire /demarrer-un-projet : on part de la
+ * situation du client, pas d'un modèle tout fait.
  */
 
 export function FinalCTA() {
@@ -31,7 +31,7 @@ export function FinalCTA() {
 
           <div className="w-full lg:w-auto lg:shrink-0 lg:pb-3">
             <Button href="/demarrer-un-projet" className="w-full lg:w-auto">
-              Démarrer un projet
+              Demander un diagnostic
             </Button>
           </div>
         </Rise>
